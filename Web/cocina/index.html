@@ -1,0 +1,505 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no" />
+    <meta name="HandheldFriendly" content="true" />
+    <meta http-equiv="cache-control" content="no-cache" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta property="og:title" content="Vide" />
+    <meta name="keywords" content="contenido meta" />
+    <!-- //Required meta tags -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js?ver=1.11.2'></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    <script type='text/javascript' src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.1/lodash.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Ladda/0.9.8/ladda.min.css">
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <script type='text/javascript' src="https://cdnjs.cloudflare.com/ajax/libs/Ladda/0.9.8/spin.min.js"></script>
+    <script type='text/javascript' src="https://cdnjs.cloudflare.com/ajax/libs/Ladda/0.9.8/ladda.min.js"></script>
+    
+
+    
+
+    <link rel="stylesheet" href="css/style2.css">
+    
+    <link rel="stylesheet/less" href="css/pedidos.less">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/less.js/3.9.0/less.min.js" ></script>
+
+
+    <!-- IMPORTS -->
+    <!--CSS-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- //IMPORTS-->
+    <link rel="icon" type="image/png" href="../img/logoT.png" />
+    <script src="https://kit.fontawesome.com/a8fbeee027.js"></script>
+    <link rel="stylesheet" type="text/css" href="../styles/main.css">
+    <link rel="stylesheet" type="text/css" href="../styles/navbar.css">
+    <link rel="stylesheet" type="text/css" href="../styles/gallery.css">
+    <link rel="stylesheet" type="text/css" href="../styles/sidebar.css">
+    <link rel="stylesheet" type="text/css" href="css/foods.css">
+    <link rel="stylesheet" type="text/css" href="css/footer.css">
+    <link rel="stylesheet" type="text/css" href="css/cards.css">
+    <link rel="stylesheet" type="text/css" href="css/scrollNav.css">
+    <link rel="stylesheet" type="text/css" href="css/modalFoods.css">
+    <link rel="stylesheet" type="text/css" href="css/cart.css">
+    <link rel="stylesheet" type="text/css" href="css/sideCart.css">
+    <link rel="stylesheet" type="text/css" href="css/horarios.css">
+    <link rel="stylesheet" type="text/css" href="css/search.css">
+    <link rel="stylesheet" type="text/css" href="css/pedidosC.css">
+
+    <!-- Scrollbar Custom CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+    <title>Textual Loncher&iacute;a</title>
+
+    <!-- js -->
+    <script src="js/jquery-1.11.1.min.js"></script>
+    <script type="application/x-javascript">
+        addEventListener("load", function() {
+            setTimeout(hideURLbar, 0);
+        }, false);
+
+        function hideURLbar() {
+            window.scrollTo(0, 1);
+        }
+    </script>
+    <script src="https://www.gstatic.com/firebasejs/6.1.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.1.0/firebase-auth.js"></script>
+    <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
+    <script src="https://www.gstatic.com/firebasejs/6.1.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.1.0/firebase-storage.js"></script>
+    <!--script type='text/javascript' src="js/firebase.js"></script-->
+    <!-- //js -->
+    <!-- start-smoth-scrolling -->
+    <script type="text/javascript" src="js/move-top.js"></script>
+    <script type="text/javascript" src="js/easing.js"></script>
+    <script type="text/javascript">
+        jQuery(document).ready(function ($) {
+            $(".scroll").click(function (event) {
+                event.preventDefault();
+                $('html,body').animate({
+                    scrollTop: $(this.hash).offset().top
+                }, 1000);
+
+            });
+
+        });
+    </script>
+    <!-- //start-smoth-scrolling -->
+    <!--- Inicio de firebase---->
+    <!--<script type="text/javascript" src="js/firebase.js"></script>-->
+    <!---//inicio de firebase---->
+
+</head>
+
+<body>
+    <!--Navbar-->
+
+    <div class="container-fluid no-gutters">
+        <!--<nav class="navbar navbar-expand-md navbar-light bg-faded">
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            <a class="navbar-brand" href="#"><img src="../img/LOGO TEXTUAL T.png" width="100" height="100" alt=""></a>
+            <div class="collapse navbar-collapse " id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item active" data-toggle="collapse" data-target=".navbar-collapse.show">
+                        <a class="nav-link" href="#">Men&uacute; Principal<span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item dropdown" data-toggle="collapse" data-target=".navbar-collapse.show">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                          Especiales
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#">Men&uacute; Lector</a>
+                            <a class="dropdown-item" href="#">Men&uacute; Bibliotecario</a>
+                        </div>
+                    </li>
+                    <li class="nav-item" data-toggle="collapse" data-target=".navbar-collapse.show">
+                        <a class="nav-link" href="#TarjAutor">Rinc&oacute;n Lector</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="" data-target="#userdata" id="username" data-toggle="modal">Usuario</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>-->
+        <nav class="navbar navbar-expand-md navbar-light bg-light flex-row sticky-top mainnav">
+            <a class="navbar-brand mr-auto" href="/">
+                <img src="img/TEXTUALTIPO.png" class="img-fluid" alt="Responsive image" width="200px">
+            </a>
+            <ul class="navbar-nav flex-row mr-lg-0">
+                <div id = "usunormal">
+                <li class="nav-item">
+                    <a class="nav-link pr-2"><i class="fas fa-map-marker"></i></a>
+                </li>
+                <li class="nav-item">
+                        <!--Mostrar al hacer un pedido-->
+                        <a class="nav-link pr-2" href="#past" data-toggle="modal" data-target="#userdata"><i class="far fa-clock"></i></a>
+                    </li>
+            </div>
+                <li class="nav-item">
+                    <a class="nav-link dropdown-toggle mr-3 mr-lg-0" id="navbarDropdownMenuLink" data-target="#userdata" id="username" data-toggle="modal" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user"></i><span class="caret"></span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="" data-target="#userdata" id="username" data-toggle="modal">My cuenta</a>
+                        <!--<a class="dropdown-item" >Ordenes</a>-->
+                    </div>
+                </li>
+                
+                <li class="nav-item">
+                    <div id = "admingo">
+
+                    </div>
+                   
+                </li>
+            </ul>
+        </nav>
+
+        <!--
+        <nav class="navbar navbar-expand-md navbar-light bg-faded sticky-top">
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNav2" aria-controls="navbarNav2" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            <div class="collapse navbar-collapse " id="navbarNav2">
+                <ul class="navbar-nav nav tabs">
+                    <li class="active nav-item" data-toggle="collapse" data-target=".navbar-collapse.show"><a class="nav-link" data-toggle="tab" href="#tab0">Todo el menu!<span class="sr-only">(current)</span></a></li>
+                    <li class="nav-item" data-toggle="collapse" data-target=".navbar-collapse.show"><a class="nav-link" data-toggle="tab" href="#tab1">Desayunos</a></li>
+                    <li class="nav-item" data-toggle="collapse" data-target=".navbar-collapse.show"><a class="nav-link" data-toggle="tab" href="#tab2">Bebidas calientes</a></li>
+                    <li class="nav-item" data-toggle="collapse" data-target=".navbar-collapse.show"><a class="nav-link" data-toggle="tab" href="#tab3">Comidas</a></li>
+                    <li class="nav-item" data-toggle="collapse" data-target=".navbar-collapse.show"><a class="nav-link" data-toggle="tab" href="#tab4">Bebidas frias</a></li>
+                    <li class="nav-item" data-toggle="collapse" data-target=".navbar-collapse.show"><a class="nav-link" data-toggle="tab" href="#tab5">Postres</a></li>
+                </ul>
+            </div> 
+        </nav>
+    -->
+
+
+        <div id="wrapper" class="sticky-top sticky-offset">
+            <nav id="menu">
+                <ul class="menu-closed nav nav-tabs">
+                    <li class="nav-item"><a class="active" role="tab" data-toggle="tab" href="#tab0" id="favo" onclick="comidaCategoria('Pendientes')">Pedidos Pendientes</a></li>
+                    <li class="nav-item"><a role="tab" data-toggle="tab" href="#tab1" onclick="comidaCategoria('Entregados')">Pedidos entregados</a></li>
+                    <li class="nav-item"><a role="tab" data-toggle="tab" href="#tab2" onclick="comidaCategoria('Cancelados')">Pedidos Cancelados</a></li>
+                    <li><a href="#menu-closed">&#215; Cerrar men&uacute;</a></li>
+                    <li><a href="#menu">&#9776; M&aacute;s</a></liclass="nav-item">
+                </ul>
+            </nav>
+        </div>
+
+
+        <div class="contenedor_pedidos">
+            <div id ="cocinita" class="row active-with-click">
+                <div class="col-md-4 col-sm-5 col-xs-12">
+                    <article class="material-card Orange">
+                        <h2>
+                            <span>55-LL VARIOS</span>
+                            <strong>
+                                <i class="fa fa-fw fa-star"></i>
+                                Paquete 1 & Hamburguesa Sencilla con Papas
+                            </strong>
+                        </h2>
+                        <div class="mc-content">
+                            <div class="img-container">
+                                <img class="img-fluid" src="img/prueba.png" style="background-size: cover;">
+                            </div>
+                            <div class="mc-description">
+                                Paquete 1:
+                                <ul style="list-style-type:square; margin-left: 40px;">
+                                    <li>Chilaquiles</li>
+                                    <li>Arroz</li>
+                                    <li>Tortilla</li>
+                                    <li>Agua de Jamaica</li>
+                                </ul>
+                                Personalizacion Hamburguesa:
+                                <ul style="list-style-type:square; margin-left: 40px;">
+                                    <li>Extra queso</li>
+                                    <li>Doble carne</li>
+                                    <li>Sin cebolla</li>
+                                </ul>
+                                Personalizacion Hot dog:
+                                <ul style="list-style-type:square; margin-left: 40px;">
+                                    <li>Extra queso</li>
+                                </ul>
+                                Personalizacion enchiladas:
+                                <ul style="list-style-type:square; margin-left: 40px;">
+                                    <li>Sin cebolla</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <a class="mc-btn-action">
+                            <i class="fa fa-bars"></i>
+                        </a>
+                        <div class="mc-footer">
+                            <h4>
+                                Opciones
+                            </h4>
+                            <a class="mc-btn-action" alt="Entregar">
+                                <i class="fas fa-flag-checkered" style="color:white"></i>
+                            </a>
+                            <a class="mc-btn-action" alt="Cancelar">
+                                <i class="fas fa-undo" style="color:white;margin-bottom:10px;"></i>
+                            </a>
+                        </div>
+                    </article>
+                </div>
+                
+                <div class="col-md-4 col-sm-5 col-xs-12">
+                    <article class="material-card Green">
+                        <h2>
+                            <span>Hamburguesa con Papas</span>
+                            <strong>
+                                <i class="fa fa-fw fa-star"></i>
+                                Para llevar
+                            </strong>
+                        </h2>
+                        <div class="mc-content">
+                            <div class="img-container">
+                                <img class="img-fluid" src="img/prueba.png" style="background-size: cover;">
+                            </div>
+                            <div class="mc-description">
+                                PERSONALIZACION:
+                                <ul style="list-style-type:square; margin-left: 40px;">
+                                    <li>Extra queso</li>
+                                    <li>Doble carne</li>
+                                    <li>Sin cebolla</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <a class="mc-btn-action">
+                            <i class="fa fa-bars"></i>
+                        </a>
+                        <div class="mc-footer">
+                            <h4>
+                                Opciones
+                            </h4>
+                            <a class="mc-btn-action" alt="Entregar">
+                                <i class="fas fa-flag-checkered" style="color:white"></i>
+                            </a>
+                            <a class="mc-btn-action" alt="Cancelar">
+                                <i class="fas fa-undo" style="color:white;margin-bottom:10px;"></i>
+                            </a>
+                        </div>
+                    </article>
+                </div>
+                <div class="col-md-4 col-sm-5 col-xs-12">
+                    <article class="material-card Blue">
+                        <h2>
+                            <span>Hamburguesa con Papas</span>
+                            <strong>
+                                <i class="fa fa-fw fa-star"></i>
+                                Personalizada Extra
+                            </strong>
+                        </h2>
+                        <div class="mc-content">
+                            <div class="img-container">
+                                <img class="img-fluid" src="img/prueba.png" style="background-size: cover;">
+                            </div>
+                            <div class="mc-description">
+                                PERSONALIZACION:
+                                <ul style="list-style-type:square; margin-left: 40px;">
+                                    <li>Doble carne</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <a class="mc-btn-action">
+                            <i class="fa fa-bars"></i>
+                        </a>
+                        <div class="mc-footer">
+                            <h4>
+                                Opciones
+                            </h4>
+                            <a class="mc-btn-action" alt="Entregar">
+                                <i class="fas fa-flag-checkered" style="color:white"></i>
+                            </a>
+                            <a class="mc-btn-action" alt="Cancelar">
+                                <i class="fas fa-undo" style="color:white;margin-bottom:10px;"></i>
+                            </a>
+                        </div>
+                    </article>
+                </div>
+                <div class="col-md-4 col-sm-5 col-xs-12">
+                    <article class="material-card Red">
+                        <h2>
+                            <span>Hamburguesa con Papas</span>
+                            <strong>
+                                <i class="fa fa-fw fa-star"></i>
+                                Personalizada (sin algo)
+                            </strong>
+                        </h2>
+                        <div class="mc-content">
+                            <div class="img-container">
+                                <img class="img-fluid" src="img/prueba.png" style="background-size: cover;">
+                            </div>
+                            <div class="mc-description">
+                                PERSONALIZACION:
+                                <ul style="list-style-type:square; margin-left: 40px;">
+                                    <li>Sin cebolla</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <a class="mc-btn-action">
+                            <i class="fa fa-bars"></i>
+                        </a>
+                        <div class="mc-footer">
+                            <h4>
+                                Opciones
+                            </h4>
+                            <a class="mc-btn-action" alt="Entregar">
+                                <i class="fas fa-flag-checkered" style="color:white"></i>
+                            </a>
+                            <a class="mc-btn-action" alt="Cancelar">
+                                <i class="fas fa-undo" style="color:white;margin-bottom:10px;"></i>
+                            </a>
+                        </div>
+                    </article>
+                </div>
+                <div class="col-md-4 col-sm-5 col-xs-12">
+                        <article class="material-card Grey">
+                            <h2>
+                                <span>Hamburguesa sencilla</span>
+                                <strong>
+                                    <i class="fa fa-fw fa-star"></i>
+                                    La Original y clásica
+                                </strong>
+                            </h2>
+                            <div class="mc-content">
+                                <div class="img-container">
+                                    <img class="img-fluid" src="img/prueba.png" style="background-size: cover;">
+                                </div>
+                                <div class="mc-description">
+                                    Sin Modificaciones
+                                </div>
+                            </div>
+                            <a class="mc-btn-action">
+                                <i class="fa fa-bars"></i>
+                            </a>
+                            <div class="mc-footer">
+                                <h4>
+                                    Opciones
+                                </h4>
+                                <a class="mc-btn-action" alt="Entregar">
+                                    <i class="fas fa-flag-checkered" style="color:white"></i>
+                                </a>
+                                <a class="mc-btn-action" alt="Cancelar">
+                                    <i class="fas fa-undo" style="color:white;margin-bottom:10px;"></i>
+                                </a>
+                            </div>
+                        </article>
+                    </div>
+            </div>
+        </div>
+
+
+        <!-- Modal User Data-->
+        <div id="userdata" class="modal fade">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content usdat">
+                    <div class="modal-body">
+                        <div class="container h-100 py-2">
+                            <ul class="nav nav-tabs border-0" id="myTab" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active border prim border-bottom-0" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true"><i class="far fa-user-circle"></i></a>
+                                </li>
+                            </ul>
+
+                            <div class="tab-content">
+                                <div class="tab-pane h-100 p-3 active border prim table-responsive-md" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                    <h3>Inicia sesion o registrate</h3>
+                                    <hr style="display: block;margin-before: 0.5em; margin-after: 0.5em; margin-start: auto; margin-end: auto; overflow: hidden; border-style: inset; border-width: 1px; background-color: #5ca3e0;" />
+
+                                    <table class="table">
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <div class="login">
+                                                        <div id="firebaseui-auth-container"></div>
+                                                        <div id="loader">Cargando inicio de sesion...</div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        
+
+        <footer class="section footer-classic context-dark bg-image fblue">
+            <div class="container">
+                <div class="row row-30" style="margin-left: 15px">
+                    <div class="col-md-4 col-xl-5">
+                        <div class="pr-xl-4" style="text-align: center;">
+                            <a class="brand" href="index.html"><img class="brand-logo-light img-fluid" src="img/LOGOADELGAZADO.png" alt="" width="120" height="100"></a>
+                            <br>
+                            <p class="rights"><span class="txtl">TEXTUAL</span></p>
+                            <p class="rights"><span class="brand2">LONCHER&Iacute;A</span></p>
+                            <p class="rights"><span class="slogan">Eres nuestra mejor referencia.</span></p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 col-xl-3">
+                        <h5>Links</h5>
+                        <ul class="nav-list">
+                            <li><a href="#">Nosotros</a></li>
+                            <li><a href="#">Sucursales</a></li>
+                            <li><a href="#">Publicidad</a></li>
+                            <li><a href="#">Cotizaciones</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4">
+                        <h5>Contacto</h5>
+                        <dl class="contact-list">
+                            <dt>e-mail:</dt>
+                            <dd><a href="mailto:#">contacto@textual.mx</a></dd>
+                            <dt>Quejas & sugerencias</dt>
+                            <dd><a href="mailto:#">atencionclientes@textual.mx</a></dd>
+                        </dl>
+                        <!-- Rights-->
+                        <p class="rights"><span>©  </span><span class="copyright-year">2019</span><span> </span><span>IRIS</span><span>. </span><span>Derechos Reservados.</span></p>
+                        <!--<dl class="contact-list">
+                        <dt>phones:</dt>
+                        <dd><a href="tel:#">+91 7568543012</a> <span>or</span> <a href="tel:#">+91 9571195353</a>
+                        </dd>
+                    </dl>-->
+                    </div>
+                </div>
+            </div>
+            <div class="row no-gutters social-container">
+                <div class="col"><a class="social-inner" href="https://www.facebook.com/textualloncheria/"><span class="fab fa-facebook-square">&nbsp;Facebook</span></a></div>
+                <div class="col"><a class="social-inner" href="#" disabled><span class="fab fa-instagram">&nbsp;Instagram</span></a></div>
+            </div>
+        </footer>
+    </div>
+    <!--JS-->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <!-- jQuery Custom Scroller CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+
+    <script type='text/javascript' src="js/scrollNav.js"></script>
+    <script type='text/javascript' src="js/stickyScroll.js"></script>
+    <script type='text/javascript' src="js/sideCart.js"></script>
+    <script type='text/javascript' src="js/pedidos.js"></script>
+
+
+</body>
+
+</html>

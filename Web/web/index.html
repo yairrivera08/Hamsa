@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>TEXTUAL CAFETERIA</title>
+    <!-- for-mobile-apps -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta property="og:title" content="Vide" />
+    <meta name="keywords" content="contenido meta" />
+    <script type="application/x-javascript">
+        addEventListener("load", function() {
+            setTimeout(hideURLbar, 0);
+        }, false);
+
+        function hideURLbar() {
+            window.scrollTo(0, 1);
+        }
+    </script>
+    <!-- //for-mobile-apps -->
+    <link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
+    <!-- Custom Theme files -->
+    <link href="css/style.css" rel='stylesheet' type='text/css' />
+    <!-- js -->
+    <script src="js/jquery-1.11.1.min.js"></script>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/6.1.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.1.0/firebase-auth.js"></script>
+    <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
+
+    <script src="https://www.gstatic.com/firebasejs/6.1.0/firebase-firestore.js"></script>
+
+    <!-- //js -->
+    <!-- start-smoth-scrolling -->
+    <script type="text/javascript" src="js/move-top.js"></script>
+    <script type="text/javascript" src="js/easing.js"></script>
+    <script type="text/javascript">
+        jQuery(document).ready(function($) {
+            $(".scroll").click(function(event) {
+                event.preventDefault();
+                $('html,body').animate({
+                    scrollTop: $(this.hash).offset().top
+                }, 1000);
+            });
+        });
+    </script>
+    <!-- start-smoth-scrolling -->
+    <link href="css/font-awesome.css" rel="stylesheet">
+    <link href='//fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Noto+Sans:400,700' rel='stylesheet' type='text/css'>
+    <!--- start-rate---->
+    <script src="js/jstarbox.js"></script>
+    <link rel="stylesheet" href="css/jstarbox.css" type="text/css" media="screen" charset="utf-8" />
+    <script type="text/javascript">
+    </script>
+    <!---//End-rate---->
+
+    <!---//inicio de firebase---->
+    <script>
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyA6yM1nDx48oB0p7Xm0ydLW7lgc9OpcaFE",
+            authDomain: "textualmovil.firebaseapp.com",
+            databaseURL: "https://textualmovil.firebaseio.com",
+            projectId: "textualmovil",
+            storageBucket: "textualmovil.appspot.com",
+            messagingSenderId: "279546994973",
+            appId: "1:279546994973:web:faf790b93bd325ea"
+        }; // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+
+        var userId;
+        firebase.auth().onAuthStateChanged(function(user) {
+            if (user) {
+                // User is signed in.
+                var displayName = user.displayName;
+                document.getElementById("usuario").innerHTML = '<li><a href="#" ><i class="fa fa-user" aria-hidden="true"></i>' + displayName + '</a></li> <li><button onclick="salir()">Cerrar sesion</button></li>';
+                document.getElementById("usuario2").innerHTML = '<li><a href="#">Mi cuenta</a></li>';
+                var email = user.email;
+                var emailVerified = user.emailVerified;
+                var photoURL = user.photoURL;
+                var isAnonymous = user.isAnonymous;
+                var uid = user.uid;
+                userId = user.uid;
+                var providerData = user.providerData;
+                // ...
+            } else {
+
+                // User is signed out.
+                // ...
+            }
+        });
+
+
+
+
+
+
+        function salir() {
+            firebase.auth().signOut().then(function() {
+                // Sign-out successful.
+                window.location.replace("index.html");
+            }).catch(function(error) {
+                // An error happened.
+            });
+        }
+
+        var db = firebase.firestore();
+
+        var Comida = db.collection("Alimentos");
+
+        Comida.where("Disponible", "==", true).get().then(function(alimentos) {
+            var desayunos = "",
+                desayunos2 = "",
+                bebidasc = "",
+                bebidasc2 = "",
+                comidas = "",
+                comidas2 = "",
+                bebidasf = "",
+                bebidasf2 = "",
+                postres = "",
+                postres2 = "",
+                combos = "",
+                combos2 = "";
+            alimentos.forEach(function(doc) {
+                var contenido = "";
+                var contenido2 = "";
+                /////////////////////////////////////////////////////////////////////////////////////////desayunos
+                contenido += '<div class="col-md-3 m-wthree ">';
+                contenido += '	<div class="col-m comidona">';
+                contenido += '		<a href="#" data-toggle="modal" data-target="#' + doc.id + '" class="offer-img">';
+                contenido += '			<img src="images/of.png" class="img-responsive" alt="">';
+                if (doc.data().CampoRojo != "SN") {
+                    contenido += '			<div class="offer"><p><span>' + doc.data().CampoRojo + '</span></p></div>';
+                }
+                contenido += '		</a>';
+                contenido += '		<div class="mid-1">';
+                contenido += '			<div class="women">';
+                contenido += '				<h6><a href="#">' + doc.data().Nombre + '</a></h6>';
+                contenido += '			</div>';
+                contenido += '			<div class="mid-2">';
+                contenido += '							<p >' + doc.data().NombreSencillo + ': <em class="item_price">$' + doc.data().PrecioSencillo + '</em>';
+                if (doc.data().NombreCompleto != "SN") {
+                    contenido += '							<br>' + doc.data().NombreCompleto + ': <em class="item_price">$' + doc.data().PrecioCompleto + '</em></p>';
+                }
+                contenido += '					<div class="block">';
+                contenido += '					<div class="starbox small ghosting"> </div>';
+                contenido += '				</div>';
+                contenido += '				<div class="clearfix"></div>';
+                contenido += '			</div>';
+                contenido += '			<div class="add">';
+                contenido += '				<button class="btn btn-danger my-cart-btn my-cart-b " data-id="' + doc.id + '-' + doc.data().NombreSencillo + '" data-name="' + doc.data().Nombre + ' - ' + doc.data().NombreSencillo + '" data-summary="Calorias: ' + doc.data().Calorias + '" data-price="' + doc.data().PrecioSencillo + '" data-quantity="1" data-image="images/of.png">Agregar ' + doc.data().NombreSencillo + '</button>';
+                if (doc.data().NombreCompleto != "SN") {
+                    contenido += '				<button class="btn btn-danger my-cart-btn my-cart-b " data-id="' + doc.id + '-' + doc.data().NombreCompleto + '" data-name="' + doc.data().Nombre + ' - ' + doc.data().NombreCompleto + '" data-summary="Calorias: ' + doc.data().Calorias + '" data-price="' + doc.data().PrecioCompleto + '" data-quantity="1" data-image="images/of.png">Agregar ' + doc.data().NombreCompleto + '</button>';
+                }
+                contenido += '			</div>';
+                contenido += '		</div>';
+                contenido += '	</div>';
+                contenido += '</div>';
+
+
+                ////////////////////////////////////////////////////////////////////////////////////////////desayunosmodal
+                contenido2 += '<div class="modal fade" id="' + doc.id + '" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">';
+                contenido2 += '	<div class="modal-dialog" role="document">';
+                contenido2 += '		<div class="modal-content modal-info">';
+                contenido2 += '			<div class="modal-header">';
+                contenido2 += '				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
+                contenido2 += '			</div>';
+                contenido2 += '			<div class="modal-body modal-spa">';
+                contenido2 += '					<div class="col-md-5 span-2">';
+                contenido2 += '								<div class="item">';
+                contenido2 += '									<img src="images/of.png" class="img-responsive" alt="">';
+                contenido2 += '								</div>';
+                contenido2 += '					</div>';
+                contenido2 += '					<div class="col-md-7 span-1 ">';
+                contenido2 += '						<h3>' + doc.data().Nombre + '</h3>';
+                contenido2 += '						<p class="in-para">' + doc.data().Descripcion + '</p>';
+                contenido2 += '						<div class="price_single">';
+                contenido2 += '							<p >' + doc.data().NombreSencillo + ': <em class="item_price">$' + doc.data().PrecioSencillo + '</em>';
+                if (doc.data().NombreCompleto != "SN") {
+                    contenido2 += '							<br>' + doc.data().NombreCompleto + ': <em class="item_price">$' + doc.data().PrecioCompleto + '</em></p>';
+                }
+                contenido2 += '							<div class="clearfix"></div>';
+                contenido2 += '						</div>';
+                contenido2 += '						<h4 class="quick">' + doc.data().EspecificaCompleto + '</h4>';
+                contenido2 += '						<p class="quick_desc">' + doc.data().DescripcionCompleto + '';
+                contenido2 += '</p>';
+                contenido2 += '							<div class="add-to">';
+                contenido2 += '				<button class="btn btn-danger my-cart-btn my-cart-b " data-id="' + doc.id + '-' + doc.data().NombreSencillo + '" data-name="' + doc.data().Nombre + ' - ' + doc.data().NombreSencillo + '" data-summary="Calorias: ' + doc.data().Calorias + '" data-price="' + doc.data().PrecioSencillo + '" data-quantity="1" data-image="images/of.png">Agregar ' + doc.data().NombreSencillo + '</button>';
+                if (doc.data().NombreCompleto != "SN") {
+                    contenido2 += '				<button class="btn btn-danger my-cart-btn my-cart-b " data-id="' + doc.id + '-' + doc.data().NombreCompleto + '" data-name="' + doc.data().Nombre + ' - ' + doc.data().NombreCompleto + '" data-summary="Calorias: ' + doc.data().Calorias + '" data-price="' + doc.data().PrecioCompleto + '" data-quantity="1" data-image="images/of.png">Agregar ' + doc.data().NombreCompleto + '</button>';
+                }
+                contenido2 += '						</div>';
+                contenido2 += '				</div>';
+                contenido2 += '				<div class="clearfix"> </div>';
+                contenido2 += '			</div>';
+                contenido2 += '		</div>';
+                contenido2 += '	</div>';
+                contenido2 += '</div>';
+
+                if (doc.data().Categoria == "Desayunos") {
+                    desayunos += contenido;
+                    desayunos2 += contenido2;
+                } else if (doc.data().Categoria == "BebidasCalientes") {
+                    bebidasc += contenido;
+                    bebidasc2 += contenido2;
+                } else if (doc.data().Categoria == "Comidas") {
+                    comidas += contenido;
+                    comidas2 += contenido2;
+                } else if (doc.data().Categoria == "BebidasFrias") {
+                    bebidasf += contenido;
+                    bebidasf2 += contenido2;
+                } else if (doc.data().Categoria == "Postres") {
+                    postres += contenido;
+                    postres2 += contenido2;
+                } else if (doc.data().Categoria == "Combos") {
+                    combos += contenido;
+                    combos2 += contenido2;
+                }
+            });
+
+            document.getElementById("desayunosmodal").innerHTML = desayunos2;
+            document.getElementById("desayunos").innerHTML = desayunos;
+
+            document.getElementById("bebidascmodal").innerHTML = bebidasc2;
+            document.getElementById("bebidasc").innerHTML = bebidasc;
+
+            document.getElementById("comidasmodal").innerHTML = comidas2;
+            document.getElementById("comidas").innerHTML = comidas;
+
+            document.getElementById("bebidasfmodal").innerHTML = bebidasf2;
+            document.getElementById("bebidasf").innerHTML = bebidasf;
+
+            document.getElementById("postresmodal").innerHTML = postres2;
+            document.getElementById("postres").innerHTML = postres;
+
+            document.getElementById("combosmodal").innerHTML = combos2;
+            document.getElementById("combos").innerHTML = combos;
+        }).then(function() {
+
+            /*jQuery(function() {
+            	jQuery('.starbox').each(function() {
+            		var starbox = jQuery(this);
+            			starbox.starbox({
+            			average: starbox.attr('data-start-value'),
+            			changeable: starbox.hasClass('unchangeable') ? false : starbox.hasClass('clickonce') ? 'once' : true,
+            			ghosting: starbox.hasClass('ghosting'),
+            			autoUpdateAverage: starbox.hasClass('autoupdate'),
+            			buttons: starbox.hasClass('smooth') ? false : starbox.attr('data-button-count') || 5,
+            			stars: starbox.attr('data-star-count') || 5
+            			}).bind('starbox-value-changed', function(event, value) {
+            			if(starbox.hasClass('random')) {
+            			var val = Math.random();
+            			starbox.next().text(' '+val);
+            			return val;
+            			} 
+            		})
+            	});
+            });*/
+
+            $(function() {
+
+                var goToCartIcon = function($addTocartBtn) {
+                    var $cartIcon = $(".my-cart-icon");
+                    var $image = $('<img width="30px" height="30px" src="' + $addTocartBtn.data("image") + '"/>').css({
+                        "position": "fixed",
+                        "z-index": "999"
+                    });
+                    $addTocartBtn.prepend($image);
+                    var position = $cartIcon.position();
+                    $image.animate({
+                        top: position.top,
+                        left: position.left
+                    }, 500, "linear", function() {
+                        $image.remove();
+                    });
+                }
+
+                $('.my-cart-btn').myCart({
+                    classCartIcon: 'my-cart-icon',
+                    classCartBadge: 'my-cart-badge',
+                    affixCartIcon: true,
+                    checkoutCart: function(products) {
+                        $.each(products, function() {
+                            console.log(this);
+                        });
+                    },
+                    clickOnAddToCart: function($addTocart) {
+                        goToCartIcon($addTocart);
+                    },
+                    getDiscountPrice: function(products) {
+                        var total = 0;
+                        $.each(products, function() {
+                            total += this.quantity * this.price;
+                        });
+                        return total * 1;
+                    }
+                });
+
+            });
+
+        });
+    </script>
+    <!---//fin de firebase---->
+
+</head>
+
+<body>
+    <div id="contenido"></div>
+    <!--<a href="offer.html"><img src="images/download.png" class="img-head" alt=""></a>-->
+    <div class="header">
+
+        <div class="container">
+
+            <div class="logo">
+                <h1>
+                    <a href="index.html">
+                        <h1 id="brand">TEXTUAL</h1>
+                        <h5 id="brand2">LONCHER&Iacute;A</h5>
+                        <br>
+                    </a>
+                </h1>
+            </div>
+            <!--<div class="head-t">
+                <ul class="card">
+                    <li><a href="#"><i class="fa fa-heart" aria-hidden="true"></i>Lista de deseos</a></li>
+                    <div id="usuario">
+                        <li><a href="login.html"><i class="fa fa-user" aria-hidden="true"></i>Ingresar</a></li>
+                        <li><a href="login.html"><i class="fa fa-arrow-right" aria-hidden="true"></i>Registrar</a></li>
+                    </div>
+                    <li><a href="#"><i class="fa fa-file-text-o" aria-hidden="true"></i>Ordenes pasadas</a></li>
+                    <li><a href="#"><i class="fa fa-ship" aria-hidden="true"></i>Donde recoger?</a></li>
+                </ul>
+            </div>-->
+
+            <div class="header-ri">
+                <ul class="social-top">
+                    <li><a href="#" class="icon facebook"><i class="fa fa-facebook" aria-hidden="true"></i><span></span></a></li>
+                    <li><a href="#" class="icon instagram"><i class="fa fa-instagram" aria-hidden="true"></i><span></span></a></li>
+                </ul>
+            </div>
+
+
+            <div class="nav-top">
+                <nav class="navbar navbar-default">
+
+                    <div class="navbar-header nav_2">
+                        <button type="button" class="navbar-toggle collapsed navbar-toggle1" data-toggle="collapse" data-target="#bs-megadropdown-tabs">
+							<span class="sr-only">Toggle navigation</span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+
+
+                    </div>
+                    <div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
+                        <ul class="nav navbar-nav ">
+                            <li class=" active"><a href="index.html" class="hyper "><span>Inicio</span></a></li>
+
+                            <li class="dropdown ">
+                                <a href="#" class="dropdown-toggle  hyper" data-toggle="dropdown"><span>Menu<b class="caret"></b></span></a>
+                                <ul class="dropdown-menu multi">
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <ul class="multi-column-dropdown">
+
+                                                <li><a href="#"><i class="fa fa-angle-right" aria-hidden="true"></i>Bebidas frias</a></li>
+                                                <li><a href="#"><i class="fa fa-angle-right" aria-hidden="true"></i>Bebidas calientes</a></li>
+                                                <li><a href="#"><i class="fa fa-angle-right" aria-hidden="true"></i>Desayunos</a></li>
+                                                <li><a href="#"><i class="fa fa-angle-right" aria-hidden="true"></i>Barra fria</a></li>
+                                                <li><a href="#"><i class="fa fa-angle-right" aria-hidden="true"></i>Vegetariano</a></li>
+                                                <li><a href="#"><i class="fa fa-angle-right" aria-hidden="true"></i>Comidas</a></li>
+                                                <li><a href="#"><i class="fa fa-angle-right" aria-hidden="true"></i>Tortas</a></li>
+                                                <li><a href="#"><i class="fa fa-angle-right" aria-hidden="true"></i>Tacos</a></li>
+                                                <li><a href="#"><i class="fa fa-angle-right" aria-hidden="true"></i>Postres</a></li>
+
+                                            </ul>
+
+                                        </div>
+
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </ul>
+                            </li>
+
+
+                            <li>
+                                <a href="#" class="hyper"> <span>Tarjeta Textual</span></a>
+                            </li>
+                            <li><a href="#" class="hyper"><span>Contactanos</span></a></li>
+                        </ul>
+                    </div>
+                </nav>
+                <div class="cart">
+
+                    <span class="fa fa-shopping-cart my-cart-icon"><span class="badge badge-notify my-cart-badge"></span></span>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+
+        </div>
+    </div>
+    <!---->
+    <div data-vide-bg="video/video">
+        <div class="container">
+            <div class="banner-info">
+                <h3>&nbsp;</h3>
+                <!--<div class="search-form">
+				<form action="#" method="post">
+					<input type="text" placeholder="Search..." name="Search...">
+					<input type="submit" value=" " >
+				</form>
+			</div>		-->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        window.jQuery || document.write('<script src="js/vendor/jquery-1.11.1.min.js"><\/script>')
+    </script>
+    <script src="js/jquery.vide.min.js"></script>
+
+    <!--content-->
+    <div class="content-top ">
+        <div class="container ">
+            <div class="spec ">
+                <h3>Menu recomendado!</h3>
+                <div class="ser-t">
+                    <b></b>
+                    <span><i></i></span>
+                    <b class="line"></b>
+                </div>
+            </div>
+            <div class="tab-head ">
+                <nav class="nav-sidebar">
+                    <ul class="nav tabs ">
+                        <li class="active"><a href="#tab1" data-toggle="tab">Desayunos</a></li>
+                        <li class=""><a href="#tab2" data-toggle="tab">Bebidas calientes</a></li>
+                        <li class=""><a href="#tab3" data-toggle="tab">Comidas</a></li>
+                        <li class=""><a href="#tab4" data-toggle="tab">Bebidas frias</a></li>
+                        <li class=""><a href="#tab5" data-toggle="tab">Postres</a></li>
+                    </ul>
+                </nav>
+                <div class=" tab-content tab-content-t ">
+                    <div class="tab-pane active text-style" id="tab1">
+                        <div class=" con-w3l" id="desayunos">
+                        </div>
+                    </div>
+                    <div class="tab-pane  text-style" id="tab2">
+                        <div class=" con-w3l" id="bebidasc">
+                        </div>
+                    </div>
+                    <div class="tab-pane  text-style" id="tab3">
+                        <div class=" con-w3l" id="comidas">
+                        </div>
+                    </div>
+                    <div class="tab-pane  text-style" id="tab4">
+                        <div class=" con-w3l" id="bebidasf">
+                        </div>
+                    </div>
+                    <div class="tab-pane  text-style" id="tab5">
+                        <div class=" con-w3l" id="postres">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    </div>
+
+    <!--content-->
+    <div class="content-mid">
+        <div class="container">
+
+            <div class="col-md-4 m-w3ls">
+                <div class="col-md1 ">
+                    <a href="#">
+                        <img src="images/co1.jpg" class="img-responsive img" alt="">
+                        <div class="big-sa">
+                            <h6>Nuevas comidas</h6>
+                            <h3>Nuevo<span> sabor </span></h3>
+                            <p>Busca entre las nuevas deiciad que ofrece nuestro menu </p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-4 m-w3ls1">
+                <div class="col-md ">
+                    <a href="#">
+                        <img src="images/co.jpg" class="img-responsive img" alt="">
+                        <div class="big-sale">
+                            <div class="big-sale1">
+                                <h3>Ofer <span>tas</span></h3>
+                                <p>Conoce nuestro menu del dia!</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-4 m-w3ls">
+                <div class="col-md2 ">
+                    <a href="#">
+                        <img src="images/co2.jpg" class="img-responsive img1" alt="">
+                        <div class="big-sale2">
+                            <h3><span>Postres</span></h3>
+                            <p>Antojitos para el alma </p>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md3 ">
+                    <a href="#">
+                        <img src="images/co3.jpg" class="img-responsive img1" alt="">
+                        <div class="big-sale3">
+                            <h3>Vegeta<span>riano</span></h3>
+                            <p>Conoce nuestro menu vegetariano! </p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    <!--content-->
+
+    <!-- Carousel
+    ================================================== -->
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#myCarousel" data-slide-to="1"></li>
+            <li data-target="#myCarousel" data-slide-to="2"></li>
+            <li data-target="#myCarousel" data-slide-to="3"></li>
+        </ol>
+        <div class="carousel-inner" role="listbox">
+            <div class="item active">
+                <a href="#"> <img class="first-slide" src="images/platillos/burritopastor.jpg" alt="First slide" style="display:block;margin-left:auto;margin-right:auto;width:40%;height:30;"></a>
+
+            </div>
+            <div class="item">
+                <a href="#"> <img class="second-slide " src="images/platillos/chilaquiles.jpg" alt="Second slide" style="display:block;margin-left:auto;margin-right:auto;width:40%;height:30%;"></a>
+
+            </div>
+            <div class="item">
+                <a href="#"><img class="third-slide " src="images/platillos/enchiladas.jpg" alt="Third slide" style="display:block;margin-left:auto;margin-right:auto;width:40%;height:30%;"></a>
+
+            </div>
+
+            <div class="item">
+                <a href="#"><img class="third-slide " src="images/platillos/papasfrancesa.jpg" alt="Fourth slide" style="display:block;margin-left:auto;margin-right:auto;width:40%;height:30%;"></a>
+
+            </div>
+        </div>
+
+    </div>
+    <!-- /.carousel -->
+
+    <!--content-->
+    <div class="product">
+        <div class="container">
+            <div class="spec ">
+                <h3>Combos del dia!</h3>
+                <div class="ser-t">
+                    <b></b>
+                    <span><i></i></span>
+                    <b class="line"></b>
+                </div>
+            </div>
+            <div class=" con-w3l" id="combos">
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+
+    <!--footer-->
+    <div class="footer">
+        <div class="container">
+            <div class="col-md-3 footer-grid">
+                <h3>About Us</h3>
+                <p>Descripcion pendiente...</p>
+            </div>
+            <div class="col-md-3 footer-grid ">
+                <h3>Menu</h3>
+                <ul>
+                    <li><a href="#">Inicio</a></li>
+                    <li><a href="#">Bebidas frias</a></li>
+                    <li><a href="#">Bebidas calientes</a></li>
+                    <li><a href="#">Desayunos</a></li>
+                    <li><a href="#">Barra fria</a></li>
+                    <li><a href="#">Vegetariano</a></li>
+                    <li><a href="#">Comidas</a></li>
+                    <li><a href="#">Tortas</a></li>
+                    <li><a href="#">Tacos</a></li>
+                    <li><a href="#">Postres</a></li>
+
+                </ul>
+            </div>
+            <div class="col-md-3 footer-grid ">
+                <h3>Servicios al consumidor</h3>
+                <ul>
+                    <li><a href="#">Terminos y condiciones</a></li>
+                    <li><a href="#">Preguntas frecuentes</a></li>
+                    <li><a href="#">Contacto</a></li>
+                    <li><a href="#">Compra en linea</a></li>
+
+                </ul>
+            </div>
+            <div class="col-md-3 footer-grid">
+                <h3>Mi cuenta</h3>
+                <ul>
+                    <div id="usuario2">
+                        <li><a href="login.html">Ingresar</a></li>
+                    </div>
+
+                    <li><a href="#">Lista de deseos</a></li>
+
+                </ul>
+            </div>
+            <div class="clearfix"></div>
+            <div class="footer-bottom">
+                <ul class="social-fo">
+                    <li><a href="#" class=" face"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                    <li><a href="#" class=" inta"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                </ul>
+
+                <div class="col-md-4 fo-grid1">
+                    <p><i class="fa fa-phone" aria-hidden="true"></i>+1234 758 839 , +1273 748 730</p>
+                </div>
+                <div class="col-md-4 fo-grid1">
+                    <p><a href="mailto:cafe@textual.com"><i class="fa fa-envelope-o" aria-hidden="true"></i>info@example1.com</a></p>
+                </div>
+                <div class="clearfix"></div>
+
+            </div>
+        </div>
+        <!---<div class="copy-right">
+				<p> &copy; 2016 Big store. All Rights Reserved | Design by  <a href="http://w3layouts.com/"> W3layouts</a></p>
+			</div>-->
+    </div>
+    </div>
+    <!-- //footer-->
+
+    <!-- smooth scrolling -->
+    <script type="text/javascript">
+        $(document).ready(function() {
+            /*
+            	var defaults = {
+            	containerID: 'toTop', // fading element id
+            	containerHoverID: 'toTopHover', // fading element hover id
+            	scrollSpeed: 1200,
+            	easingType: 'linear' 
+            	};
+            */
+            $().UItoTop({
+                easingType: 'easeOutQuart'
+            });
+        });
+    </script>
+    <a href="#" id="toTop" style="display: block;"> <span id="toTopHover" style="opacity: 1;"> </span></a>
+    <!-- //smooth scrolling -->
+    <!-- for bootstrap working -->
+    <script src="js/bootstrap.js"></script>
+    <!-- //for bootstrap working -->
+    <script type='text/javascript' src="js/jquery.mycart.js"></script>
+
+    <!-- //Modals -->
+    <div id="desayunosmodal"></div>
+    <div id="bebidascmodal"></div>
+    <div id="comidasmodal"></div>
+    <div id="bebidasfmodal"></div>
+    <div id="postresmodal"></div>
+    <div id="combosmodal"></div>
+</body>
+
+</html>
