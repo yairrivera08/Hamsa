@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_homepage"
+        android:title="Inicio"/>
+    <item
+        android:id="@+id/nav_ordenes"
+        android:title="Ordenes"/>
+    <item
+        android:id="@+id/nav_perfil"
+        android:title="Mi Perfil"/>
+
+</menu>
