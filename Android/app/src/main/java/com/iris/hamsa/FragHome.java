@@ -7,6 +7,10 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+
+import com.synnapps.carouselview.CarouselView;
+import com.synnapps.carouselview.ImageListener;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,6 +27,9 @@ public class FragHome extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    CarouselView carouselView;
+    int[] sampleImages = {R.drawable.image_1, R.drawable.image_2};
 
     public FragHome() {
         // Required empty public constructor
@@ -55,10 +62,24 @@ public class FragHome extends Fragment {
         }
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_frag_home, container, false);
+        View view = inflater.inflate(R.layout.fragment_frag_home, container, false);
+
+        carouselView = (CarouselView) view.findViewById(R.id.galeria);
+        carouselView.setPageCount(sampleImages.length);
+        carouselView.setImageListener(imageListener);
+
+        return view;
     }
+    ImageListener imageListener = new ImageListener() {
+        @Override
+        public void setImageForPosition(int position, ImageView imageView) {
+            imageView.setImageResource(sampleImages[position]);
+        }
+    };
+
 }
