@@ -14,17 +14,17 @@ import java.util.ArrayList;
 public class ProductosAdapter extends RecyclerView.Adapter<ProductosAdapter.MyViewHolder> {
 
     private LayoutInflater inflater;
-    private ArrayList<CategoriasModel> imageModelArrayList;
+    private ArrayList<PlatillosModel> platillosArray;
 
-    public ProductosAdapter(Context ctx, ArrayList<CategoriasModel>imageModelArrayList){
+    public ProductosAdapter(Context ctx, ArrayList<PlatillosModel>platillosArray){
         inflater = LayoutInflater.from(ctx);
-        this.imageModelArrayList = imageModelArrayList;
+        this.platillosArray = platillosArray;
     }
 
     @Override
     public ProductosAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View view = inflater.inflate(R.layout.recycler_menu, parent, false);
+        View view = inflater.inflate(R.layout.recyclercomida, parent, false);
         MyViewHolder holder = new MyViewHolder(view);
 
         return holder;
@@ -32,26 +32,30 @@ public class ProductosAdapter extends RecyclerView.Adapter<ProductosAdapter.MyVi
 
     @Override
     public void onBindViewHolder(ProductosAdapter.MyViewHolder holder, int position) {
-
-        holder.catImage.setImageResource(imageModelArrayList.get(position).getImage_drawable());
-        holder.catText.setText(imageModelArrayList.get(position).getNombre());
+        holder.nombrePlatillo.setText(platillosArray.get(position).getNombre());
+        holder.descripcion.setText(platillosArray.get(position).getDescripcion());
+        holder.precio.setText(String.valueOf(platillosArray.get(position).getTipos().get(0).getPrecio()));
     }
 
     @Override
     public int getItemCount() {
-        return imageModelArrayList.size();
+        return platillosArray.size();
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {
 
-        TextView catText;
-        ImageView catImage;
+        TextView nombrePlatillo;
+        TextView descripcion;
+        TextView precio;
+        //ImageView catImage;
 
         public MyViewHolder(View itemView) {
             super(itemView);
 
-            catText = (TextView) itemView.findViewById(R.id.catTxt);
-            catImage = (ImageView) itemView.findViewById(R.id.catImg);
+            nombrePlatillo = (TextView) itemView.findViewById(R.id.nombrePlatillo);
+            descripcion = (TextView) itemView.findViewById(R.id.descripcion);
+            precio = (TextView) itemView.findViewById(R.id.precio);
+            //catImage = (ImageView) itemView.findViewById(R.id.catImg);
         }
     }
 }

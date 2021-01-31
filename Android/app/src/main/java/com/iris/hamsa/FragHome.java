@@ -34,9 +34,13 @@ public class FragHome extends Fragment {
 
     CarouselView carouselView;
     int[] sampleImages = {R.drawable.image_1, R.drawable.image_2};
-    private RecyclerView recyclerView;
+    private RecyclerView categoriasRecyclerView;
     private ArrayList<CategoriasModel> imageModelArrayList;
-    private CategoriasAdapter adapter;
+    private ArrayList<PlatillosModel> platillos;
+    private CategoriasAdapter categoriasAdapter;
+    private RecyclerView platillosRecyclerView;
+    private ProductosAdapter platillosAdapter;
+
 
     private int[] myImageList = new int[]{R.drawable.image_1, R.drawable.image_2,R.drawable.image_1, R.drawable.image_2,R.drawable.image_1, R.drawable.image_2,R.drawable.image_1};
     private String[] myImageNameList = new String[]{"Apple","Mango" ,"Strawberry","Pineapple","Orange","Blueberry","Watermelon"};
@@ -77,21 +81,26 @@ public class FragHome extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        FirebaseManager fbm = new FirebaseManager();
         View view = inflater.inflate(R.layout.fragment_frag_home, container, false);
 
         carouselView = (CarouselView) view.findViewById(R.id.galeria);
         carouselView.setPageCount(sampleImages.length);
         carouselView.setImageListener(imageListener);
 
-        recyclerView = (RecyclerView) view.findViewById(R.id.RecyclerMenu);
+        categoriasRecyclerView = (RecyclerView) view.findViewById(R.id.RecyclerMenu);
+        platillosRecyclerView = (RecyclerView) view.findViewById(R.id.RecyclerPlatillos);
 
         imageModelArrayList = llenaCategorias();
-        adapter = new CategoriasAdapter(getActivity().getApplicationContext(), imageModelArrayList);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
+        categoriasAdapter = new CategoriasAdapter(getActivity().getApplicationContext(), imageModelArrayList);
+        categoriasRecyclerView.setAdapter(categoriasAdapter);
+        categoriasRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
 
-        FirebaseManager fbm = new FirebaseManager();
-        fbm.getAlimentos("Escom");
+
+        platillos = fbm.getAlimentos("Escom");
+        platillosAdapter = new ProductosAdapter(getActivity().getApplicationContext(), platillos);
+        platillosRecyclerView.setAdapter(platillosAdapter);
+        platillosRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
 
         return view;
     }

@@ -71,11 +71,15 @@ public class FirebaseManager {
                                     if(obj.has("Tipo")){
                                         base.setTipos(spliceCombos(obj.getJSONObject("Tipo")));
                                     }
+                                    if(obj.has("Incluye")) {
+                                        base.setCombo(obj.getBoolean("Incluye"));
+                                        base.setDescribeCombo(obj.getString("IncluyeDescripcion"));
+                                    }
 
                                 } catch (JSONException je) {
                                     Log.e("FIREBASE MANAGER", "Could not parse or asign object in malformed JSON: \"" + document.getData() + "\"");
                                 }
-
+                                catalog.add(base);
                             }
 
                         } else {
@@ -105,9 +109,9 @@ public class FirebaseManager {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        for(int x=0;x<basex.size();x++){
+        /*for(int x=0;x<basex.size();x++){
             Log.d("EXTRAS FINALES","Extra"+basex.get(x).getIndex()+" es "+basex.get(x).getNombre()+" a $"+basex.get(x).getPrecio());
-        }
+        }*/
         return basex;
     }
     private ArrayList<TiposPlatModel> spliceCombos(JSONObject combos){
@@ -115,6 +119,18 @@ public class FirebaseManager {
         * {"Op2":[35,"Con ensalada"],"Op1":[35,"Con papas a la francesa"]}
         * */
         ArrayList<TiposPlatModel> basex = new ArrayList<TiposPlatModel>();
+        try {
+            for (int i = 0; i < combos.length(); i++) {
+                //Log.d("SPLICEREX", extra.getString("Extra"+(i+1)));
+                JSONArray n = new JSONArray(combos.getString("Op" + (i + 1)));
+                basex.add(new TiposPlatModel(n.get(1).toString(), Float.valueOf(n.get(0).toString()), (i + 1)));
+            }
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+        /*for(int x=0;x<basex.size();x++){
+            Log.d("TIPOS FINALES","Tipo"+basex.get(x).getIndex()+" es "+basex.get(x).getDescripcion()+" a $"+basex.get(x).getPrecio());
+        }*/
         return basex;
     }
 }

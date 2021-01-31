@@ -14,6 +14,8 @@ public class PlatillosModel {
     private String nombre;
     private ArrayList<ExtrasModel> extras;
     private ArrayList<TiposPlatModel> tipos;
+    private boolean combo;
+    private String describeCombo;
 
     public String getBanderas() {
         return banderas;
@@ -101,5 +103,21 @@ public class PlatillosModel {
 
     public void setTipos(ArrayList<TiposPlatModel> tipos) {
         this.tipos = tipos;
+    }
+
+    public boolean isCombo() {
+        return combo;
+    }
+
+    public void setCombo(boolean combo) {
+        this.combo = combo;
+    }
+
+    public String getDescribeCombo() {
+        return describeCombo;
+    }
+
+    public void setDescribeCombo(String describeCombo) {
+        this.describeCombo = describeCombo;
     }
 }
