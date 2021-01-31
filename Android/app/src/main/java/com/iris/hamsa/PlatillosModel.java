@@ -13,6 +13,7 @@ public class PlatillosModel {
     private String imgUrl;
     private String nombre;
     private ArrayList<ExtrasModel> extras;
+    private ArrayList<TiposPlatModel> tipos;
 
     public String getBanderas() {
         return banderas;
@@ -92,5 +93,13 @@ public class PlatillosModel {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public ArrayList<TiposPlatModel> getTipos() {
+        return tipos;
+    }
+
+    public void setTipos(ArrayList<TiposPlatModel> tipos) {
+        this.tipos = tipos;
     }
 }
