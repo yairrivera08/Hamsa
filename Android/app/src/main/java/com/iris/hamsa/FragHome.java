@@ -2,14 +2,18 @@ package com.iris.hamsa;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.synnapps.carouselview.CarouselView;
 import com.synnapps.carouselview.ImageListener;
@@ -35,12 +39,12 @@ public class FragHome extends Fragment {
     CarouselView carouselView;
     int[] sampleImages = {R.drawable.image_1, R.drawable.image_2};
     private RecyclerView categoriasRecyclerView;
-    private ArrayList<CategoriasModel> imageModelArrayList;
-    private ArrayList<PlatillosModel> platillos;
+    private ArrayList<CategoriasModel> imageModelArrayList = new ArrayList<CategoriasModel>();
+    private ArrayList<PlatillosModel> platillos = new ArrayList<PlatillosModel>();;
     private CategoriasAdapter categoriasAdapter;
     private RecyclerView platillosRecyclerView;
     private ProductosAdapter platillosAdapter;
-
+    private FirebaseManager fbm = new FirebaseManager();
 
     private int[] myImageList = new int[]{R.drawable.image_1, R.drawable.image_2,R.drawable.image_1, R.drawable.image_2,R.drawable.image_1, R.drawable.image_2,R.drawable.image_1};
     private String[] myImageNameList = new String[]{"Apple","Mango" ,"Strawberry","Pineapple","Orange","Blueberry","Watermelon"};
@@ -81,7 +85,7 @@ public class FragHome extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        FirebaseManager fbm = new FirebaseManager();
+
         View view = inflater.inflate(R.layout.fragment_frag_home, container, false);
 
         carouselView = (CarouselView) view.findViewById(R.id.galeria);
@@ -93,14 +97,17 @@ public class FragHome extends Fragment {
 
         imageModelArrayList = llenaCategorias();
         categoriasAdapter = new CategoriasAdapter(getActivity().getApplicationContext(), imageModelArrayList);
-        categoriasRecyclerView.setAdapter(categoriasAdapter);
         categoriasRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
+        categoriasRecyclerView.setAdapter(categoriasAdapter);
 
-
-        platillos = fbm.getAlimentos("Escom");
+        platillos = (ArrayList<PlatillosModel>) getArguments().getSerializable("Platillos");
+        for(int i=0;i<platillos.size();i++) {
+            Log.d("FRAGMENT", platillos.get(0).getId());
+        }
         platillosAdapter = new ProductosAdapter(getActivity().getApplicationContext(), platillos);
+
+        platillosRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext(), LinearLayoutManager.VERTICAL, false));
         platillosRecyclerView.setAdapter(platillosAdapter);
-        platillosRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
 
         return view;
     }
@@ -124,5 +131,7 @@ public class FragHome extends Fragment {
 
         return list;
     }
+
+
 
 }

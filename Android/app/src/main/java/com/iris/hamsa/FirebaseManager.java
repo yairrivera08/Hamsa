@@ -1,11 +1,15 @@
 package com.iris.hamsa;
 
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -15,12 +19,17 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class FirebaseManager {
 
     private FirebaseFunctions mFunctions;
     private FirebaseFirestore db;
+    private ArrayList<Type> x = new ArrayList<Type>();
 
     public FirebaseManager() {
         mFunctions = FirebaseFunctions.getInstance();
@@ -31,10 +40,8 @@ public class FirebaseManager {
         //TODO: FUNCIONALIDAD PARA REALIZAR PAGO MEDIANTE FIREBASE
     }
 
-    public ArrayList<PlatillosModel> getAlimentos(String escuela){
+    public void getListItems(MyCallback myCallback, String escuela) {
         ArrayList<PlatillosModel> catalog = new ArrayList<PlatillosModel>();
-
-
         db.collection("Escuelas").document(escuela).collection("Productos")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -80,14 +87,14 @@ public class FirebaseManager {
                                     Log.e("FIREBASE MANAGER", "Could not parse or asign object in malformed JSON: \"" + document.getData() + "\"");
                                 }
                                 catalog.add(base);
+                                //Log.d("ELEMENTOS=>", catalog.get(catalog.size()-1).getNombre());
                             }
-
+                            myCallback.onCallback(catalog);
                         } else {
                             Log.w("FIREBASE DB CLOUD FIRESTORE", "Error getting documents.", task.getException());
                         }
                     }
                 });
-        return catalog;
     }
 
     private ArrayList<ExtrasModel> spliceExtras(JSONObject extra){

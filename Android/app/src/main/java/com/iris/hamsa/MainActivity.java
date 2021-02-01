@@ -11,6 +11,8 @@ import android.widget.FrameLayout;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
 
     BottomNavigationView navigation;
@@ -20,17 +22,33 @@ public class MainActivity extends AppCompatActivity {
     private FragHome fragHome;
     private FragOrdenes fragOrdenes;
     private FragPerfil fragPerfil;
+    private ArrayList<PlatillosModel> mplat= new ArrayList<PlatillosModel>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        FirebaseManager fbm = new FirebaseManager();
+
+
+
         navigation = findViewById(R.id.barranavegador);
         fragmentView = findViewById(R.id.fragmentView);
 
         //Initialize fragments
         fragHome = new FragHome();
+
+        fbm.getListItems(new MyCallback() {
+            @Override
+            public void onCallback(ArrayList<PlatillosModel> platillosCall) {
+                mplat=platillosCall;
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("Platillos",mplat);
+                fragHome.setArguments(bundle);
+            }
+        },"Escom");
+
         fragOrdenes = new FragOrdenes();
         fragPerfil = new FragPerfil();
 
