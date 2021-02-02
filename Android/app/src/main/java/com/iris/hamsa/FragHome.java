@@ -2,8 +2,6 @@ package com.iris.hamsa;
 
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.synnapps.carouselview.CarouselView;
 import com.synnapps.carouselview.ImageListener;
@@ -39,8 +36,9 @@ public class FragHome extends Fragment {
     CarouselView carouselView;
     int[] sampleImages = {R.drawable.image_1, R.drawable.image_2};
     private RecyclerView categoriasRecyclerView;
-    private ArrayList<CategoriasModel> imageModelArrayList = new ArrayList<CategoriasModel>();
-    private ArrayList<PlatillosModel> platillos = new ArrayList<PlatillosModel>();;
+    private ArrayList<CategoriasModel> categoriasArrayList = new ArrayList<CategoriasModel>();
+    private ArrayList<PlatillosModel> platillos = new ArrayList<PlatillosModel>();
+    private ArrayList<EscuelaModel> escuelas = new ArrayList<EscuelaModel>();
     private CategoriasAdapter categoriasAdapter;
     private RecyclerView platillosRecyclerView;
     private ProductosAdapter platillosAdapter;
@@ -95,8 +93,12 @@ public class FragHome extends Fragment {
         categoriasRecyclerView = (RecyclerView) view.findViewById(R.id.RecyclerMenu);
         platillosRecyclerView = (RecyclerView) view.findViewById(R.id.RecyclerPlatillos);
 
-        imageModelArrayList = llenaCategorias();
-        categoriasAdapter = new CategoriasAdapter(getActivity().getApplicationContext(), imageModelArrayList);
+        escuelas = (ArrayList<EscuelaModel>) getArguments().getSerializable("Escuelas");
+        /*for(int i=0;i<escuelas.size();i++){
+            Log.d("FRAGMENT", escuelas.get(0).getNombreCompleto());
+        }*/
+        categoriasArrayList =  escuelas.get(0).getCategorias();
+        categoriasAdapter = new CategoriasAdapter(getActivity().getApplicationContext(), categoriasArrayList);
         categoriasRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
         categoriasRecyclerView.setAdapter(categoriasAdapter);
 
@@ -118,20 +120,5 @@ public class FragHome extends Fragment {
             imageView.setImageResource(sampleImages[position]);
         }
     };
-
-    private ArrayList<CategoriasModel> llenaCategorias(){
-        ArrayList<CategoriasModel> list = new ArrayList<>();
-
-        for(int i = 0; i < 7; i++){
-            CategoriasModel categoriaM = new CategoriasModel();
-            categoriaM.setNombre(myImageNameList[i]);
-            categoriaM.setImage_drawable(myImageList[i]);
-            list.add(categoriaM);
-        }
-
-        return list;
-    }
-
-
 
 }

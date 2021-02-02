@@ -1,6 +1,8 @@
 package com.iris.hamsa;
 
-public class TiposPlatModel {
+import java.io.Serializable;
+
+public class TiposPlatModel implements Serializable {
     private String descripcion;
     private float precio;
     private int index;

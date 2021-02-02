@@ -1,6 +1,8 @@
 package com.iris.hamsa;
 
-public class ExtrasModel {
+import java.io.Serializable;
+
+public class ExtrasModel implements Serializable  {
     private String nombre;
     private float precio;
     private int index;

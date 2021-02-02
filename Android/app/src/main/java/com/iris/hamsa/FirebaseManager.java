@@ -1,19 +1,18 @@
 package com.iris.hamsa;
 
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.GeoPoint;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.functions.FirebaseFunctions;
+import com.google.firebase.storage.FirebaseStorage;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -21,26 +20,34 @@ import org.json.JSONObject;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.Arrays;
 import java.util.Map;
 
 public class FirebaseManager {
 
     private FirebaseFunctions mFunctions;
     private FirebaseFirestore db;
+    private FirebaseStorage storage;
+    private FirebaseAuth auth;
     private ArrayList<Type> x = new ArrayList<Type>();
 
     public FirebaseManager() {
+        auth = FirebaseAuth.getInstance();
         mFunctions = FirebaseFunctions.getInstance();
+        storage = FirebaseStorage.getInstance();
         db = FirebaseFirestore.getInstance();
+
+    }
+
+    public FirebaseStorage getStorage() {
+        return storage;
     }
 
     private void pagar() {
         //TODO: FUNCIONALIDAD PARA REALIZAR PAGO MEDIANTE FIREBASE
     }
 
-    public void getListItems(MyCallback myCallback, String escuela) {
+    public void getAlimentos(PlatillosCallback platillosCallback, String escuela) {
         ArrayList<PlatillosModel> catalog = new ArrayList<PlatillosModel>();
         db.collection("Escuelas").document(escuela).collection("Productos")
                 .get()
@@ -89,14 +96,59 @@ public class FirebaseManager {
                                 catalog.add(base);
                                 //Log.d("ELEMENTOS=>", catalog.get(catalog.size()-1).getNombre());
                             }
-                            myCallback.onCallback(catalog);
+                            platillosCallback.onCallback(catalog);
                         } else {
                             Log.w("FIREBASE DB CLOUD FIRESTORE", "Error getting documents.", task.getException());
                         }
                     }
                 });
     }
-
+    public void getDetalleEscuelas(EscuelaCallback escuelaCallback) {
+        ArrayList<EscuelaModel> escuela = new ArrayList<EscuelaModel>();
+        db.collection("Escuelas")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                //Log.d("Detalle Escuela",document.getId()+"=>"+document.getData());
+                                EscuelaModel nescuela = new EscuelaModel();
+                                try {
+                                    JSONObject obj = new JSONObject(document.getData());
+                                    nescuela.setId(obj.getInt("id"));
+                                    nescuela.setCategorias(spliceCats(obj.getJSONArray("Categorias")));
+                                    nescuela.setDireccion(obj.getString("Direccion"));
+                                    nescuela.setNombreCompleto(obj.getString("Nombre"));
+                                    nescuela.setUbicacion(document.getGeoPoint("Ubicacion"));
+                                    /*Map<String,HorarioModel> hora = (Map) document.get("Horario");
+                                    nescuela.setHorario(hora);*/
+                                } catch (JSONException je) {
+                                    Log.e("FIREBASE MANAGER", "Could not parse or asign object in malformed JSON: \"" + document.getData() + "\"");
+                                }
+                                escuela.add(nescuela);
+                            }
+                            escuelaCallback.onCallback(escuela);
+                        } else {
+                            Log.w("FIREBASE DB CLOUD FIRESTORE", "Error getting documents.", task.getException());
+                        }
+                    }
+                });
+    }
+    private ArrayList<CategoriasModel> spliceCats(JSONArray cats){
+        /*
+        * Categorias=[Favoritos, Bebidas frias, Bebidas calientes, Desayuno de autor, Platillos de escritor, Menu literario, Postres, Comida rapida, Tortas, Tacos, Barra fria, Vegetariano, Todo]
+        * */
+        ArrayList<CategoriasModel> cat = new ArrayList<CategoriasModel>();
+        for(int i =0;i<cats.length();i++){
+            try {
+                cat.add(new CategoriasModel(cats.get(i).toString()));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        return cat;
+    }
     private ArrayList<ExtrasModel> spliceExtras(JSONObject extra){
         /*
         * {"Otro":10,"Extra3":["Gratinado",7],"Extra2":["Milanesa de res",15],"Extra1":["Milanesa de pollo",15]}

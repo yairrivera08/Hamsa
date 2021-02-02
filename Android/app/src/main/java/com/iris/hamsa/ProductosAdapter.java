@@ -1,6 +1,7 @@
 package com.iris.hamsa;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,15 +10,21 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.google.firebase.storage.StorageReference;
+
 import java.util.ArrayList;
 
 public class ProductosAdapter extends RecyclerView.Adapter<ProductosAdapter.MyViewHolder> {
 
     private LayoutInflater inflater;
     private ArrayList<PlatillosModel> platillosArray;
+    private Context ctxadapt;
+    private FirebaseManager fbm = new FirebaseManager();
 
     public ProductosAdapter(Context ctx, ArrayList<PlatillosModel>platillosArray){
         inflater = LayoutInflater.from(ctx);
+        ctxadapt=ctx;
         this.platillosArray = platillosArray;
     }
 
@@ -35,6 +42,13 @@ public class ProductosAdapter extends RecyclerView.Adapter<ProductosAdapter.MyVi
         holder.nombrePlatillo.setText(platillosArray.get(position).getNombre());
         holder.descripcion.setText(platillosArray.get(position).getDescripcion());
         holder.precio.setText(String.valueOf(platillosArray.get(position).getTipos().get(0).getPrecio()));
+        if(platillosArray.get(position).getImgUrl().isEmpty()) {
+            holder.imagenPlatillo.setImageResource(R.drawable.noimage);
+        }else{
+            StorageReference sr = fbm.getStorage().getReferenceFromUrl("gs://textualmovil.appspot.com/" + platillosArray.get(position).getImgUrl());
+            Log.d("INTENTO DE IMAGEN",platillosArray.get(position).getImgUrl());
+            GlideApp.with(ctxadapt).load(sr).into(holder.imagenPlatillo);
+        }
     }
 
     @Override
@@ -47,7 +61,7 @@ public class ProductosAdapter extends RecyclerView.Adapter<ProductosAdapter.MyVi
         TextView nombrePlatillo;
         TextView descripcion;
         TextView precio;
-        //ImageView catImage;
+        ImageView imagenPlatillo;
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -55,7 +69,7 @@ public class ProductosAdapter extends RecyclerView.Adapter<ProductosAdapter.MyVi
             nombrePlatillo = (TextView) itemView.findViewById(R.id.nombrePlatillo);
             descripcion = (TextView) itemView.findViewById(R.id.descripcion);
             precio = (TextView) itemView.findViewById(R.id.precio);
-            //catImage = (ImageView) itemView.findViewById(R.id.catImg);
+            imagenPlatillo = (ImageView) itemView.findViewById(R.id.platilloImg);
         }
     }
 }

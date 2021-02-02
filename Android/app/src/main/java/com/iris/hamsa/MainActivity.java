@@ -6,8 +6,10 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -23,6 +25,8 @@ public class MainActivity extends AppCompatActivity {
     private FragOrdenes fragOrdenes;
     private FragPerfil fragPerfil;
     private ArrayList<PlatillosModel> mplat= new ArrayList<PlatillosModel>();
+    private ArrayList<EscuelaModel> mesc= new ArrayList<EscuelaModel>();
+    private ArrayList<CategoriasModel> mcat= new ArrayList<CategoriasModel>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,16 +42,24 @@ public class MainActivity extends AppCompatActivity {
 
         //Initialize fragments
         fragHome = new FragHome();
-
-        fbm.getListItems(new MyCallback() {
+        Bundle bundleHome = new Bundle();
+        fbm.getDetalleEscuelas(new EscuelaCallback() {
             @Override
-            public void onCallback(ArrayList<PlatillosModel> platillosCall) {
-                mplat=platillosCall;
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("Platillos",mplat);
-                fragHome.setArguments(bundle);
+            public void onCallback(ArrayList<EscuelaModel> escuelaCall) {
+                Toast.makeText(getApplicationContext(),"Se obtiene detalle de escuelas", Toast.LENGTH_LONG).show();
+                mesc=escuelaCall;
+                Log.d("POSTTOAST",mesc.toString());
+                bundleHome.putSerializable("Escuelas",mesc);
+                fbm.getAlimentos(new PlatillosCallback() {
+                    @Override
+                    public void onCallback(ArrayList<PlatillosModel> platillosCall) {
+                        mplat=platillosCall;
+                        bundleHome.putSerializable("Platillos",mplat);
+                        fragHome.setArguments(bundleHome);
+                    }
+                },"Escom");
             }
-        },"Escom");
+        });
 
         fragOrdenes = new FragOrdenes();
         fragPerfil = new FragPerfil();

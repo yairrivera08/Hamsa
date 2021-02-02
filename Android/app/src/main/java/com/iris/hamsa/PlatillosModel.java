@@ -1,8 +1,9 @@
 package com.iris.hamsa;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class PlatillosModel {
+public class PlatillosModel implements Serializable {
     private String id;
     private String banderas;
     private int calorias;
