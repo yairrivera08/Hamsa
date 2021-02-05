@@ -1,5 +1,6 @@
 package com.iris.hamsa;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -11,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.synnapps.carouselview.CarouselView;
 import com.synnapps.carouselview.ImageListener;
@@ -34,7 +36,7 @@ public class FragHome extends Fragment {
     private String mParam2;
 
     CarouselView carouselView;
-    int[] sampleImages = {R.drawable.image_1, R.drawable.image_2};
+    int[] sampleImages = {R.drawable.carr1, R.drawable.carr2,R.drawable.carr3,R.drawable.carr4};
     private RecyclerView categoriasRecyclerView;
     private ArrayList<CategoriasModel> categoriasArrayList = new ArrayList<CategoriasModel>();
     private ArrayList<PlatillosModel> platillos = new ArrayList<PlatillosModel>();
@@ -43,6 +45,18 @@ public class FragHome extends Fragment {
     private RecyclerView platillosRecyclerView;
     private ProductosAdapter platillosAdapter;
     private FirebaseManager fbm = new FirebaseManager();
+    private View.OnClickListener onPlatilloClickListener = v -> {
+
+        RecyclerView.ViewHolder viewHolder = (RecyclerView.ViewHolder) v.getTag();
+        int position = viewHolder.getAdapterPosition();
+        PlatillosModel plat = platillos.get(position);
+        Toast.makeText(getActivity().getApplicationContext(),"Platillo clickeado =>"+ plat.getNombre(),Toast.LENGTH_SHORT).show();
+        Intent intentDetalle = new Intent(getActivity(),DetallePlatillo.class);
+        intentDetalle.putExtra("Platillo",plat);
+        //Log.d("INTENT A DETALLE","Platillo =>>"+plat.getNombre()+":"+plat.getDescripcion());
+        startActivity(intentDetalle);
+    };
+
 
     private int[] myImageList = new int[]{R.drawable.image_1, R.drawable.image_2,R.drawable.image_1, R.drawable.image_2,R.drawable.image_1, R.drawable.image_2,R.drawable.image_1};
     private String[] myImageNameList = new String[]{"Apple","Mango" ,"Strawberry","Pineapple","Orange","Blueberry","Watermelon"};
@@ -110,6 +124,9 @@ public class FragHome extends Fragment {
 
         platillosRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext(), LinearLayoutManager.VERTICAL, false));
         platillosRecyclerView.setAdapter(platillosAdapter);
+        platillosAdapter.setOnItemClickListener(onPlatilloClickListener);
+
+
 
         return view;
     }

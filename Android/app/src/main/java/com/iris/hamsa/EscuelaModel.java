@@ -11,7 +11,7 @@ public class EscuelaModel implements Serializable {
     private String direccion;
     private Map<String,HorarioModel> horario;
     private String nombreCompleto;
-    private GeoPoint ubicacion;
+    private CustomGeoPoint ubicacion;
     private int id;
 
     public ArrayList<CategoriasModel> getCategorias() {
@@ -46,11 +46,11 @@ public class EscuelaModel implements Serializable {
         this.nombreCompleto = nombreCompleto;
     }
 
-    public GeoPoint getUbicacion() {
+    public CustomGeoPoint getUbicacion() {
         return ubicacion;
     }
 
-    public void setUbicacion(GeoPoint ubicacion) {
+    public void setUbicacion(CustomGeoPoint ubicacion) {
         this.ubicacion = ubicacion;
     }
 
@@ -62,7 +62,7 @@ public class EscuelaModel implements Serializable {
         this.id = id;
     }
 
-    public EscuelaModel(ArrayList<CategoriasModel> categorias, String direccion, Map<String, HorarioModel> horario, String nombreCompleto, GeoPoint ubicacion, int id) {
+    public EscuelaModel(ArrayList<CategoriasModel> categorias, String direccion, Map<String, HorarioModel> horario, String nombreCompleto, CustomGeoPoint ubicacion, int id) {
         this.categorias = categorias;
         this.direccion = direccion;
         this.horario = horario;

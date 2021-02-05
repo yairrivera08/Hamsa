@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
@@ -21,6 +22,7 @@ public class ProductosAdapter extends RecyclerView.Adapter<ProductosAdapter.MyVi
     private ArrayList<PlatillosModel> platillosArray;
     private Context ctxadapt;
     private FirebaseManager fbm = new FirebaseManager();
+    private View.OnClickListener mOnItemClickListener;
 
     public ProductosAdapter(Context ctx, ArrayList<PlatillosModel>platillosArray){
         inflater = LayoutInflater.from(ctx);
@@ -47,8 +49,12 @@ public class ProductosAdapter extends RecyclerView.Adapter<ProductosAdapter.MyVi
         }else{
             StorageReference sr = fbm.getStorage().getReferenceFromUrl("gs://textualmovil.appspot.com/" + platillosArray.get(position).getImgUrl());
             Log.d("INTENTO DE IMAGEN",platillosArray.get(position).getImgUrl());
-            GlideApp.with(ctxadapt).load(sr).into(holder.imagenPlatillo);
+            GlideApp.with(ctxadapt).load(sr).diskCacheStrategy(DiskCacheStrategy.ALL).into(holder.imagenPlatillo);
         }
+    }
+
+    public void setOnItemClickListener(View.OnClickListener itemClickListener) {
+        this.mOnItemClickListener = itemClickListener;
     }
 
     @Override
@@ -70,6 +76,8 @@ public class ProductosAdapter extends RecyclerView.Adapter<ProductosAdapter.MyVi
             descripcion = (TextView) itemView.findViewById(R.id.descripcion);
             precio = (TextView) itemView.findViewById(R.id.precio);
             imagenPlatillo = (ImageView) itemView.findViewById(R.id.platilloImg);
+            itemView.setTag(this);
+            itemView.setOnClickListener(mOnItemClickListener);
         }
     }
 }

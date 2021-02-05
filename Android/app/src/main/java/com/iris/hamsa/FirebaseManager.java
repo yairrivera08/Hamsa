@@ -120,7 +120,8 @@ public class FirebaseManager {
                                     nescuela.setCategorias(spliceCats(obj.getJSONArray("Categorias")));
                                     nescuela.setDireccion(obj.getString("Direccion"));
                                     nescuela.setNombreCompleto(obj.getString("Nombre"));
-                                    nescuela.setUbicacion(document.getGeoPoint("Ubicacion"));
+                                    CustomGeoPoint gp = new CustomGeoPoint(document.getGeoPoint("Ubicacion").getLatitude(),document.getGeoPoint("Ubicacion").getLongitude());
+                                    nescuela.setUbicacion(gp);
                                     /*Map<String,HorarioModel> hora = (Map) document.get("Horario");
                                     nescuela.setHorario(hora);*/
                                 } catch (JSONException je) {

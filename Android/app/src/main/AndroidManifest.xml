@@ -9,7 +9,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Hamsa">
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".DetallePlatillo"
+            android:label="@string/title_activity_detalle_platillo"
+            android:theme="@style/Theme.Hamsa.NoActionBar"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+        <activity android:name=".MainActivity"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
