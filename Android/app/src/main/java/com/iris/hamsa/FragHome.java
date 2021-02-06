@@ -40,6 +40,7 @@ public class FragHome extends Fragment {
     private RecyclerView categoriasRecyclerView;
     private ArrayList<CategoriasModel> categoriasArrayList = new ArrayList<CategoriasModel>();
     private ArrayList<PlatillosModel> platillos = new ArrayList<PlatillosModel>();
+    private ArrayList<PlatillosModel> platillosDisponibles = new ArrayList<PlatillosModel>();
     private ArrayList<EscuelaModel> escuelas = new ArrayList<EscuelaModel>();
     private CategoriasAdapter categoriasAdapter;
     private RecyclerView platillosRecyclerView;
@@ -49,7 +50,7 @@ public class FragHome extends Fragment {
 
         RecyclerView.ViewHolder viewHolder = (RecyclerView.ViewHolder) v.getTag();
         int position = viewHolder.getAdapterPosition();
-        PlatillosModel plat = platillos.get(position);
+        PlatillosModel plat = platillosDisponibles.get(position);
         Toast.makeText(getActivity().getApplicationContext(),"Platillo clickeado =>"+ plat.getNombre(),Toast.LENGTH_SHORT).show();
         Intent intentDetalle = new Intent(getActivity(),DetallePlatillo.class);
         intentDetalle.putExtra("Platillo",plat);
@@ -118,9 +119,12 @@ public class FragHome extends Fragment {
 
         platillos = (ArrayList<PlatillosModel>) getArguments().getSerializable("Platillos");
         for(int i=0;i<platillos.size();i++) {
-            Log.d("FRAGMENT", platillos.get(0).getId());
+            //Log.d("FRAGMENT", platillos.get(0).getId());
+            if(platillos.get(i).isDisponible()){
+                platillosDisponibles.add(platillos.get(i));
+            }
         }
-        platillosAdapter = new ProductosAdapter(getActivity().getApplicationContext(), platillos);
+        platillosAdapter = new ProductosAdapter(getActivity().getApplicationContext(), platillosDisponibles);
 
         platillosRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext(), LinearLayoutManager.VERTICAL, false));
         platillosRecyclerView.setAdapter(platillosAdapter);
