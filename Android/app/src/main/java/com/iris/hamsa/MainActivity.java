@@ -35,8 +35,6 @@ public class MainActivity extends AppCompatActivity {
 
         FirebaseManager fbm = new FirebaseManager();
 
-
-
         navigation = findViewById(R.id.barranavegador);
         fragmentView = findViewById(R.id.fragmentView);
 
