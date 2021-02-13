@@ -1,29 +1,21 @@
 package com.iris.hamsa;
 
-import android.graphics.drawable.Drawable;
-import android.media.Image;
 import android.os.Bundle;
 
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.request.transition.Transition;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.storage.StorageReference;
-import com.synnapps.carouselview.CarouselView;
-import com.synnapps.carouselview.ImageListener;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import android.util.Log;
 import android.view.View;
+import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class DetallePlatillo extends AppCompatActivity {
 
@@ -33,6 +25,12 @@ public class DetallePlatillo extends AppCompatActivity {
     private TextView categoria;
     private ImageView imagen;
     private FirebaseManager fbm;
+    private ExpandableListView exTipo;
+    private ExpandableListView exCombo;
+    private ArrayList<TiposPlatModel> tipos = new ArrayList<TiposPlatModel>();
+    List<String> listGroup;
+    HashMap<String,ArrayList<TiposPlatModel>> listItem;
+    private ExTypeAdapter exTiposAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +44,8 @@ public class DetallePlatillo extends AppCompatActivity {
         descripcion = (TextView) findViewById(R.id.DescripcionPlatillo);
         categoria = (TextView) findViewById(R.id.CategoriaPlatillo);
         imagen = (ImageView) findViewById(R.id.imagenPlatillo);
-
+        exTipo = (ExpandableListView) findViewById(R.id.ListaOpciones);
+        exCombo = (ExpandableListView) findViewById(R.id.ListaCombos);
 
         PlatillosModel platillo = (PlatillosModel) getIntent().getSerializableExtra("Platillo");
 
@@ -56,11 +55,29 @@ public class DetallePlatillo extends AppCompatActivity {
         //Log.d("INTENTO DE IMAGEN",platillo.getImgUrl());
         GlideApp.with(this).load(sr).diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(R.drawable.noimage).into(imagen);
 
-
         nombre.setText(platillo.getNombre());
         descripcion.setText(platillo.getDescripcion());
         categoria.setText(platillo.getCategoria());
 
+        if(platillo.isCombo()){
+            exCombo.setVisibility(View.GONE);
+        }else{
+            //TODO: Handle combo
+        }
+
+        if(platillo.getTipos().isEmpty()){
+            //TODO: Handle no hay tipos
+        }else{
+
+            tipos = platillo.getTipos();
+            listGroup= new ArrayList<>();
+            listGroup.add("Elija un tipo(tamaño)");
+            listItem = new HashMap<>();
+            listItem.put(listGroup.get(0),tipos);
+            exTiposAdapter = new ExTypeAdapter(this,listGroup,listItem);
+            exTipo.setAdapter(exTiposAdapter);
+            exTiposAdapter.notifyDataSetChanged();
+        }
     }
 
 }
