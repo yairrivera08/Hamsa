@@ -48,7 +48,7 @@
                 android:visibility="visible"></ExpandableListView>
 
             <ExpandableListView
-                android:id="@+id/ListaCombos"
+                android:id="@+id/ListaExtras"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
                 android:visibility="visible"></ExpandableListView>

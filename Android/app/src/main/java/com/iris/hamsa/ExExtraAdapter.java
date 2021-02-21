@@ -14,14 +14,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class ExTypeAdapter extends BaseExpandableListAdapter {
+public class ExExtraAdapter extends BaseExpandableListAdapter {
 
     Context context;
     List<String> grupos;
-    HashMap<String,ArrayList<TiposPlatModel>> tipos;
+    HashMap<String,ArrayList<ExtrasModel>> tipos;
 
 
-    public ExTypeAdapter(Context ctx, List<String> grupos, HashMap<String,ArrayList<TiposPlatModel>> type){
+    public ExExtraAdapter(Context ctx, List<String> grupos, HashMap<String,ArrayList<ExtrasModel>> type){
         this.context = ctx;
         this.tipos = type;
         this.grupos=grupos;
@@ -45,7 +45,7 @@ public class ExTypeAdapter extends BaseExpandableListAdapter {
 
     @Override
     public Object getChild(int groupPosition, int childPosition) {
-        return this.tipos.get(this.grupos.get(groupPosition)).get(childPosition).getDescripcion();
+        return this.tipos.get(this.grupos.get(groupPosition)).get(childPosition).getNombre();
     }
 
     public Object getChildPrice(int groupPosition, int childPosition) {
@@ -85,18 +85,18 @@ public class ExTypeAdapter extends BaseExpandableListAdapter {
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
 
-            String child = (String) getChild(groupPosition, childPosition);
-            Log.d("EXTYPEADAPTER", "Nom tipo=>" + child);
-            float price = (float) getChildPrice(groupPosition, childPosition);
-            Log.d("EXTYPEADAPTER", "$$$ tipo=>" + price);
-            if (convertView == null) {
-                LayoutInflater layoutInflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                convertView = layoutInflater.inflate(R.layout.list_tipo, null);
-            }
-            TextView tipo = convertView.findViewById(R.id.child_tipo);
-            tipo.setText(child);
-            TextView precio = convertView.findViewById(R.id.child_precio);
-            precio.setText("$" + price);
+        String child = (String) getChild(groupPosition, childPosition);
+        Log.d("EXEXTRAADAPTER", "Nom extra=>" + child);
+        float price = (float) getChildPrice(groupPosition, childPosition);
+        Log.d("EXEXTRAADAPTER", "$$$ tipo=>" + price);
+        if (convertView == null) {
+            LayoutInflater layoutInflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            convertView = layoutInflater.inflate(R.layout.list_tipo, null);
+        }
+        TextView tipo = convertView.findViewById(R.id.child_tipo);
+        tipo.setText(child);
+        TextView precio = convertView.findViewById(R.id.child_precio);
+        precio.setText("$" + price);
 
         return convertView;
     }

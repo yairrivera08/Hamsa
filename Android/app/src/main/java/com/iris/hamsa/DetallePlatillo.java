@@ -26,11 +26,15 @@ public class DetallePlatillo extends AppCompatActivity {
     private ImageView imagen;
     private FirebaseManager fbm;
     private ExpandableListView exTipo;
-    private ExpandableListView exCombo;
+    private ExpandableListView exExtra;
     private ArrayList<TiposPlatModel> tipos = new ArrayList<TiposPlatModel>();
-    List<String> listGroup;
+    private ArrayList<ExtrasModel> extras = new ArrayList<ExtrasModel>();
+    List<String> listGroup,listGroupD;
+
     HashMap<String,ArrayList<TiposPlatModel>> listItem;
+    HashMap<String,ArrayList<ExtrasModel>> listItemExtra;
     private ExTypeAdapter exTiposAdapter;
+    private ExExtraAdapter exExtrasAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +49,8 @@ public class DetallePlatillo extends AppCompatActivity {
         categoria = (TextView) findViewById(R.id.CategoriaPlatillo);
         imagen = (ImageView) findViewById(R.id.imagenPlatillo);
         exTipo = (ExpandableListView) findViewById(R.id.ListaOpciones);
-        exCombo = (ExpandableListView) findViewById(R.id.ListaCombos);
+        exExtra = (ExpandableListView) findViewById(R.id.ListaExtras);
+
 
         PlatillosModel platillo = (PlatillosModel) getIntent().getSerializableExtra("Platillo");
 
@@ -59,24 +64,26 @@ public class DetallePlatillo extends AppCompatActivity {
         descripcion.setText(platillo.getDescripcion());
         categoria.setText(platillo.getCategoria());
 
-        if(platillo.isCombo()){
-            exCombo.setVisibility(View.GONE);
-        }else{
-            //TODO: Handle combo
-        }
 
-        if(platillo.getTipos().isEmpty()){
-            //TODO: Handle no hay tipos
-        }else{
-
-            tipos = platillo.getTipos();
+        if(!platillo.getTipos().isEmpty()){
             listGroup= new ArrayList<>();
             listGroup.add("Elija un tipo(tamaño)");
+            tipos = platillo.getTipos();
             listItem = new HashMap<>();
             listItem.put(listGroup.get(0),tipos);
             exTiposAdapter = new ExTypeAdapter(this,listGroup,listItem);
             exTipo.setAdapter(exTiposAdapter);
             exTiposAdapter.notifyDataSetChanged();
+        }
+        if(!platillo.getExtras().isEmpty()){
+            listGroupD= new ArrayList<>();
+            listGroupD.add("Elija un extra (Opcional)");
+            extras = platillo.getExtras();
+            listItemExtra = new HashMap<>();
+            listItemExtra.put(listGroupD.get(0),extras);
+            exExtrasAdapter = new ExExtraAdapter(this,listGroupD,listItemExtra);
+            exExtra.setAdapter(exExtrasAdapter);
+            exExtrasAdapter.notifyDataSetChanged();
         }
     }
 
