@@ -92,101 +92,127 @@
                 // An error happened.
             });
         }
+        var usuarios = [];
+        var yaTraidos;
 
-        
-
-        db.collection("Carrito").onSnapshot(function(querySnapshot) {
-            var items = "";
-            querySnapshot.forEach(function(doc) {
-                
-                items+='<div class="col-md-3 col-sm-5 col-xs-12">';
-                items+='    <article class="material-card Green">';
-                items+='        <h2>';
-                items+='            <span>'+doc.data().Nombre+' ('+doc.data().Cantidad+')</span>';
-                items+='            <strong>';
-                items+='                <i class="fa fa-fw fa-star"></i>';
-                items+='                Para llevar';
-                items+='            </strong>';
-                items+='        </h2>';
-                items+='        <div class="mc-content">';
-                items+='           <div class="img-container">';
-                items+='                <img class="img-fluid" src="img/prueba.png" style="background-size: cover;">';
-                items+='            </div>';
-                items+='            <div class="mc-description">';
-                items+='                PERSONALIZACION:';
-                items+='               <ul style="list-style-type:square; margin-left: 40px;">';
-                if(doc.data().Ex1!="NA"){
-                    items+='                    <li>'+doc.data().Ex1+'</li>';
-                }else{
-                    items+='                    <li>Sin extras</li>';
-                }
-                if(doc.data().Ex2!="NA"){
-                    items+='                    <li>'+doc.data().Ex2+'</li>';
-                }
-                if(doc.data().Ex3!="NA"){
-                    items+='                    <li>'+doc.data().Ex3+'</li>';
-                }
-                if(doc.data().Ex4!="NA"){
-                    items+='                    <li>'+doc.data().Ex4+'</li>';
-                }
-                if(doc.data().Comentario!="NA"){
-                    items+='                    <li>'+doc.data().Comentario+'</li>';
-                }
-                items+='                </ul>';
-                items+='            </div>';
-                items+='        </div>';
-                items+='       <a class="mc-btn-action">';
-                items+='            <i class="fa fa-bars"></i>';
-                items+='        </a>';
-                items+='        <div class="mc-footer">';
-                items+='           <h4>';
-                items+='                Opciones';
-                items+='            </h4>';
-                items+='            <a class="mc-btn-action" alt="Entregar">';
-                items+='                <i class="fas fa-flag-checkered" style="color:white"></i>';
-                items+='            </a>';
-                items+='            <a class="mc-btn-action" alt="Cancelar">';
-                items+='                <i class="fas fa-undo" style="color:white;margin-bottom:10px;"></i>';
-                items+='            </a>';
-                items+='        </div>';
-                items+='    </article>';
-                items+='</div>';
-
-                
-
-
-            });
-            
-            document.getElementById("cocinita").innerHTML = items;
-            var snd = new Audio("alarm.wav");
-                snd.play();
-            $(function() {
-                $('.material-card > .mc-btn-action').click(function () {
-                    var card = $(this).parent('.material-card');
-                    var icon = $(this).children('i');
-                    icon.addClass('fa-spin-fast');
-            
-                    if (card.hasClass('mc-active')) {
-                        card.removeClass('mc-active');
-            
-                        window.setTimeout(function() {
-                            icon
-                                .removeClass('fa-arrow-left')
-                                .removeClass('fa-spin-fast')
-                                .addClass('fa-bars');
-            
-                        }, 800);
-                    } else {
-                        card.addClass('mc-active');
-            
-                        window.setTimeout(function() {
-                            icon
-                                .removeClass('fa-bars')
-                                .removeClass('fa-spin-fast')
-                                .addClass('fa-arrow-left');
-            
-                        }, 800);
-                    }
+        db.collection("Usuario")
+            .get()
+            .then(function(querySnapshot) {
+                querySnapshot.forEach(function(doc) {
+                    usuarios.push(doc.id);
                 });
+            }).then(function(){
+                //console.log("Lista de usuarios extraida: "+usuarios);
+                document.getElementById("cocinita").innerHTML = "";
+            })
+            .catch(function(error) {
+                console.log("Error getting documents: ", error);
+            }).then(function(){
+                    yaTraidos = document.getElementById("cocinita").innerHTML;
+                    usuarios.forEach(usuario => traepedidos(usuario));
             });
-        });
+
+            function traepedidos(userId){
+                
+                db.collection("Carrito").doc(userId).collection("Proceso").onSnapshot(function(querySnapshot) {
+                    var items = "";
+                    //console.log("En carrito:");
+                    querySnapshot.forEach(function(doc) {
+                        
+                        //console.log("datos del doc"+doc.data());
+                        items+='<div class="col-md-3 col-sm-5 col-xs-12">';
+                        items+='    <article class="material-card Green">';
+                        items+='        <h2>';
+                        items+='            <span>'+doc.data().Nombre+' ('+doc.data().Cantidad+')</span>';
+                        items+='            <strong>';
+                        items+='                <i class="fa fa-fw fa-star"></i>';
+                        items+='                Para llevar';
+                        items+='            </strong>';
+                        items+='        </h2>';
+                        items+='        <div class="mc-content">';
+                        items+='           <div class="img-container">';
+                        items+='                <img class="img-fluid" src="img/prueba.png" style="background-size: cover;">';
+                        items+='            </div>';
+                        items+='            <div class="mc-description">';
+                        items+='                PERSONALIZACION:';
+                        items+='               <ul style="list-style-type:square; margin-left: 40px;">';
+                        if(doc.data().Ex1!="NA"){
+                            items+='                    <li>'+doc.data().Ex1+'</li>';
+                        }else{
+                            items+='                    <li>Sin extras</li>';
+                        }
+                        if(doc.data().Ex2!="NA"){
+                            items+='                    <li>'+doc.data().Ex2+'</li>';
+                        }
+                        if(doc.data().Ex3!="NA"){
+                            items+='                    <li>'+doc.data().Ex3+'</li>';
+                        }
+                        if(doc.data().Ex4!="NA"){
+                            items+='                    <li>'+doc.data().Ex4+'</li>';
+                        }
+                        if(doc.data().Comentario!="NA"){
+                            items+='                    <li>'+doc.data().Comentario+'</li>';
+                        }
+                        items+='                </ul>';
+                        items+='            </div>';
+                        items+='        </div>';
+                        items+='       <a class="mc-btn-action">';
+                        items+='            <i class="fa fa-bars"></i>';
+                        items+='        </a>';
+                        items+='        <div class="mc-footer">';
+                        items+='           <h4>';
+                        items+='                Opciones';
+                        items+='            </h4>';
+                        items+='            <a class="mc-btn-action" alt="Entregar">';
+                        items+='                <i class="fas fa-flag-checkered" style="color:white"></i>';
+                        items+='            </a>';
+                        items+='            <a class="mc-btn-action" alt="Cancelar">';
+                        items+='                <i class="fas fa-undo" style="color:white;margin-bottom:10px;"></i>';
+                        items+='            </a>';
+                        items+='        </div>';
+                        items+='    </article>';
+                        items+='</div>';
+        
+                        
+        
+        
+                    });
+                    if(items != ""){
+                        document.getElementById("cocinita").innerHTML = yaTraidos+"<br>"+items;
+                        
+                        //console.log("Pedidos del usuario: "+userId+" Contenido: "+items);
+                    }
+                    
+                    var snd = new Audio("alarm.wav");
+                        snd.play();
+                    $(function() {
+                        $('.material-card > .mc-btn-action').click(function () {
+                            var card = $(this).parent('.material-card');
+                            var icon = $(this).children('i');
+                            icon.addClass('fa-spin-fast');
+                    
+                            if (card.hasClass('mc-active')) {
+                                card.removeClass('mc-active');
+                    
+                                window.setTimeout(function() {
+                                    icon
+                                        .removeClass('fa-arrow-left')
+                                        .removeClass('fa-spin-fast')
+                                        .addClass('fa-bars');
+                    
+                                }, 800);
+                            } else {
+                                card.addClass('mc-active');
+                    
+                                window.setTimeout(function() {
+                                    icon
+                                        .removeClass('fa-bars')
+                                        .removeClass('fa-spin-fast')
+                                        .addClass('fa-arrow-left');
+                    
+                                }, 800);
+                            }
+                        });
+                    });
+                });
+            }

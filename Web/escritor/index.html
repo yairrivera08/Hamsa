@@ -154,7 +154,7 @@
                 <div class="card background">
                     <div class="card-body suctxt">
                         <h5 class="card-title" id="nombreEscuela">IPN-ESCOM (Escuela Superior de C&oacute;mputo)</h5>
-                        <p class="card-text" id="direccionEscuela">Av. Juan de Dios Bátiz S/N, Nueva Industrial Vallejo, 07738 Ciudad de México, CDMX. &nbsp;|&nbsp; <a href="" data-target="#sucmodal" id="sucursaldataT" data-toggle="modal">M&aacute;s informaci&oacute;n</a></p>
+                        <p class="card-text" id="direccionEscuela">Av. Juan de Dios Bátiz S/N, Nueva Industrial Vallejo, 07738 Ciudad de México, CDMX. &nbsp;|&nbsp; </p>
                     </div>
                 </div>
             </div>
@@ -289,9 +289,37 @@
                                 <li id="juevesLi">Jueves <span  id="juevesSpan">7:00-20:30</span></li>
                                 <li id="viernesLi">Viernes <span  id="viernesSpan">7:00-20:30</span></li>
                                 <li id="sabadoLi">Sabado <span  id="sabadoSpan">7:00-20:30</span></li>
-                            </ul>
+                            </ul><br>
+                            <button type="button" class="btn btn-success pull-right" data-dismiss="modal" onclick="guardarHorario()">Guardar Horario!</button>
                         </div>
-                        <button type="button" class="btn btn-success pull-right" data-dismiss="modal" onclick="guardarHorario()">Guardar!</button>
+                        <hr class="solid">
+                        <div class="container">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">Editar Categorias:</div>
+                                <div class="panel-body">
+                                    <div id="editaCategoriasGeneradas"></div>
+                                    <div id="editaCategoriasNueva">
+                                        <table>
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        Nueva Categoria:
+                                                        <input type="text" id="editaCategoriasNuevaTXT" minlength="4" maxlength="20" size="10">
+                                                    </td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-success pull-right" data-dismiss="modal" onclick="guardarCategorias()">Agregar Categorias!</button>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
                     </div>
                 </div>
             </div>

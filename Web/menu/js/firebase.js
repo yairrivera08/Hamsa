@@ -62,37 +62,37 @@
                         horario = escuela.data().Horario;
                         ubicacion = escuela.data().Ubicacion;
                         categorias = escuela.data().Categorias;
-                        if(horario.Domingo[0]){
+                        if(horario.Domingo[0] == "true"){
                             domingoSpan +=""+horario.Domingo[1]+" - "+horario.Domingo[2];
                         }else{
                             domingoSpan +="Cerrado";
                         }
-                        if(horario.Sabado[0]){
+                        if(horario.Sabado[0] == "true"){
                             sabadoSpan +=""+horario.Sabado[1]+" - "+horario.Sabado[2];
                         }else{
                             sabadoSpan +="Cerrado";
                         }
-                        if(horario.Lunes[0]){
+                        if(horario.Lunes[0] == "true"){
                             lunesSpan +=""+horario.Lunes[1]+" - "+horario.Lunes[2];
                         }else{
                             lunesSpan +="Cerrado";
                         }
-                        if(horario.Martes[0]){
+                        if(horario.Martes[0] == "true"){
                             martesSpan +=""+horario.Martes[1]+" - "+horario.Martes[2];
                         }else{
                             martesSpan +="Cerrado";
                         }
-                        if(horario.Miercoles[0]){
+                        if(horario.Miercoles[0] == "true"){
                             miercolesSpan +=""+horario.Miercoles[1]+" - "+horario.Miercoles[2];
                         }else{
                             miercolesSpan +="Cerrado";
                         }
-                        if(horario.Jueves[0]){
+                        if(horario.Jueves[0] == "true"){
                             juevesSpan +=""+horario.Jueves[1]+" - "+horario.Jueves[2];
                         }else{
                             juevesSpan +="Cerrado";
                         }
-                        if(horario.Viernes[0]){
+                        if(horario.Viernes[0] == "true"){
                             viernesSpan +=""+horario.Viernes[1]+" - "+horario.Viernes[2];
                         }else{
                             viernesSpan +="Cerrado";
@@ -859,6 +859,7 @@
             scrollToTop();
             var ids = [];
             var urlid = [];
+            var cantidadTotal = 0;
             doccomida.then(function(alimentos) {
                 var favoritos = "",
                 favoritosmodal = "";
@@ -869,6 +870,7 @@
                 var disponible = false;
                 disponible = doc.data().Disponible;
                 if( (doc.data().Categoria == categoria || (categoria == "Favoritos" ) || (categoria == "Todo")) && disponible){
+                    cantidadTotal++;
                 var contenido = "";
                 var contenidomodal = "";
                 var banderas = "";
@@ -1140,8 +1142,11 @@
                 }
                 });
                 
-    
-    
+                
+                if(cantidadTotal<=0){
+                    document.getElementById("Alimentos").innerHTML = "<h5>Sin Alimentos en esta categoria</h5>";
+                    document.getElementById("AlimentosModal").innerHTML = "";
+                }else{
                 document.getElementById("Alimentos").innerHTML = favoritos;
                 document.getElementById("AlimentosModal").innerHTML = favoritosmodal;
 
@@ -1172,6 +1177,7 @@
                 i++;  
                 }
                   );
+            }
     
             });
         }
@@ -1634,6 +1640,8 @@
             var idproc = [];
             var holamundo = firebase.functions().httpsCallable('pago');
             var preciotot=0;
+            var Numerin = 0;
+            var Fecha = "";
             
             db.collection("Carrito").doc(userId).collection("Comida").get().then(function(alimentos) {
                 alimentos.forEach(function (doc) {
@@ -1671,16 +1679,28 @@
                 });
 
             }).then(function(){
-                var Numerin = 0;
+                
                 db.collection("Numeros").doc("Numero").get().then(function(numeroact){
                     Numerin = numeroact.data().n;
+                    Fecha = numeroact.data().Fecha;
+                    var sucursal = "01";
+                    var f = new Date();
+                    var Fechacatual = f.getDate() + "-"+ (f.getMonth()+1)+ "-" +f.getFullYear();
+                    if(Fecha != Fechacatual){
+                        Numerin = 0;
+                        Fecha = Fechacatual;
+                    }else{
+                        Numerin++;
+                    }
+
+                    var ordenid = "01"+f.getDate()+""+(f.getMonth()+1)+""+f.getFullYear()+""+Numerin;
                     
                     var orderData = {
                         Fecha: new Date(new Date().toString().split('GMT')[0]+' UTC').toISOString().split('.')[0].replace('T',' '),
                         Precio: preciotot,
                         Estado: "Procesando",
                         ids:idproc,
-                        Num: Numerin
+                        Num: parseInt(ordenid, 10)
                     }; 
     
                     var Ordeness = [orderData];
@@ -1703,7 +1723,8 @@
 
                 }).then(function(){
                     db.collection("Numeros").doc("Numero").update({
-                        n: firebase.firestore.FieldValue.increment(1)
+                        n: Numerin,
+                        Fecha: Fecha
                     });
 
                 });
