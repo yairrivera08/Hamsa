@@ -1,12 +1,21 @@
 package com.iris.hamsa;
 
+import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.firebase.auth.FirebaseUser;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -59,6 +68,30 @@ public class FragPerfil extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_frag_perfil, container, false);
+        View view = inflater.inflate(R.layout.fragment_frag_perfil, container, false);
+        Context ctx = getActivity().getApplicationContext();
+        // Configure sign-in to request the user's ID, email address, and basic
+        // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+
+        // Build a GoogleSignInClient with the options specified by gso.
+        GoogleSignInClient mGoogleSignInClient = GoogleSignIn.getClient(ctx, gso);
+
+        // Check for existing Google Sign In account, if the user is already signed in
+        // the GoogleSignInAccount will be non-null.
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(ctx);
+        updateUI(account);
+
+        return view;
+    }
+    private void updateUI(@Nullable GoogleSignInAccount user) {
+        if (user != null) {
+            //Definir valores del usuario
+            Log.d("UPDATEUI","Nombre:"+user.getDisplayName()+"// Correo:"+user.getEmail()+"// UID:"+user.getId());
+        } else {
+            //Cambiar estado de login para habilitar inicio de sesion
+        }
     }
 }
