@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="10dp"
-    android:background="@android:color/holo_blue_dark">
+    android:background="?colorSecondary">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,7 +19,8 @@
             android:layout_height="50dp"
             android:paddingLeft="30dp"
             android:textSize="20sp"
-            tools:text="Nombre Tipo" />
+            tools:text="Nombre Tipo"
+            android:textColor="?colorOnSecondary"/>
 
         <TextView
             android:id="@+id/child_precio"
@@ -27,7 +28,8 @@
             android:layout_height="50dp"
             android:paddingLeft="30dp"
             android:textSize="15sp"
-            android:text="Precio Tipo" />
+            android:text="Precio Tipo"
+            android:textColor="?colorOnSecondary"/>
     </LinearLayout>
 
 
