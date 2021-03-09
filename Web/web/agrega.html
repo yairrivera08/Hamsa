@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="es">
+	<head>
+	<!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+   	<!-- The core Firebase JS SDK is always required and must be listed first -->
+	<script src="https://www.gstatic.com/firebasejs/6.1.0/firebase-app.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/6.1.0/firebase-auth.js"></script>
+	<script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
+	<link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
+
+	<script src="https://www.gstatic.com/firebasejs/6.1.0/firebase-firestore.js"></script>
+<script>
+  // Your web app's Firebase configuration
+  const firebaseConfig = {
+  apiKey: "AIzaSyA6yM1nDx48oB0p7Xm0ydLW7lgc9OpcaFE",
+  authDomain: "textualmovil.firebaseapp.com",
+  databaseURL: "https://textualmovil.firebaseio.com",
+  projectId: "textualmovil",
+  storageBucket: "textualmovil.appspot.com",
+  messagingSenderId: "279546994973",
+  appId: "1:279546994973:web:faf790b93bd325ea"
+};  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+
+var userId;
+firebase.auth().onAuthStateChanged(function(user) {
+  if (user) {
+    // User is signed in.
+    var displayName = user.displayName;
+    var email = user.email;
+    var emailVerified = user.emailVerified;
+    var photoURL = user.photoURL;
+    var isAnonymous = user.isAnonymous;
+    var uid = user.uid;
+	userId = user.uid;
+    var providerData = user.providerData;
+    // ...
+  } else {
+	
+    // User is signed out.
+    // ...
+  }
+});
+
+function agrega(){
+
+var docData = {
+    Calorias: document.getElementById("Calorias").value,
+	CampoRojo: document.getElementById("CampoRojo").value,
+	Categoria: document.getElementById("Categoria").value,
+	Descripcion: document.getElementById("Descripcion").value,
+	DescripcionCompleto: document.getElementById("DescripcionCompleto").value,
+    Disponible: true,
+	EspecificaCompleto: document.getElementById("EspecificaCompleto").value,
+	Nombre: document.getElementById("Nombre").value,
+	NombreCompleto: document.getElementById("NombreCompleto").value,
+	NombreSencillo: document.getElementById("NombreSencillo").value,
+    PrecioSencillo: document.getElementById("PrecioSencillo").value,
+	PrecioCompleto: document.getElementById("PrecioCompleto").value,
+};
+var db = firebase.firestore();
+
+db.collection("Alimentos").doc().set(docData).then(function() {
+    console.log("Document successfully written!");
+});
+
+}
+
+
+
+
+</script>
+	
+	
+	<!--FIN IMPORTS-->
+
+		<title>TEXTUAL CAFETERIA</title>
+	</head>
+	<body>
+<h1 id="nombre">Agrega Productos Alimenticios</h1>
+<form>  
+Calorias:<input type="text" id="Calorias"/><br/><br/>
+CampoRojo:<input type="text" id="CampoRojo"/><br/>  <br/>
+Categoria:<input type="text" id="Categoria"/><br/>  <br/>
+Descripcion:<input type="text" id="Descripcion"/><br/>  <br/>
+DescripcionCompleto:<input type="text" id="DescripcionCompleto"/><br/>  <br/>
+EspecificaCompleto:<input type="text" id="EspecificaCompleto"/><br/> <br/> 
+Nombre:<input type="text" id="Nombre"/><br/>  <br/>
+NombreCompleto:<input type="text" id="NombreCompleto"/><br/>  <br/>
+NombreSencillo:<input type="text" id="NombreSencillo"/><br/>  <br/>
+PrecioSencillo:<input type="number" id="PrecioSencillo"/><br/>  <br/>
+PrecioCompleto:<input type="number" id="PrecioCompleto"/><br/> <br/><br/> 
+
+<input type="button" value="Agregar contenido" onclick="agrega()"/>  
+	</form>
+	</body>
+</html>

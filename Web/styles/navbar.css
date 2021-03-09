@@ -1,0 +1,35 @@
+@import url("//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
+
+/* This is to float the social incons to the right */
+
+.collapse-social-icons {
+    position: relative;
+    float: right;
+    margin-right: 10px;
+}
+
+
+/* This is to add the same hover-effect as the other menu items */
+
+.collapse-social-icons a:hover {
+    background-color: #000000 !important;
+    color: #ffffff !important;
+}
+
+
+/* This is to hide the "new" set of icons on big screens */
+
+@media only screen and (min-width: 767px) {
+    .collapse-social-icons {
+        display: none !important;
+    }
+}
+
+
+/* This is to hide the "old" set of icons on small screens */
+
+@media only screen and (max-width: 767px) {
+    .collapse-social-icons-dropdown {
+        display: none !important;
+    }
+}

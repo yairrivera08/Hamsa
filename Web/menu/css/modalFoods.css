@@ -1,0 +1,138 @@
+.modal .modal-content {
+    overflow: hidden;
+	display: grid;
+}
+
+.modal.show {
+    
+    justify-content: center;
+  }
+
+  .modal2.show {
+    display: flex !important;
+    justify-content: center;
+  }
+
+  .modal-dialog {
+    align-self: center;
+    overflow-y: auto;
+    max-width : 100% ;
+    display: table;
+  }
+
+  .modal-dialog2 {
+    align-self: center;
+    overflow-y: auto;
+    max-width : 80% ;
+    display: table;
+  }
+
+  
+
+.modal-body {
+    height: 300px;
+    overflow-y: auto;
+    position: relative;
+    display: table; /* This is important */ 
+    overflow-y: auto;    
+    overflow-x: auto;
+    width: auto;
+    min-width: 300px;   
+}
+
+.custom-control {}
+
+.custom-radio {}
+
+.custom-control-inline {}
+
+.custom-control-input {
+    float: left;
+    width: 20%;
+    text-align: left;
+}
+
+.custom-control-label {
+    float: left;
+    width: 50%;
+    text-align: left;
+}
+
+.opcobgprc {
+    float: right;
+    width: 30%;
+    text-align: right;
+}
+
+.opcobgdesc {
+    text-align: left;
+}
+
+input[type="radio"] {
+    margin-right: 5rem;
+}
+
+.cmbrow,
+.fijrow,
+.xtrrow {
+    margin-left: 7px;
+}
+
+textarea {
+    resize: none;
+}
+
+.clswrp {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    height: 30px;
+    width: 30px;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border-width: 1px;
+    border-top-width: 1px;
+    border-right-width: 1px;
+    border-bottom-width: 1px;
+    border-left-width: 1px;
+    border-style: solid;
+    border-top-style: solid;
+    border-right-style: solid;
+    border-bottom-style: solid;
+    border-left-style: solid;
+    border-color: rgb(245, 245, 245);
+    border-top-color: rgb(245, 245, 245);
+    border-right-color: rgb(245, 245, 245);
+    border-bottom-color: rgb(245, 245, 245);
+    border-left-color: rgb(245, 245, 245);
+    border-image: initial;
+    border-image-source: initial;
+    border-image-slice: initial;
+    border-image-width: initial;
+    border-image-outset: initial;
+    border-image-repeat: initial;
+    border-radius: 50%;
+    border-top-left-radius: 50%;
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+    border-bottom-left-radius: 50%;
+    box-sizing: border-box;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 8px, rgba(0, 0, 0, 0.04) 0px 4px 4px;
+    background: #FF2434;
+    z-index: 1;
+}
+
+.cls,
+.close {
+    width: 18px;
+    height: 18px;
+    line-height: 1;
+    color: #fff;
+}
+
+.card-text a {
+    color: #ffdd00;
+    text-shadow: 2px 2px #000;
+    text-decoration: underline;
+}

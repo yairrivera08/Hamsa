@@ -1,0 +1,310 @@
+.alimentoscd {
+    padding: 5px;
+    margin: 7px;
+    max-width: 100%;
+    height: auto;
+}
+
+.container-fluid {
+    padding-right: 0;
+    padding-left: 0;
+    margin-right: auto;
+    margin-left: auto
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    overflow-x: hidden;
+}
+
+body {
+    background: #63C087;
+    /*#56c596*/
+    /*background: rgba(86, 197, 150, 1);
+    background: -moz-linear-gradient(top, rgba(86, 197, 150, 1) 0%, rgba(98, 125, 77, 1) 100%);
+    background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(86, 197, 150, 1)), color-stop(100%, rgba(98, 125, 77, 1)));
+    background: -webkit-linear-gradient(top, rgba(86, 197, 150, 1) 0%, rgba(98, 125, 77, 1) 100%);
+    background: -o-linear-gradient(top, rgba(86, 197, 150, 1) 0%, rgba(98, 125, 77, 1) 100%);
+    background: -ms-linear-gradient(top, rgba(86, 197, 150, 1) 0%, rgba(98, 125, 77, 1) 100%);
+    background: linear-gradient(to bottom, rgba(86, 197, 150, 1) 0%, rgba(98, 125, 77, 1) 100%);
+    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#56c596', endColorstr='#627d4d', GradientType=0);*/
+    height: 100%;
+    margin: 0;
+    /*background-repeat: no-repeat;*/
+    background-attachment: fixed;
+    background-image: url("../img/ICONOS3.png");
+    background-repeat: repeat;
+    background-size: 300px 396px;
+    min-width: 250px;
+}
+
+.foods {
+    margin: 12px;
+}
+
+.horac>li {
+    background-color: #56c596;
+    color: #fff;
+    font-weight: bold;
+}
+
+.background {
+    background: rgba(255, 255, 255, .0);
+    border: none;
+}
+
+.suctxt {
+    color: #FFF;
+    text-shadow: 2px 2px #000;
+}
+
+.container {
+    padding: 2rem 0rem;
+}
+
+.table-image {
+    thead {
+        td,
+        th {
+            border: 0;
+            color: #666;
+            font-size: 0.8rem;
+        }
+    }
+    td,
+    th {
+        vertical-align: middle;
+        text-align: center;
+        &.qty {
+            max-width: 1rem;
+        }
+    }
+}
+
+.price {
+    margin-left: 1rem;
+}
+
+.modal-footer {
+    padding-top: 0rem;
+}
+
+.fixed-button {
+    background-color: #FF2434;
+    color: #FFFFFF;
+    border: none;
+    outline: none;
+    position: fixed;
+    bottom: 0px;
+    right: 15px;
+    height: 50px;
+    width: 50px;
+    margin-bottom: 75px;
+    border-radius: 30px;
+    box-shadow: 1px 3px 5px #888888;
+}
+
+.btn-danger {
+    background-color: #FF2434;
+}
+
+.btn-success {
+    background: #56c596;
+}
+
+@keyframes wobble {
+    16.65% {
+        -webkit-transform: translateY(8px);
+        -ms-transform: translateY(8px);
+        transform: translateY(8px);
+    }
+    33.3% {
+        -webkit-transform: translateY(-6px);
+        -ms-transform: translateY(-6px);
+        transform: translateY(-6px);
+    }
+    49.95% {
+        -webkit-transform: translateY(4px);
+        -ms-transform: translateY(4px);
+        transform: translateY(4px);
+    }
+    66.6% {
+        -webkit-transform: translateY(-2px);
+        -ms-transform: translateY(-2px);
+        transform: translateY(-2px);
+    }
+    83.25% {
+        -webkit-transform: translateY(1px);
+        -ms-transform: translateY(1px);
+        transform: translateY(1px);
+    }
+    100% {
+        -webkit-transform: translateY(0);
+        -ms-transform: translateY(0);
+        transform: translateY(0);
+    }
+}
+
+.wobble {
+    -webkit-animation-name: wobble;
+    animation-name: wobble;
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-timing-function: ease-in-out;
+    animation-timing-function: ease-in-out;
+    -webkit-animation-iteration-count: 1;
+    animation-iteration-count: 1;
+}
+
+.cerron {
+    background-color: #ffdd00;
+    border-color: #ffdd00;
+    padding: 7px;
+}
+
+.editon {
+    background-color: #02c4c4;
+    border-color: #02c4c4;
+    padding: 7px;
+}
+
+.li-current .prim,
+.prim {
+    border-color: #fff;
+    background-color: #fff;
+    color: #5ca3e0;
+    font-weight: bold;
+}
+
+.li-current .warn,
+.warn {
+    border-color: #56c596 !important;
+    background-color: #56c596 !important;
+    color: #fff;
+    font-weight: bold;
+}
+
+.li-current .orang,
+.orang {
+    border-color: #f07a13 !important;
+    background-color: #f07a13 !important;
+    color: #fff;
+    font-weight: bold;
+}
+
+.li-current .inf,
+.inf {
+    border-color: #0b76d4 !important;
+    background-color: #0b76d4 !important;
+    color: #fff;
+    font-weight: bold;
+}
+
+.li-current .dang,
+.dang {
+    border-color: #FF2434 !important;
+    background-color: #FF2434 !important;
+    color: #fff;
+    font-weight: bold;
+}
+
+
+/*.nav.nav-tabs {
+    float: left;
+    display: block;
+    margin-right: 20px;
+    border-bottom: 0;
+    border-right: 1px solid #ddd;
+    padding-right: 15px;
+}*/
+
+.tab-content .prim {
+    border-color: #fff;
+    border-width: 5px !important;
+    background-color: #fff;
+    color: #5ca3e0;
+    font-weight: bold;
+}
+
+.tab-content .warn {
+    border-color: #56c596 !important;
+    border-width: 5px !important;
+    background-color: #fff !important;
+    color: #56c596 !important;
+    font-weight: bold;
+}
+
+.tab-content .orang {
+    border-color: #f07a13 !important;
+    border-width: 5px !important;
+    background-color: #fff !important;
+    color: #f07a13 !important;
+    font-weight: bold;
+}
+
+.tab-content .inf {
+    border-color: #0b76d4 !important;
+    border-width: 5px !important;
+    background-color: #fff !important;
+    color: #0b76d4 !important;
+    font-weight: bold;
+}
+
+.tab-content .dang {
+    border-color: #FF2434 !important;
+    border-width: 5px !important;
+    background-color: #fff !important;
+    color: #FF2434 !important;
+    font-weight: bold;
+}
+
+.usdat {
+    background-color: #5ca3e0;
+}
+
+#myBtn {
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    /* Fixed/sticky position */
+    bottom: 20px;
+    /* Place the button at the bottom of the page */
+    right: 30px;
+    /* Place the button 30px from the right */
+    z-index: 99;
+    /* Make sure it does not overlap */
+    border: none;
+    /* Remove borders */
+    outline: none;
+    /* Remove outline */
+    background-color: red;
+    /* Set a background color */
+    color: white;
+    /* Text color */
+    cursor: pointer;
+    /* Add a mouse pointer on hover */
+    padding: 15px;
+    /* Some padding */
+    border-radius: 10px;
+    /* Rounded corners */
+    font-size: 18px;
+    /* Increase font size */
+}
+
+#myBtn:hover {
+    background-color: #555;
+    /* Add a dark-grey background on hover */
+}
+
+.sucursal {
+    margin: 25px;
+}
+
+.tmp {
+    background-image: url(../img/wide.jpeg);
+    background-size: 100% 100%;
+}

@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>TEXTUAL CAFETERIA</title>
+<!-- for-mobile-apps -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta property="og:title" content="Vide" />
+<meta name="keywords" content="Big store Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+function hideURLbar(){ window.scrollTo(0,1); } </script>
+<!-- //for-mobile-apps -->
+<link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
+<!-- Custom Theme files -->
+<link href="css/style.css" rel='stylesheet' type='text/css' />
+<!-- js -->
+   <script src="js/jquery-1.11.1.min.js"></script>
+
+   	<!-- The core Firebase JS SDK is always required and must be listed first -->
+	<script src="https://www.gstatic.com/firebasejs/6.1.0/firebase-app.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/6.1.0/firebase-firestore.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/6.1.0/firebase-auth.js"></script>
+	
+
+	<script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
+	<link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
+
+	
+	
+
+<!-- //js -->
+<!-- start-smoth-scrolling -->
+<script type="text/javascript" src="js/move-top.js"></script>
+<script type="text/javascript" src="js/easing.js"></script>
+<script type="text/javascript">
+	jQuery(document).ready(function($) {
+		$(".scroll").click(function(event){		
+			event.preventDefault();
+			$('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
+		});
+	});
+</script>
+<!-- start-smoth-scrolling -->
+<link href="css/font-awesome.css" rel="stylesheet"> 
+<link href='//fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+<link href='//fonts.googleapis.com/css?family=Noto+Sans:400,700' rel='stylesheet' type='text/css'>
+<!--- start-rate---->
+<script src="js/jstarbox.js"></script>
+	<link rel="stylesheet" href="css/jstarbox.css" type="text/css" media="screen" charset="utf-8" />
+		<script type="text/javascript">
+			
+		</script>
+<!---//End-rate---->
+
+<!---//inicio de firebase---->
+<script>
+  // Your web app's Firebase configuration
+  const firebaseConfig = {
+  apiKey: "AIzaSyA6yM1nDx48oB0p7Xm0ydLW7lgc9OpcaFE",
+  authDomain: "textualmovil.firebaseapp.com",
+  databaseURL: "https://textualmovil.firebaseio.com",
+  projectId: "textualmovil",
+  storageBucket: "textualmovil.appspot.com",
+  messagingSenderId: "279546994973",
+  appId: "1:279546994973:web:faf790b93bd325ea"
+};  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+
+var userId;
+firebase.auth().onAuthStateChanged(function(user) {
+  if (user) {
+    // User is signed in.
+    var displayName = user.displayName;
+//document.getElementById("nombre").innerHTML = "Bienvenido "+  displayName;
+    var email = user.email;
+    var emailVerified = user.emailVerified;
+    var photoURL = user.photoURL;
+    var isAnonymous = user.isAnonymous;
+    var uid = user.uid;
+	userId = user.uid;
+    var providerData = user.providerData;
+    // ...
+  } else {
+	
+    // User is signed out.
+    // ...
+  }
+});
+
+var ui = new firebaseui.auth.AuthUI(firebase.auth());
+
+
+var uiConfig = {
+  callbacks: {
+    signInSuccessWithAuthResult: function(authResult, redirectUrl) {
+      // User successfully signed in.
+      // Return type determines whether we continue the redirect automatically
+      // or whether we leave that to developer to handle.
+      return true;
+    },
+    uiShown: function() {
+      // The widget is rendered.
+      // Hide the loader.
+      document.getElementById('loader').style.display = 'none';
+    }
+  },
+  // Will use popup for IDP Providers sign-in flow instead of the default, redirect.
+  signInFlow: 'popup',
+  signInSuccessUrl: 'index.html',
+  signInOptions: [
+    // Leave the lines as is for the providers you want to offer your users.
+    firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+    //firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+    //firebase.auth.TwitterAuthProvider.PROVIDER_ID,
+    //firebase.auth.GithubAuthProvider.PROVIDER_ID,
+    firebase.auth.EmailAuthProvider.PROVIDER_ID,
+    //firebase.auth.PhoneAuthProvider.PROVIDER_ID
+  ],
+  // Terms of service url.
+  tosUrl: '<your-tos-url>',
+  // Privacy policy url.
+  privacyPolicyUrl: '<your-privacy-policy-url>'
+};
+
+ui.start('#firebaseui-auth-container', uiConfig);
+
+
+
+
+
+function salir(){
+firebase.auth().signOut().then(function() {
+  // Sign-out successful.
+window.location.replace("index.html");
+}).catch(function(error) {
+  // An error happened.
+});
+}
+		</script>
+<!---//End-rate---->
+
+</head>
+<body>	<div id="contenido"></div>
+<!--<a href="offer.html"><img src="images/download.png" class="img-head" alt=""></a>-->
+<div class="header">
+
+		<div class="container">
+			
+			<div class="logo">
+				<h1 ><a href="index.html"> 
+					<h1 id="brand">TEXTUAL</h1>
+					<h5 id="brand2">LONCHER&Iacute;A</h5>
+					<br>
+					</a>
+				</h1>
+			</div>
+			<div class="head-t">
+				<ul class="card">
+					<li><a href="#" ><i class="fa fa-heart" aria-hidden="true"></i>Lista de deseos</a></li>
+					<div id="usuario"><li><a href="login.html" ><i class="fa fa-user" aria-hidden="true"></i>Ingresar</a></li>
+					<li><a href="login.html" ><i class="fa fa-arrow-right" aria-hidden="true"></i>Registrar</a></li></div>
+					<li><a href="#" ><i class="fa fa-file-text-o" aria-hidden="true"></i>Ordenes pasadas</a></li>
+					<li><a href="#" ><i class="fa fa-ship" aria-hidden="true"></i>Donde recoger?</a></li>
+				</ul>	
+			</div>
+			
+			<div class="header-ri">
+				<ul class="social-top">
+					<li><a href="#" class="icon facebook"><i class="fa fa-facebook" aria-hidden="true"></i><span></span></a></li>
+					<li><a href="#" class="icon twitter"><i class="fa fa-twitter" aria-hidden="true"></i><span></span></a></li>
+					<li><a href="#" class="icon pinterest"><i class="fa fa-pinterest-p" aria-hidden="true"></i><span></span></a></li>
+					<li><a href="#" class="icon dribbble"><i class="fa fa-dribbble" aria-hidden="true"></i><span></span></a></li>
+				</ul>	
+			</div>
+		
+
+				<div class="nav-top">
+					<nav class="navbar navbar-default">
+					
+					<div class="navbar-header nav_2">
+						<button type="button" class="navbar-toggle collapsed navbar-toggle1" data-toggle="collapse" data-target="#bs-megadropdown-tabs">
+							<span class="sr-only">Toggle navigation</span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+						
+
+					</div> 
+					<div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
+						<ul class="nav navbar-nav ">
+							<li class=" active"><a href="index.html" class="hyper "><span>Inicio</span></a></li>	
+							
+							<li class="dropdown ">
+								<a href="#" class="dropdown-toggle  hyper" data-toggle="dropdown" ><span>Menu<b class="caret"></b></span></a>
+								<ul class="dropdown-menu multi">
+									<div class="row">
+										<div class="col-sm-3">
+											<ul class="multi-column-dropdown">
+			
+												<li><a href="#"><i class="fa fa-angle-right" aria-hidden="true"></i>Bebidas frias</a></li>
+												<li><a href="#"><i class="fa fa-angle-right" aria-hidden="true"></i>Bebidas calientes</a></li>
+												<li><a href="#"><i class="fa fa-angle-right" aria-hidden="true"></i>Desayunos</a></li>
+												<li><a href="#"><i class="fa fa-angle-right" aria-hidden="true"></i>Barra fria</a></li>
+												<li><a href="#"><i class="fa fa-angle-right" aria-hidden="true"></i>Vegetariano</a></li>
+												<li><a href="#"><i class="fa fa-angle-right" aria-hidden="true"></i>Comidas</a></li>
+												<li><a href="#"><i class="fa fa-angle-right" aria-hidden="true"></i>Tortas</a></li>
+												<li><a href="#"><i class="fa fa-angle-right" aria-hidden="true"></i>Tacos</a></li>
+												<li><a href="#"><i class="fa fa-angle-right" aria-hidden="true"></i>Postres</a></li>
+												
+											</ul>
+										
+										</div>
+										
+										<div class="clearfix"></div>
+									</div>	
+								</ul>
+							</li>
+							
+							
+							<li><a href="#" class="hyper"> <span>Tarjeta Textual</span></a></li>
+							<li><a href="#" class="hyper"><span>Contactanos</span></a></li>
+						</ul>
+					</div>
+					</nav>
+					 <div class="cart" >
+					
+						<span class="fa fa-shopping-cart my-cart-icon"><span class="badge badge-notify my-cart-badge"></span></span>
+					</div>
+					<div class="clearfix"></div>
+				</div>
+					
+				</div>			
+</div>
+  <!---->
+ <!--banner-->
+<div class="banner-top">
+	<div class="container">
+		<h3 >Ingresar/Registrate</h3>
+		<h4><a href="index.html">Inicio</a><label>/</label>Ingresa o registrate</h4>
+		<div class="clearfix"> </div>
+	</div>
+</div>
+<!--login-->
+
+	<div class="login">	
+		<div id="firebaseui-auth-container"></div>
+		<div id="loader">Cargando...</div>
+		</div>
+<!--footer-->
+<!--footer-->
+	<div class="footer">
+		<div class="container">
+			<div class="col-md-3 footer-grid">
+				<h3>About Us</h3>
+				<p>Descripcion pendiente...</p>
+			</div>
+			<div class="col-md-3 footer-grid ">
+				<h3>Menu</h3>
+				<ul>
+					<li><a href="#">Inicio</a></li>
+					<li><a href="#">Bebidas frias</a></li>
+					<li><a href="#">Bebidas calientes</a></li>
+					<li><a href="#">Desayunos</a></li>
+					<li><a href="#">Barra fria</a></li>
+					<li><a href="#">Vegetariano</a></li>
+					<li><a href="#">Comidas</a></li>
+					<li><a href="#">Tortas</a></li>
+					<li><a href="#">Tacos</a></li>
+					<li><a href="#">Postres</a></li>
+
+				</ul>
+			</div>
+			<div class="col-md-3 footer-grid ">
+				<h3>Servicios al consumidor</h3>
+				<ul>
+					<li><a href="#">Terminos y condiciones</a></li>
+					<li><a href="#">Preguntas frecuentes</a></li>
+					<li><a href="#">Contacto</a></li>
+					<li><a href="#">Compra en linea</a></li>						 
+				 
+				</ul>
+			</div>
+			<div class="col-md-3 footer-grid">
+				<h3>Mi cuenta</h3>
+				<ul>
+				<div id="usuario2">
+					<li><a href="login.html">Ingresar</a></li></div>
+
+					<li><a href="#">Lista de deseos</a></li>
+				
+				</ul>
+			</div>
+			<div class="clearfix"></div>
+				<div class="footer-bottom">
+					<h2 ><a href="index.html">
+					<h1 id="brand">TEXTUAL</h1>
+					<h5 id="brand2">LONCHER&Iacute;A</h5>
+					<br>
+					</a></h2>
+					<p class="fo-para">Eres nuestra mejor referencia!</p>
+					<ul class="social-fo">
+						<li><a href="#" class=" face"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+						<li><a href="#" class=" twi"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+						<li><a href="#" class=" pin"><i class="fa fa-pinterest-p" aria-hidden="true"></i></a></li>
+						<li><a href="#" class=" dri"><i class="fa fa-dribbble" aria-hidden="true"></i></a></li>
+					</ul>
+					
+						<div class="col-md-4 fo-grid1">
+								<p><i class="fa fa-phone" aria-hidden="true"></i>+1234 758 839 , +1273 748 730</p>	
+						</div>
+						<div class="col-md-4 fo-grid1">
+							<p><a href="mailto:cafe@textual.com"><i class="fa fa-envelope-o" aria-hidden="true"></i>info@example1.com</a></p>
+						</div>
+						<div class="clearfix"></div>
+					
+						</div>
+				</div>
+			<!---<div class="copy-right">
+				<p> &copy; 2016 Big store. All Rights Reserved | Design by  <a href="http://w3layouts.com/"> W3layouts</a></p>
+			</div>-->
+		</div>
+	</div>
+	<!-- //footer-->
+<!-- //footer-->
+<!-- smooth scrolling -->
+	<script type="text/javascript">
+		$(document).ready(function() {
+		/*
+			var defaults = {
+			containerID: 'toTop', // fading element id
+			containerHoverID: 'toTopHover', // fading element hover id
+			scrollSpeed: 1200,
+			easingType: 'linear' 
+			};
+		*/								
+		$().UItoTop({ easingType: 'easeOutQuart' });
+		});
+	</script>
+	<a href="#" id="toTop" style="display: block;"> <span id="toTopHover" style="opacity: 1;"> </span></a>
+<!-- //smooth scrolling -->
+<!-- for bootstrap working -->
+		<script src="js/bootstrap.js"></script>
+<!-- //for bootstrap working -->
+<script type='text/javascript' src="js/jquery.mycart.js"></script>
+  <script type="text/javascript">
+  $(function () {
+
+    var goToCartIcon = function($addTocartBtn){
+      var $cartIcon = $(".my-cart-icon");
+      var $image = $('<img width="30px" height="30px" src="' + $addTocartBtn.data("image") + '"/>').css({"position": "fixed", "z-index": "999"});
+      $addTocartBtn.prepend($image);
+      var position = $cartIcon.position();
+      $image.animate({
+        top: position.top,
+        left: position.left
+      }, 500 , "linear", function() {
+        $image.remove();
+      });
+    }
+
+    $('.my-cart-btn').myCart({
+      classCartIcon: 'my-cart-icon',
+      classCartBadge: 'my-cart-badge',
+      affixCartIcon: true,
+      checkoutCart: function(products) {
+        $.each(products, function(){
+          console.log(this);
+        });
+      },
+      clickOnAddToCart: function($addTocart){
+        goToCartIcon($addTocart);
+      },
+      getDiscountPrice: function(products) {
+        var total = 0;
+        $.each(products, function(){
+          total += this.quantity * this.price;
+        });
+        return total * 1;
+      }
+    });
+
+  });
+  </script>
+
+</body>
+</html>
