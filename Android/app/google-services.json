@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "279546994973",
+    "firebase_url": "https://textualmovil.firebaseio.com",
+    "project_id": "textualmovil",
+    "storage_bucket": "textualmovil.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:279546994973:android:d134b80ff442bbc03e41f4",
+        "android_client_info": {
+          "package_name": "com.iris.hamsa"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "279546994973-8fh8sacc301lu73aibtql1r1vos8a6v1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAeK8mnMJWF67K5ySpnZCwu9m9ez5yH6Ko"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "279546994973-8fh8sacc301lu73aibtql1r1vos8a6v1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
