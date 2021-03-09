@@ -6,7 +6,7 @@ import android.os.Bundle
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
 
-
+        Thread.sleep(10000)
         setTheme(R.style.AppTheme);
 
         super.onCreate(savedInstanceState)
