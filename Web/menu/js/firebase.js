@@ -98,8 +98,11 @@
                             viernesSpan +="Cerrado";
                         }
                         categorias.forEach(element => {
-                            contenido+='<li class="nav-item"><a class="active" role="tab" data-toggle="tab" href="#tab0" id="favo" onclick="comidaCategoria(\''+element+'\')">'+element+'</a></li>';
+                            if(element!="Todo"){
+                                contenido+='<li class="nav-item"><a class="active" role="tab" data-toggle="tab" href="#tab0" id="favo" onclick="comidaCategoria(\''+element+'\')">'+element+'</a></li>';
+                            }                           
                         });
+                        contenido+='<li class="nav-item"><a class="active" role="tab" data-toggle="tab" href="#tab0" id="favo" onclick="comidaCategoria(\'Todo\')">Todo</a></li>';
                         console.log("Categorias, horario y ubicacion cargada!");
                     }
                     
@@ -418,7 +421,7 @@
                         items+= '        <br>Llevas '+doc.data().Cantidad+' en tu carrito.';
                         items+= '        </p>';
                         items+= '    </td>';
-                        items+= '    <td>'+doc.data().Precio+'$</td>';
+                        items+= '    <td>$'+doc.data().Precio+'</td>';
                         items+= '</tr>';
                         precIndividual = parseInt(doc.data().Cantidad);
                         precIndividual *= parseFloat(doc.data().Precio);
@@ -429,7 +432,7 @@
                     });
                     
                     document.getElementById("cartitems").innerHTML = items;
-                    document.getElementById("totalprec").innerHTML = prec +"$";
+                    document.getElementById("totalprec").innerHTML = "$"+prec;
                     document.getElementById("totalItems").innerHTML = count;
                 });
                 
@@ -1505,8 +1508,15 @@
         });
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         function carrito(docid){
+            var diasSemana = new Array("domingo","lunes","martes","miercoles","jueves","viernes","sabado");
+            var f=new Date();
+            //console.log("Dia de hoy, estado: "+document.getElementById(diasSemana[f.getDay()]+"Span").innerHTML);
             if(userId == null){
                 alert("Solo usuarios registrados pueden agregar alimentos al carrito!");
+                return;
+            }else if(document.getElementById(diasSemana[f.getDay()]+"Span").innerHTML== "Cerrado" ){
+                //|| document.getElementById(diasSemana[f.getDay()]+"Span").substring(0,)
+                alert("Lo siento ya no hay servicio, consulta los horarios!");
                 return;
             }
             //var holamundo = firebase.functions().httpsCallable('comi');
@@ -1631,8 +1641,15 @@
         }
 
         function compra(){
+            var diasSemana = new Array("domingo","lunes","martes","miercoles","jueves","viernes","sabado");
+            var f=new Date();
+            //console.log("Dia de hoy, estado: "+document.getElementById(diasSemana[f.getDay()]+"Span").innerHTML);
             if(userId == null){
                 alert("Solo usuarios registrados pueden comprar!");
+                return;
+            }else if(document.getElementById(diasSemana[f.getDay()]+"Span").innerHTML== "Cerrado" ){
+                //|| document.getElementById(diasSemana[f.getDay()]+"Span").substring(0,)
+                alert("Lo siento ya no hay servicio, consulta los horarios!");
                 return;
             }
            

@@ -5,6 +5,26 @@
         var Usuarios = db.collection("Usuario/");
         var doccomida = Comida.get();
         var categoriastmp;
+        var domingoSpan = "";
+        var lunesSpan = "";
+        var martesSpan = "";
+        var miercolesSpan = "";
+        var juevesSpan = "";
+        var viernesSpan = "";
+        var sabadoSpan = "";
+        var ubicacion = "";
+        var categoriasEdit = "";
+
+        function recuperaDatos(){
+            document.getElementById("domingoSpan").innerHTML = domingoSpan;
+            document.getElementById("lunesSpan").innerHTML = lunesSpan;
+            document.getElementById("martesSpan").innerHTML = martesSpan;
+            document.getElementById("miercolesSpan").innerHTML = miercolesSpan;
+            document.getElementById("juevesSpan").innerHTML = juevesSpan;
+            document.getElementById("viernesSpan").innerHTML = viernesSpan;
+            document.getElementById("sabadoSpan").innerHTML = sabadoSpan;
+            document.getElementById("editaCategoriasGeneradas").innerHTML = categoriasEdit;
+        }
 
         db.collection("Escuelas/").get().then( function(escuelas){
             var categorias;
@@ -12,15 +32,6 @@
             var nombreEscuela = "";
             var direccion = "";
             var horario;
-            var domingoSpan = "";
-            var lunesSpan = "";
-            var martesSpan = "";
-            var miercolesSpan = "";
-            var juevesSpan = "";
-            var viernesSpan = "";
-            var sabadoSpan = "";
-            var ubicacion = "";
-            var categoriasEdit = "";
             escuelas.forEach(function (escuela) {
                     console.log("ID escuela: " + escuela.id);
                     if(escuela.id == "Escom"){
@@ -265,7 +276,7 @@
                 contenidomodal += '                                <input type="text" id="op1nombre'+doc.id+'" placeholder="'+doc.data().Tipo.Op1[1]+'" value="'+doc.data().Tipo.Op1[1]+'" />';
                 contenidomodal += '                            </div>';
                 contenidomodal += '                            <div class="col-3 precfij">';
-                contenidomodal += '                                <input type="text" id="op1precio'+doc.id+'" placeholder="'+doc.data().Tipo.Op1[0]+'" value="'+doc.data().Tipo.Op1[0]+'" />';
+                contenidomodal += '                                <input type="number" id="op1precio'+doc.id+'" placeholder="'+doc.data().Tipo.Op1[0]+'" value="'+doc.data().Tipo.Op1[0]+'" />';
                 contenidomodal += '                            </div>';
                 contenidomodal += '                        </div>';
 
@@ -278,7 +289,7 @@
                 contenidomodal += '                                <input type="text" id="op2nombre'+doc.id+'" placeholder="'+doc.data().Tipo.Op2[1]+'" value="'+doc.data().Tipo.Op2[1]+'" />';
                 contenidomodal += '                            </div>';
                 contenidomodal += '                            <div class="col-3 precfij">';
-                contenidomodal += '                                <input type="text" id="op2precio'+doc.id+'" placeholder="'+doc.data().Tipo.Op2[0]+'" value="'+doc.data().Tipo.Op2[0]+'" />';
+                contenidomodal += '                                <input type="number" id="op2precio'+doc.id+'" placeholder="'+doc.data().Tipo.Op2[0]+'" value="'+doc.data().Tipo.Op2[0]+'" />';
                 contenidomodal += '                            </div>';
                 contenidomodal += '                        </div>';
                 }
@@ -292,7 +303,7 @@
                 contenidomodal += '                                <input type="text" id="op3nombre'+doc.id+'" placeholder="'+doc.data().Tipo.Op3[1]+'" value="'+doc.data().Tipo.Op3[1]+'" />';
                 contenidomodal += '                            </div>';
                 contenidomodal += '                            <div class="col-3 precfij">';
-                contenidomodal += '                                <input type="text" id="op3precio'+doc.id+'" placeholder="'+doc.data().Tipo.Op3[0]+'" value="'+doc.data().Tipo.Op3[0]+'" />';
+                contenidomodal += '                                <input type="number" id="op3precio'+doc.id+'" placeholder="'+doc.data().Tipo.Op3[0]+'" value="'+doc.data().Tipo.Op3[0]+'" />';
                 contenidomodal += '                            </div>';
                 contenidomodal += '                        </div>';
                 }
@@ -306,7 +317,7 @@
                 contenidomodal += '                                <input type="text" id="op4nombre'+doc.id+'" placeholder="'+doc.data().Tipo.Op4[1]+'" value="'+doc.data().Tipo.Op4[1]+'" />';
                 contenidomodal += '                            </div>';
                 contenidomodal += '                            <div class="col-3 precfij">';
-                contenidomodal += '                                <input type="text" id="op4precio'+doc.id+'" placeholder="'+doc.data().Tipo.Op4[0]+'" value="'+doc.data().Tipo.Op4[0]+'" />';
+                contenidomodal += '                                <input type="number" id="op4precio'+doc.id+'" placeholder="'+doc.data().Tipo.Op4[0]+'" value="'+doc.data().Tipo.Op4[0]+'" />';
                 contenidomodal += '                            </div>';
                 contenidomodal += '                        </div>';
                 }
@@ -349,16 +360,16 @@
                 contenidomodal += '                        <!--Cada div de estos es un extra-->';
                 //console.log(doc.data().Extra.Extra1);
                 if(doc.data().Extra.Extra1 != undefined){
-                contenidomodal += '                         <div class="row xtrrow" id="ext1'+doc.id+'"><div class="col-1 chkext"><a href="#" class="btn btn-warning btn-sm cerron" onclick="removeDivExtra(\'ext1'+doc.id+'\',\''+doc.id+'\');"><i class = "fas fa-times"></i></a></div><div class="col-8 descext"><input type="text" id="extra1nombre'+doc.id+'" placeholder="'+doc.data().Extra.Extra1[0]+'" value="'+doc.data().Extra.Extra1[0]+'" /></div><div class="col-3 precext"><input type="text" id="extra1precio'+doc.id+'" placeholder="'+doc.data().Extra.Extra1[1]+'" value="'+doc.data().Extra.Extra1[1]+'" /></div></div>';
+                contenidomodal += '                         <div class="row xtrrow" id="ext1'+doc.id+'"><div class="col-1 chkext"><a href="#" class="btn btn-warning btn-sm cerron" onclick="removeDivExtra(\'ext1'+doc.id+'\',\''+doc.id+'\');"><i class = "fas fa-times"></i></a></div><div class="col-8 descext"><input type="text" id="extra1nombre'+doc.id+'" placeholder="'+doc.data().Extra.Extra1[0]+'" value="'+doc.data().Extra.Extra1[0]+'" /></div><div class="col-3 precext"><input type="number" id="extra1precio'+doc.id+'" placeholder="'+doc.data().Extra.Extra1[1]+'" value="'+doc.data().Extra.Extra1[1]+'" /></div></div>';
                 }
                 if(doc.data().Extra.Extra2 != undefined){
-                contenidomodal += '                         <div class="row xtrrow" id="ext2'+doc.id+'"><div class="col-1 chkext"><a href="#" class="btn btn-warning btn-sm cerron" onclick="removeDivExtra(\'ext2'+doc.id+'\',\''+doc.id+'\');"><i class = "fas fa-times"></i></a></div><div class="col-8 descext"><input type="text" id="extra2nombre'+doc.id+'" placeholder="'+doc.data().Extra.Extra2[0]+'" value="'+doc.data().Extra.Extra2[0]+'" /></div><div class="col-3 precext"><input type="text" id="extra2precio'+doc.id+'" placeholder="'+doc.data().Extra.Extra2[1]+'" value="'+doc.data().Extra.Extra2[1]+'" /></div></div>';
+                contenidomodal += '                         <div class="row xtrrow" id="ext2'+doc.id+'"><div class="col-1 chkext"><a href="#" class="btn btn-warning btn-sm cerron" onclick="removeDivExtra(\'ext2'+doc.id+'\',\''+doc.id+'\');"><i class = "fas fa-times"></i></a></div><div class="col-8 descext"><input type="text" id="extra2nombre'+doc.id+'" placeholder="'+doc.data().Extra.Extra2[0]+'" value="'+doc.data().Extra.Extra2[0]+'" /></div><div class="col-3 precext"><input type="number" id="extra2precio'+doc.id+'" placeholder="'+doc.data().Extra.Extra2[1]+'" value="'+doc.data().Extra.Extra2[1]+'" /></div></div>';
                 }
                 if(doc.data().Extra.Extra3 != undefined){
-                contenidomodal += '                         <div class="row xtrrow" id="ext3'+doc.id+'"><div class="col-1 chkext"><a href="#" class="btn btn-warning btn-sm cerron" onclick="removeDivExtra(\'ext3'+doc.id+'\',\''+doc.id+'\');"><i class = "fas fa-times"></i></a></div><div class="col-8 descext"><input type="text" id="extra3nombre'+doc.id+'" placeholder="'+doc.data().Extra.Extra3[0]+'" value="'+doc.data().Extra.Extra3[0]+'" /></div><div class="col-3 precext"><input type="text" id="extra3precio'+doc.id+'" placeholder="'+doc.data().Extra.Extra3[1]+'" value="'+doc.data().Extra.Extra3[1]+'" /></div></div>';
+                contenidomodal += '                         <div class="row xtrrow" id="ext3'+doc.id+'"><div class="col-1 chkext"><a href="#" class="btn btn-warning btn-sm cerron" onclick="removeDivExtra(\'ext3'+doc.id+'\',\''+doc.id+'\');"><i class = "fas fa-times"></i></a></div><div class="col-8 descext"><input type="text" id="extra3nombre'+doc.id+'" placeholder="'+doc.data().Extra.Extra3[0]+'" value="'+doc.data().Extra.Extra3[0]+'" /></div><div class="col-3 precext"><input type="number" id="extra3precio'+doc.id+'" placeholder="'+doc.data().Extra.Extra3[1]+'" value="'+doc.data().Extra.Extra3[1]+'" /></div></div>';
                 }
                 if(doc.data().Extra.Extra4 != undefined){
-                contenidomodal += '                         <div class="row xtrrow" id="ext4'+doc.id+'"><div class="col-1 chkext"><a href="#" class="btn btn-warning btn-sm cerron" onclick="removeDivExtra(\'ext4'+doc.id+'\',\''+doc.id+'\');"><i class = "fas fa-times"></i></a></div><div class="col-8 descext"><input type="text" id="extra4nombre'+doc.id+'" placeholder="'+doc.data().Extra.Extra4[0]+'" value="'+doc.data().Extra.Extra4[0]+'" /></div><div class="col-3 precext"><input type="text" id="extra4precio'+doc.id+'" placeholder="'+doc.data().Extra.Extra4[1]+'" value="'+doc.data().Extra.Extra4[1]+'" /></div></div>';
+                contenidomodal += '                         <div class="row xtrrow" id="ext4'+doc.id+'"><div class="col-1 chkext"><a href="#" class="btn btn-warning btn-sm cerron" onclick="removeDivExtra(\'ext4'+doc.id+'\',\''+doc.id+'\');"><i class = "fas fa-times"></i></a></div><div class="col-8 descext"><input type="text" id="extra4nombre'+doc.id+'" placeholder="'+doc.data().Extra.Extra4[0]+'" value="'+doc.data().Extra.Extra4[0]+'" /></div><div class="col-3 precext"><input type="number" id="extra4precio'+doc.id+'" placeholder="'+doc.data().Extra.Extra4[1]+'" value="'+doc.data().Extra.Extra4[1]+'" /></div></div>';
                 }
                 
 
@@ -371,6 +382,7 @@
                 contenidomodal += '            </div>';
                 contenidomodal += '            <div class="modal-footer">';
                 contenidomodal += '                <button type="button" class="btn btn-danger" data-dismiss="modal"><b>Cancelar</b></button>';
+                contenidomodal += '                <button type="button" class="btn btn-warning"><b>Limpiar campos!</b></button>';
                 contenidomodal += '                <button type="button" class="large-12 columns btn submit" data-style="slide-right" onclick="actualizarcomida(\''+doc.id+'\')">Aplicar cambios</button>';
                 contenidomodal += '                <button type="button" class="large-8 columns btn btn-danger" data-style="slide-right" onclick="eliminacomida(\''+doc.id+'\')">Eliminar</button>';
                 contenidomodal += '            </div>';
@@ -460,14 +472,15 @@
             contenidomodal += '     <i class="fas fa-bookmark rec" id="icon2"></i>&nbsp;Recomendado por nosotros<br>';
             contenidomodal += '</label>';
 
-            contenidomodal += '                    <h4 class="modnom">Nombre:<br><input type="text" id="nombremodalinNuevos" placeholder="Nombre" value="Nombre" /></h4>';
+            contenidomodal += '                    <h4 class="modnom">Nombre:<br><input type="text" id="nombremodalinNuevos" placeholder="Nombre" /></h4>';
             contenidomodal += '                    <div class="row comrow">';
             contenidomodal += '                        <div class="col-12 comtxt">';
-            contenidomodal += '                            <h6 class="modnom">Descripcion:<br></h6><textarea class="form-control" id="descripcionmodalinNuevos" placeholder="Descripcion" >Descripcion</textarea>';
+            contenidomodal += '                            <h6 class="modnom">Descripcion:<br></h6><textarea class="form-control" id="descripcionmodalinNuevos" placeholder="Descripcion" ></textarea>';
             contenidomodal += '                        </div>';
             contenidomodal += '                    </div>';
-            contenidomodal += '                    <h6 class="modnom">Calorias:<br><input type="number" id="caloriasmodalinNuevos" placeholder="10" value="10" /></h4>';
+            contenidomodal += '                    <h6 class="modnom">Calorias:<br><input type="number" id="caloriasmodalinNuevos" placeholder="10" /></h4>';
             contenidomodal += '                    <h6 class="modnom">Categoria:<br><select id="categoriamodalinNuevos">';
+            contenidomodal += '                    <option value="Seleccionar">Seleccionar</option>';
             categoriastmp.forEach(element => { 
                 if(element == "Todo" || element == "Favoritos"){
                         
@@ -491,10 +504,10 @@
             contenidomodal += '                                <a href="#" class="btn btn-warning btn-sm cerron" onclick="removeDivFija(\'fij1modalinNuevos\',\'modalinNuevos\')"><i class="fas fa-times"></i></a>';
             contenidomodal += '                            </div>';
             contenidomodal += '                            <div class="col-8 descfij">';
-            contenidomodal += '                                <input type="text" id="op1nombremodalinNuevos" placeholder="Tipo" value="Tipo" />';
+            contenidomodal += '                                <input type="text" id="op1nombremodalinNuevos" placeholder="Tipo" />';
             contenidomodal += '                            </div>';
             contenidomodal += '                            <div class="col-3 precfij">';
-            contenidomodal += '                                <input type="text" id="op1preciomodalinNuevos" placeholder="10" value="10" />';
+            contenidomodal += '                                <input type="number" id="op1preciomodalinNuevos" placeholder="10" />';
             contenidomodal += '                            </div>';
             contenidomodal += '                        </div>';
 
@@ -513,7 +526,7 @@
             contenidomodal += '                             <h6class="modnom">Incluye combo</h6>'; 
             contenidomodal += '                         </label>';
             contenidomodal += '                        <div class="col-12 comtxt">';
-            contenidomodal += '                            <h6 class="modnom">Descripcion:<br></h6><textarea class="form-control" id="incluyedescripcionmodalinNuevos" placeholder="Descripcion del combo" value="Descripcion del combo" >Descripcion del combo</textarea>';
+            contenidomodal += '                            <h6 class="modnom">Descripcion:<br></h6><textarea class="form-control" id="incluyedescripcionmodalinNuevos" placeholder="Descripcion del combo" value="Descripcion del combo" ></textarea>';
             contenidomodal += '                        </div>';
             contenidomodal += '                    </div>';
             contenidomodal += '                </div>';
@@ -528,12 +541,13 @@
             contenidomodal += '                    </div>';
             contenidomodal += '                    <button type="button" class="btn btn-warning" id="btnAddopcE" onclick="agregaextra(\'modalinNuevos\')"><b>Agregar Extra</b></button>';
             contenidomodal += '                    <br><h6 class="blockquote-footer">Obligatorio</h6>';
-            contenidomodal += '                    <h6 class="modnom">Precio otros:<br><input type="number" id="preciootrosmodalinNuevos" placeholder="10" value="10" /></h4>';
+            contenidomodal += '                    <h6 class="modnom">Precio otros:<br><input type="number" id="preciootrosmodalinNuevos" placeholder="10" /></h4>';
             contenidomodal += '                </div>';
 
             contenidomodal += '            </div>';
             contenidomodal += '            <div class="modal-footer">';
             contenidomodal += '                <button type="button" class="btn btn-danger" data-dismiss="modal"><b>Cancelar</b></button>';
+            contenidomodal += '                <button type="button" class="btn btn-warning"><b>Limpiar campos!</b></button>';
             contenidomodal += '                <button type="button" class="large-12 columns btn submit" data-style="slide-right" onclick="actualizarcomida(\'modalinNuevos\')">Agregar alimento</button>';
             contenidomodal += '            </div>';
             contenidomodal += '        </div>';
@@ -576,12 +590,29 @@
 
         function guardarCategorias(){
             var categoriaNueva = document.getElementById("editaCategoriasNuevaTXT").value;
+            if(categoriaNueva== null || categoriaNueva.trim()==="" ){
+                alert("Error al agregar categoria revisa que la hayas ingresado bien!");
+                document.getElementById("editaCategoriasNuevaTXT").value ="";
+                return;
+            }
             var escomDocRef = db.collection("Escuelas/").doc("Escom");
             escomDocRef.update({
                 Categorias: firebase.firestore.FieldValue.arrayUnion(categoriaNueva)
             }).then(function(){
                 location.reload();
             });
+        }
+        function validaHorario(hora){
+            var isValido = true;
+            
+            if(hora==null  || hora.indexOf(":")== -1){
+                if(hora.indexOf(":")!=1){
+                    if (hora.indexOf(":")!=2){
+                        isValido=false;
+                    }
+                }
+            }
+            return isValido;
         }
 
         function guardarHorario(){
@@ -607,7 +638,12 @@
             var juevesabierto = document.getElementById("juevesabierto").value;
             var viernesabierto = document.getElementById("viernesabierto").value;
 
-            
+            if(!validaHorario(domingomax) || !validaHorario(lunesmax) || !validaHorario(martesmax) || !validaHorario(miercolesmax) || !validaHorario(juevesmax) || !validaHorario(viernesmax) || !validaHorario(sabadomax) ||
+               !validaHorario(domingomin) || !validaHorario(lunesmin) || !validaHorario(martesmin) || !validaHorario(miercolesmin) || !validaHorario(juevesmin) || !validaHorario(viernesmin) || !validaHorario(sabadomin)){
+                alert("Hay un horario mal introducido, favor de introducirlo bien formato: (YY:YY) donde Y es cualquier numero del 0 al 9");
+                recuperaDatos();
+                return;
+            }
             
             var domingoSpan = "";
             var lunesSpan = "";
@@ -893,7 +929,7 @@
                     contenidomodal += '                                <input type="text" id="op1nombre'+doc.id+'" placeholder="'+doc.data().Tipo.Op1[1]+'" value="'+doc.data().Tipo.Op1[1]+'" />';
                     contenidomodal += '                            </div>';
                     contenidomodal += '                            <div class="col-3 precfij">';
-                    contenidomodal += '                                <input type="text" id="op1precio'+doc.id+'" placeholder="'+doc.data().Tipo.Op1[0]+'" value="'+doc.data().Tipo.Op1[0]+'" />';
+                    contenidomodal += '                                <input type="number" id="op1precio'+doc.id+'" placeholder="'+doc.data().Tipo.Op1[0]+'" value="'+doc.data().Tipo.Op1[0]+'" />';
                     contenidomodal += '                            </div>';
                     contenidomodal += '                        </div>';
     
@@ -906,7 +942,7 @@
                     contenidomodal += '                                <input type="text" id="op2nombre'+doc.id+'" placeholder="'+doc.data().Tipo.Op2[1]+'" value="'+doc.data().Tipo.Op2[1]+'" />';
                     contenidomodal += '                            </div>';
                     contenidomodal += '                            <div class="col-3 precfij">';
-                    contenidomodal += '                                <input type="text" id="op2precio'+doc.id+'" placeholder="'+doc.data().Tipo.Op2[0]+'" value="'+doc.data().Tipo.Op2[0]+'" />';
+                    contenidomodal += '                                <input type="number" id="op2precio'+doc.id+'" placeholder="'+doc.data().Tipo.Op2[0]+'" value="'+doc.data().Tipo.Op2[0]+'" />';
                     contenidomodal += '                            </div>';
                     contenidomodal += '                        </div>';
                     }
@@ -920,7 +956,7 @@
                     contenidomodal += '                                <input type="text" id="op3nombre'+doc.id+'" placeholder="'+doc.data().Tipo.Op3[1]+'" value="'+doc.data().Tipo.Op3[1]+'" />';
                     contenidomodal += '                            </div>';
                     contenidomodal += '                            <div class="col-3 precfij">';
-                    contenidomodal += '                                <input type="text" id="op3precio'+doc.id+'" placeholder="'+doc.data().Tipo.Op3[0]+'" value="'+doc.data().Tipo.Op3[0]+'" />';
+                    contenidomodal += '                                <input type="number" id="op3precio'+doc.id+'" placeholder="'+doc.data().Tipo.Op3[0]+'" value="'+doc.data().Tipo.Op3[0]+'" />';
                     contenidomodal += '                            </div>';
                     contenidomodal += '                        </div>';
                     }
@@ -934,7 +970,7 @@
                     contenidomodal += '                                <input type="text" id="op4nombre'+doc.id+'" placeholder="'+doc.data().Tipo.Op4[1]+'" value="'+doc.data().Tipo.Op4[1]+'" />';
                     contenidomodal += '                            </div>';
                     contenidomodal += '                            <div class="col-3 precfij">';
-                    contenidomodal += '                                <input type="text" id="op4precio'+doc.id+'" placeholder="'+doc.data().Tipo.Op4[0]+'" value="'+doc.data().Tipo.Op4[0]+'" />';
+                    contenidomodal += '                                <input type="number" id="op4precio'+doc.id+'" placeholder="'+doc.data().Tipo.Op4[0]+'" value="'+doc.data().Tipo.Op4[0]+'" />';
                     contenidomodal += '                            </div>';
                     contenidomodal += '                        </div>';
                     }
@@ -977,16 +1013,16 @@
                     contenidomodal += '                        <!--Cada div de estos es un extra-->';
                     //console.log(doc.data().Extra.Extra1);
                     if(doc.data().Extra.Extra1 != undefined){
-                    contenidomodal += '                         <div class="row xtrrow" id="ext1'+doc.id+'"><div class="col-1 chkext"><a href="#" class="btn btn-warning btn-sm cerron" onclick="removeDivExtra(\'ext1'+doc.id+'\',\''+doc.id+'\');"><i class = "fas fa-times"></i></a></div><div class="col-8 descext"><input type="text" id="extra1nombre'+doc.id+'" placeholder="'+doc.data().Extra.Extra1[0]+'" value="'+doc.data().Extra.Extra1[0]+'" /></div><div class="col-3 precext"><input type="text" id="extra1precio'+doc.id+'" placeholder="'+doc.data().Extra.Extra1[1]+'" value="'+doc.data().Extra.Extra1[1]+'" /></div></div>';
+                    contenidomodal += '                         <div class="row xtrrow" id="ext1'+doc.id+'"><div class="col-1 chkext"><a href="#" class="btn btn-warning btn-sm cerron" onclick="removeDivExtra(\'ext1'+doc.id+'\',\''+doc.id+'\');"><i class = "fas fa-times"></i></a></div><div class="col-8 descext"><input type="text" id="extra1nombre'+doc.id+'" placeholder="'+doc.data().Extra.Extra1[0]+'" value="'+doc.data().Extra.Extra1[0]+'" /></div><div class="col-3 precext"><input type="number" id="extra1precio'+doc.id+'" placeholder="'+doc.data().Extra.Extra1[1]+'" value="'+doc.data().Extra.Extra1[1]+'" /></div></div>';
                     }
                     if(doc.data().Extra.Extra2 != undefined){
-                    contenidomodal += '                         <div class="row xtrrow" id="ext2'+doc.id+'"><div class="col-1 chkext"><a href="#" class="btn btn-warning btn-sm cerron" onclick="removeDivExtra(\'ext2'+doc.id+'\',\''+doc.id+'\');"><i class = "fas fa-times"></i></a></div><div class="col-8 descext"><input type="text" id="extra2nombre'+doc.id+'" placeholder="'+doc.data().Extra.Extra2[0]+'" value="'+doc.data().Extra.Extra2[0]+'" /></div><div class="col-3 precext"><input type="text" id="extra2precio'+doc.id+'" placeholder="'+doc.data().Extra.Extra2[1]+'" value="'+doc.data().Extra.Extra2[1]+'" /></div></div>';
+                    contenidomodal += '                         <div class="row xtrrow" id="ext2'+doc.id+'"><div class="col-1 chkext"><a href="#" class="btn btn-warning btn-sm cerron" onclick="removeDivExtra(\'ext2'+doc.id+'\',\''+doc.id+'\');"><i class = "fas fa-times"></i></a></div><div class="col-8 descext"><input type="text" id="extra2nombre'+doc.id+'" placeholder="'+doc.data().Extra.Extra2[0]+'" value="'+doc.data().Extra.Extra2[0]+'" /></div><div class="col-3 precext"><input type="number" id="extra2precio'+doc.id+'" placeholder="'+doc.data().Extra.Extra2[1]+'" value="'+doc.data().Extra.Extra2[1]+'" /></div></div>';
                     }
                     if(doc.data().Extra.Extra3 != undefined){
-                    contenidomodal += '                         <div class="row xtrrow" id="ext3'+doc.id+'"><div class="col-1 chkext"><a href="#" class="btn btn-warning btn-sm cerron" onclick="removeDivExtra(\'ext3'+doc.id+'\',\''+doc.id+'\');"><i class = "fas fa-times"></i></a></div><div class="col-8 descext"><input type="text" id="extra3nombre'+doc.id+'" placeholder="'+doc.data().Extra.Extra3[0]+'" value="'+doc.data().Extra.Extra3[0]+'" /></div><div class="col-3 precext"><input type="text" id="extra3precio'+doc.id+'" placeholder="'+doc.data().Extra.Extra3[1]+'" value="'+doc.data().Extra.Extra3[1]+'" /></div></div>';
+                    contenidomodal += '                         <div class="row xtrrow" id="ext3'+doc.id+'"><div class="col-1 chkext"><a href="#" class="btn btn-warning btn-sm cerron" onclick="removeDivExtra(\'ext3'+doc.id+'\',\''+doc.id+'\');"><i class = "fas fa-times"></i></a></div><div class="col-8 descext"><input type="text" id="extra3nombre'+doc.id+'" placeholder="'+doc.data().Extra.Extra3[0]+'" value="'+doc.data().Extra.Extra3[0]+'" /></div><div class="col-3 precext"><input type="number" id="extra3precio'+doc.id+'" placeholder="'+doc.data().Extra.Extra3[1]+'" value="'+doc.data().Extra.Extra3[1]+'" /></div></div>';
                     }
                     if(doc.data().Extra.Extra4 != undefined){
-                    contenidomodal += '                         <div class="row xtrrow" id="ext4'+doc.id+'"><div class="col-1 chkext"><a href="#" class="btn btn-warning btn-sm cerron" onclick="removeDivExtra(\'ext4'+doc.id+'\',\''+doc.id+'\');"><i class = "fas fa-times"></i></a></div><div class="col-8 descext"><input type="text" id="extra4nombre'+doc.id+'" placeholder="'+doc.data().Extra.Extra4[0]+'" value="'+doc.data().Extra.Extra4[0]+'" /></div><div class="col-3 precext"><input type="text" id="extra4precio'+doc.id+'" placeholder="'+doc.data().Extra.Extra4[1]+'" value="'+doc.data().Extra.Extra4[1]+'" /></div></div>';
+                    contenidomodal += '                         <div class="row xtrrow" id="ext4'+doc.id+'"><div class="col-1 chkext"><a href="#" class="btn btn-warning btn-sm cerron" onclick="removeDivExtra(\'ext4'+doc.id+'\',\''+doc.id+'\');"><i class = "fas fa-times"></i></a></div><div class="col-8 descext"><input type="text" id="extra4nombre'+doc.id+'" placeholder="'+doc.data().Extra.Extra4[0]+'" value="'+doc.data().Extra.Extra4[0]+'" /></div><div class="col-3 precext"><input type="number" id="extra4precio'+doc.id+'" placeholder="'+doc.data().Extra.Extra4[1]+'" value="'+doc.data().Extra.Extra4[1]+'" /></div></div>';
                     }
                     
     
@@ -999,6 +1035,7 @@
                     contenidomodal += '            </div>';
                     contenidomodal += '            <div class="modal-footer">';
                     contenidomodal += '                <button type="button" class="btn btn-danger" data-dismiss="modal"><b>Cancelar</b></button>';
+                    contenidomodal += '                <button type="button" class="btn btn-warning"><b>Limpiar campos!</b></button>';
                     contenidomodal += '                <button type="button" class="large-12 columns btn submit" data-style="slide-right" onclick="actualizarcomida(\''+doc.id+'\')">Aplicar cambios</button>';
                     contenidomodal += '                <button type="button" class="large-8 columns btn btn-danger" data-style="slide-right" onclick="eliminacomida(\''+doc.id+'\')">Eliminar</button>';
                     contenidomodal += '            </div>';
@@ -1235,7 +1272,7 @@
                     contenidomodal += '                                <input type="text" id="op1nombre'+doc.id+'" placeholder="'+doc.data().Tipo.Op1[1]+'" value="'+doc.data().Tipo.Op1[1]+'" />';
                     contenidomodal += '                            </div>';
                     contenidomodal += '                            <div class="col-3 precfij">';
-                    contenidomodal += '                                <input type="text" id="op1precio'+doc.id+'" placeholder="'+doc.data().Tipo.Op1[0]+'" value="'+doc.data().Tipo.Op1[0]+'" />';
+                    contenidomodal += '                                <input type="number" id="op1precio'+doc.id+'" placeholder="'+doc.data().Tipo.Op1[0]+'" value="'+doc.data().Tipo.Op1[0]+'" />';
                     contenidomodal += '                            </div>';
                     contenidomodal += '                        </div>';
     
@@ -1248,7 +1285,7 @@
                     contenidomodal += '                                <input type="text" id="op2nombre'+doc.id+'" placeholder="'+doc.data().Tipo.Op2[1]+'" value="'+doc.data().Tipo.Op2[1]+'" />';
                     contenidomodal += '                            </div>';
                     contenidomodal += '                            <div class="col-3 precfij">';
-                    contenidomodal += '                                <input type="text" id="op2precio'+doc.id+'" placeholder="'+doc.data().Tipo.Op2[0]+'" value="'+doc.data().Tipo.Op2[0]+'" />';
+                    contenidomodal += '                                <input type="number" id="op2precio'+doc.id+'" placeholder="'+doc.data().Tipo.Op2[0]+'" value="'+doc.data().Tipo.Op2[0]+'" />';
                     contenidomodal += '                            </div>';
                     contenidomodal += '                        </div>';
                     }
@@ -1262,7 +1299,7 @@
                     contenidomodal += '                                <input type="text" id="op3nombre'+doc.id+'" placeholder="'+doc.data().Tipo.Op3[1]+'" value="'+doc.data().Tipo.Op3[1]+'" />';
                     contenidomodal += '                            </div>';
                     contenidomodal += '                            <div class="col-3 precfij">';
-                    contenidomodal += '                                <input type="text" id="op3precio'+doc.id+'" placeholder="'+doc.data().Tipo.Op3[0]+'" value="'+doc.data().Tipo.Op3[0]+'" />';
+                    contenidomodal += '                                <input type="number" id="op3precio'+doc.id+'" placeholder="'+doc.data().Tipo.Op3[0]+'" value="'+doc.data().Tipo.Op3[0]+'" />';
                     contenidomodal += '                            </div>';
                     contenidomodal += '                        </div>';
                     }
@@ -1276,7 +1313,7 @@
                     contenidomodal += '                                <input type="text" id="op4nombre'+doc.id+'" placeholder="'+doc.data().Tipo.Op4[1]+'" value="'+doc.data().Tipo.Op4[1]+'" />';
                     contenidomodal += '                            </div>';
                     contenidomodal += '                            <div class="col-3 precfij">';
-                    contenidomodal += '                                <input type="text" id="op4precio'+doc.id+'" placeholder="'+doc.data().Tipo.Op4[0]+'" value="'+doc.data().Tipo.Op4[0]+'" />';
+                    contenidomodal += '                                <input type="number" id="op4precio'+doc.id+'" placeholder="'+doc.data().Tipo.Op4[0]+'" value="'+doc.data().Tipo.Op4[0]+'" />';
                     contenidomodal += '                            </div>';
                     contenidomodal += '                        </div>';
                     }
@@ -1319,16 +1356,16 @@
                     contenidomodal += '                        <!--Cada div de estos es un extra-->';
                     //console.log(doc.data().Extra.Extra1);
                     if(doc.data().Extra.Extra1 != undefined){
-                    contenidomodal += '                         <div class="row xtrrow" id="ext1'+doc.id+'"><div class="col-1 chkext"><a href="#" class="btn btn-warning btn-sm cerron" onclick="removeDivExtra(\'ext1'+doc.id+'\',\''+doc.id+'\');"><i class = "fas fa-times"></i></a></div><div class="col-8 descext"><input type="text" id="extra1nombre'+doc.id+'" placeholder="'+doc.data().Extra.Extra1[0]+'" value="'+doc.data().Extra.Extra1[0]+'" /></div><div class="col-3 precext"><input type="text" id="extra1precio'+doc.id+'" placeholder="'+doc.data().Extra.Extra1[1]+'" value="'+doc.data().Extra.Extra1[1]+'" /></div></div>';
+                    contenidomodal += '                         <div class="row xtrrow" id="ext1'+doc.id+'"><div class="col-1 chkext"><a href="#" class="btn btn-warning btn-sm cerron" onclick="removeDivExtra(\'ext1'+doc.id+'\',\''+doc.id+'\');"><i class = "fas fa-times"></i></a></div><div class="col-8 descext"><input type="text" id="extra1nombre'+doc.id+'" placeholder="'+doc.data().Extra.Extra1[0]+'" value="'+doc.data().Extra.Extra1[0]+'" /></div><div class="col-3 precext"><input type="number" id="extra1precio'+doc.id+'" placeholder="'+doc.data().Extra.Extra1[1]+'" value="'+doc.data().Extra.Extra1[1]+'" /></div></div>';
                     }
                     if(doc.data().Extra.Extra2 != undefined){
-                    contenidomodal += '                         <div class="row xtrrow" id="ext2'+doc.id+'"><div class="col-1 chkext"><a href="#" class="btn btn-warning btn-sm cerron" onclick="removeDivExtra(\'ext2'+doc.id+'\',\''+doc.id+'\');"><i class = "fas fa-times"></i></a></div><div class="col-8 descext"><input type="text" id="extra2nombre'+doc.id+'" placeholder="'+doc.data().Extra.Extra2[0]+'" value="'+doc.data().Extra.Extra2[0]+'" /></div><div class="col-3 precext"><input type="text" id="extra2precio'+doc.id+'" placeholder="'+doc.data().Extra.Extra2[1]+'" value="'+doc.data().Extra.Extra2[1]+'" /></div></div>';
+                    contenidomodal += '                         <div class="row xtrrow" id="ext2'+doc.id+'"><div class="col-1 chkext"><a href="#" class="btn btn-warning btn-sm cerron" onclick="removeDivExtra(\'ext2'+doc.id+'\',\''+doc.id+'\');"><i class = "fas fa-times"></i></a></div><div class="col-8 descext"><input type="text" id="extra2nombre'+doc.id+'" placeholder="'+doc.data().Extra.Extra2[0]+'" value="'+doc.data().Extra.Extra2[0]+'" /></div><div class="col-3 precext"><input type="number" id="extra2precio'+doc.id+'" placeholder="'+doc.data().Extra.Extra2[1]+'" value="'+doc.data().Extra.Extra2[1]+'" /></div></div>';
                     }
                     if(doc.data().Extra.Extra3 != undefined){
-                    contenidomodal += '                         <div class="row xtrrow" id="ext3'+doc.id+'"><div class="col-1 chkext"><a href="#" class="btn btn-warning btn-sm cerron" onclick="removeDivExtra(\'ext3'+doc.id+'\',\''+doc.id+'\');"><i class = "fas fa-times"></i></a></div><div class="col-8 descext"><input type="text" id="extra3nombre'+doc.id+'" placeholder="'+doc.data().Extra.Extra3[0]+'" value="'+doc.data().Extra.Extra3[0]+'" /></div><div class="col-3 precext"><input type="text" id="extra3precio'+doc.id+'" placeholder="'+doc.data().Extra.Extra3[1]+'" value="'+doc.data().Extra.Extra3[1]+'" /></div></div>';
+                    contenidomodal += '                         <div class="row xtrrow" id="ext3'+doc.id+'"><div class="col-1 chkext"><a href="#" class="btn btn-warning btn-sm cerron" onclick="removeDivExtra(\'ext3'+doc.id+'\',\''+doc.id+'\');"><i class = "fas fa-times"></i></a></div><div class="col-8 descext"><input type="text" id="extra3nombre'+doc.id+'" placeholder="'+doc.data().Extra.Extra3[0]+'" value="'+doc.data().Extra.Extra3[0]+'" /></div><div class="col-3 precext"><input type="number" id="extra3precio'+doc.id+'" placeholder="'+doc.data().Extra.Extra3[1]+'" value="'+doc.data().Extra.Extra3[1]+'" /></div></div>';
                     }
                     if(doc.data().Extra.Extra4 != undefined){
-                    contenidomodal += '                         <div class="row xtrrow" id="ext4'+doc.id+'"><div class="col-1 chkext"><a href="#" class="btn btn-warning btn-sm cerron" onclick="removeDivExtra(\'ext4'+doc.id+'\',\''+doc.id+'\');"><i class = "fas fa-times"></i></a></div><div class="col-8 descext"><input type="text" id="extra4nombre'+doc.id+'" placeholder="'+doc.data().Extra.Extra4[0]+'" value="'+doc.data().Extra.Extra4[0]+'" /></div><div class="col-3 precext"><input type="text" id="extra4precio'+doc.id+'" placeholder="'+doc.data().Extra.Extra4[1]+'" value="'+doc.data().Extra.Extra4[1]+'" /></div></div>';
+                    contenidomodal += '                         <div class="row xtrrow" id="ext4'+doc.id+'"><div class="col-1 chkext"><a href="#" class="btn btn-warning btn-sm cerron" onclick="removeDivExtra(\'ext4'+doc.id+'\',\''+doc.id+'\');"><i class = "fas fa-times"></i></a></div><div class="col-8 descext"><input type="text" id="extra4nombre'+doc.id+'" placeholder="'+doc.data().Extra.Extra4[0]+'" value="'+doc.data().Extra.Extra4[0]+'" /></div><div class="col-3 precext"><input type="number" id="extra4precio'+doc.id+'" placeholder="'+doc.data().Extra.Extra4[1]+'" value="'+doc.data().Extra.Extra4[1]+'" /></div></div>';
                     }
                     
     
@@ -1341,6 +1378,7 @@
                     contenidomodal += '            </div>';
                     contenidomodal += '            <div class="modal-footer">';
                     contenidomodal += '                <button type="button" class="btn btn-danger" data-dismiss="modal"><b>Cancelar</b></button>';
+                    contenidomodal += '                <button type="button" class="btn btn-warning"><b>Limpiar campos!</b></button>';
                     contenidomodal += '                <button type="button" class="large-12 columns btn submit" data-style="slide-right" onclick="actualizarcomida(\''+doc.id+'\')">Aplicar cambios</button>';
                     contenidomodal += '                <button type="button" class="large-8 columns btn btn-danger" data-style="slide-right" onclick="eliminacomida(\''+doc.id+'\')">Eliminar</button>';
                     contenidomodal += '            </div>';
@@ -1534,6 +1572,25 @@
             });
         }
 
+        function validaCampos(docid){
+            var isValido = true;
+            var calorias = document.getElementById("calorias"+docid).value;
+            var otro = document.getElementById("preciootros"+docid).value;
+            var op1 = document.getElementById("op1nombre"+docid).value;
+            var op1p = document.getElementById("op1precio"+docid).value;
+            var categoria = document.getElementById("categoria"+docid).value;
+            var descripcion = document.getElementById("descripcion"+docid).value;
+            var nombre = document.getElementById("nombre"+docid).value;
+
+            if((op1== null || op1.trim()==="") || (categoria== null || categoria.trim()==="" || categoria=="Seleccionar") || (descripcion== null || descripcion.trim()==="") || 
+            (nombre== null || nombre.trim()==="") || (calorias== null || calorias <= 0) || (otro== null || otro <= 0) || (op1p== null || op1p <= 0) ){
+                alert("Faltan campos mandatorios porfavor verifica bien!!!");
+                isValido = false;
+            }
+
+            return isValido; 
+        }
+
         
         function actualizarcomida(docid){
             console.log(docid);
@@ -1555,6 +1612,10 @@
                 console.log("Error getting document:", error);
             }).then(function() {
                 if(nuevo){
+                    if(!validaCampos(docid)){
+                        alert ("Por favor verifica que todos los campos esten llenos!");
+                        return;
+                    }
                     
                     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
                     if(document.getElementById("nuevoproducto"+docid).checked){
@@ -1764,7 +1825,6 @@
 
                     var prueba ="";
                     var imagen = document.getElementById("imagenin"+docid).files;
- 
                     if(imagen[0] == undefined){
                         prueba +="prueba.png";
                         console.log(prueba);
@@ -2063,10 +2123,18 @@
 
                     var prueba ="";
                     var imagen = document.getElementById("imagenin"+docid).files;
-
+                    
                     if(imagen[0] == undefined){
+                    var imagenAnt = document.getElementById("modaldivimg"+docid).src;
+                    var imagenPrueba = "https://firebasestorage.googleapis.com/v0/b/textualmovil.appspot.com/o/prueba.png?alt=media&amp;token=3afa2916-9643-4fc2-a052-f3fd0fd7dfd9";
+                    console.log("iamgenAnt: "+imagenAnt);
+                    console.log("imagenPrueba: "+imagenPrueba);             
+                    if(imagenAnt != imagenPrueba){
+                        prueba = imagenAnt.substring(imagenAnt.indexOf(".appspot.com/o/")+15,imagenAnt.indexOf(".png")+4);
+                    }else {
                         prueba +="prueba.png";
-                        console.log(prueba);
+                    }
+                    console.log(prueba);
                         var set = alimentoRef.set({
                             Banderas: banderas2,
                             Calorias: calorias,
@@ -2176,20 +2244,20 @@
                     nFij++;
                     if(nFij<=4){
                         if(nFij == 2 && doc.data().Tipo.Op2 != undefined){
-                            newDiv = '<div class="row fijrow" id="fij' + nFij + '' + doc.id + '"><div class="col-1 chkfij"><a href="#" class="btn btn-warning btn-sm cerron" onclick="removeDivFija(\'fij'+nFij+''+doc.id+'\',\''+doc.id+'\')"><i class = "fas fa-times"></i></a></div><div class="col-8 descfij"><input type="text" id="op2nombre'+doc.id+'" placeholder="'+doc.data().Tipo.Op2[1]+'" value="'+doc.data().Tipo.Op2[1]+'"/></div><div class="col-3 precfij"><input type="text" id="op2precio'+doc.id+'" placeholder="'+doc.data().Tipo.Op2[0]+'" value="'+doc.data().Tipo.Op2[0]+'"/></div></div>';
+                            newDiv = '<div class="row fijrow" id="fij' + nFij + '' + doc.id + '"><div class="col-1 chkfij"><a href="#" class="btn btn-warning btn-sm cerron" onclick="removeDivFija(\'fij'+nFij+''+doc.id+'\',\''+doc.id+'\')"><i class = "fas fa-times"></i></a></div><div class="col-8 descfij"><input type="text" id="op2nombre'+doc.id+'" placeholder="'+doc.data().Tipo.Op2[1]+'" value="'+doc.data().Tipo.Op2[1]+'"/></div><div class="col-3 precfij"><input type="number" id="op2precio'+doc.id+'" placeholder="'+doc.data().Tipo.Op2[0]+'" value="'+doc.data().Tipo.Op2[0]+'"/></div></div>';
                         }else if(nFij == 3 && doc.data().Tipo.Op3 != undefined){
-                            newDiv = '<div class="row fijrow" id="fij' + nFij + '' + doc.id + '"><div class="col-1 chkfij"><a href="#" class="btn btn-warning btn-sm cerron" onclick="removeDivFija(\'fij'+nFij+''+doc.id+'\',\''+doc.id+'\')"><i class = "fas fa-times"></i></a></div><div class="col-8 descfij"><input type="text" id="op3nombre'+doc.id+'" placeholder="'+doc.data().Tipo.Op3[1]+'" value="'+doc.data().Tipo.Op3[1]+'"/></div><div class="col-3 precfij"><input type="text" id="op3precio'+doc.id+'" placeholder="'+doc.data().Tipo.Op3[0]+'" value="'+doc.data().Tipo.Op3[0]+'"/></div></div>';
+                            newDiv = '<div class="row fijrow" id="fij' + nFij + '' + doc.id + '"><div class="col-1 chkfij"><a href="#" class="btn btn-warning btn-sm cerron" onclick="removeDivFija(\'fij'+nFij+''+doc.id+'\',\''+doc.id+'\')"><i class = "fas fa-times"></i></a></div><div class="col-8 descfij"><input type="text" id="op3nombre'+doc.id+'" placeholder="'+doc.data().Tipo.Op3[1]+'" value="'+doc.data().Tipo.Op3[1]+'"/></div><div class="col-3 precfij"><input type="number" id="op3precio'+doc.id+'" placeholder="'+doc.data().Tipo.Op3[0]+'" value="'+doc.data().Tipo.Op3[0]+'"/></div></div>';
                         }else if(nFij == 4 && doc.data().Tipo.Op4 != undefined){
-                            newDiv = '<div class="row fijrow" id="fij' + nFij + '' + doc.id + '"><div class="col-1 chkfij"><a href="#" class="btn btn-warning btn-sm cerron" onclick="removeDivFija(\'fij'+nFij+''+doc.id+'\',\''+doc.id+'\')"><i class = "fas fa-times"></i></a></div><div class="col-8 descfij"><input type="text" id="op4nombre'+doc.id+'" placeholder="'+doc.data().Tipo.Op4[1]+'" value="'+doc.data().Tipo.Op4[1]+'"/></div><div class="col-3 precfij"><input type="text" id="op4precio'+doc.id+'" placeholder="'+doc.data().Tipo.Op4[0]+'" value="'+doc.data().Tipo.Op4[0]+'"/></div></div>';
+                            newDiv = '<div class="row fijrow" id="fij' + nFij + '' + doc.id + '"><div class="col-1 chkfij"><a href="#" class="btn btn-warning btn-sm cerron" onclick="removeDivFija(\'fij'+nFij+''+doc.id+'\',\''+doc.id+'\')"><i class = "fas fa-times"></i></a></div><div class="col-8 descfij"><input type="text" id="op4nombre'+doc.id+'" placeholder="'+doc.data().Tipo.Op4[1]+'" value="'+doc.data().Tipo.Op4[1]+'"/></div><div class="col-3 precfij"><input type="number" id="op4precio'+doc.id+'" placeholder="'+doc.data().Tipo.Op4[0]+'" value="'+doc.data().Tipo.Op4[0]+'"/></div></div>';
                         }else{
-                            newDiv = '<div class="row fijrow" id="fij' + nFij + '' + doc.id + '"><div class="col-1 chkfij"><a href="#" class="btn btn-warning btn-sm cerron" onclick="removeDivFija(\'fij'+nFij+''+doc.id+'\',\''+doc.id+'\')"><i class = "fas fa-times"></i></a></div><div class="col-8 descfij"><input type="text" id="op'+nFij+'nombre'+doc.id+'" placeholder="Tipo" value="Tipo"/></div><div class="col-3 precfij"><input type="text" id="op'+nFij+'precio'+doc.id+'" placeholder="Precio del tamano" value="10"/></div></div>';
+                            newDiv = '<div class="row fijrow" id="fij' + nFij + '' + doc.id + '"><div class="col-1 chkfij"><a href="#" class="btn btn-warning btn-sm cerron" onclick="removeDivFija(\'fij'+nFij+''+doc.id+'\',\''+doc.id+'\')"><i class = "fas fa-times"></i></a></div><div class="col-8 descfij"><input type="text" id="op'+nFij+'nombre'+doc.id+'" placeholder="Tipo" /></div><div class="col-3 precfij"><input type="number" id="op'+nFij+'precio'+doc.id+'" placeholder="10" /></div></div>';
                         }           
                     }
                 } else {
                     fijanuevo = $('#div1opc'+docid+' > div').length;
                     fijanuevo ++;
                     if(fijanuevo<=4){
-                        newDiv = '<div class="row fijrow" id="fij' + fijanuevo + 'modalinNuevos"><div class="col-1 chkfij"><a href="#" class="btn btn-warning btn-sm cerron" onclick="removeDivFija(\'fij'+fijanuevo+'modalinNuevos\',\'modalinNuevos\')"><i class = "fas fa-times"></i></a></div><div class="col-8 descfij"><input type="text" id="op'+fijanuevo+'nombremodalinNuevos" placeholder="Tipo" value="Tipo"/></div><div class="col-3 precfij"><input type="text" id="op'+fijanuevo+'preciomodalinNuevos" placeholder="Precio del tamano" value="10"/></div></div>';
+                        newDiv = '<div class="row fijrow" id="fij' + fijanuevo + 'modalinNuevos"><div class="col-1 chkfij"><a href="#" class="btn btn-warning btn-sm cerron" onclick="removeDivFija(\'fij'+fijanuevo+'modalinNuevos\',\'modalinNuevos\')"><i class = "fas fa-times"></i></a></div><div class="col-8 descfij"><input type="text" id="op'+fijanuevo+'nombremodalinNuevos" placeholder="Tipo" /></div><div class="col-3 precfij"><input type="number" id="op'+fijanuevo+'preciomodalinNuevos" placeholder="10" /></div></div>';
                     }
                 }
             }).catch(function(error) {
@@ -2242,22 +2310,22 @@
                     nExt++;
                     if(nExt<=4){
                         if(nExt == 1 && doc.data().Extra.Extra1 != undefined){
-                            newDiv = '<div class="row xtrrow" id="ext' + nExt + ''+doc.id+'"><div class="col-1 chkext"><a href="#" class="btn btn-warning btn-sm cerron" onclick="removeDivExtra(\'ext' + nExt + ''+doc.id+'\',\''+doc.id+'\');"><i class = "fas fa-times"></i></a></div><div class="col-8 descext"><input type="text" id="extra1nombre'+doc.id+'" placeholder="'+doc.data().Extra.Extra1[0]+'" value="'+doc.data().Extra.Extra1[0]+'" /></div><div class="col-3 precext"><input type="text" id="extra1precio'+doc.id+'" placeholder="'+doc.data().Extra.Extra1[1]+'" value="'+doc.data().Extra.Extra1[1]+'" /></div></div>';
+                            newDiv = '<div class="row xtrrow" id="ext' + nExt + ''+doc.id+'"><div class="col-1 chkext"><a href="#" class="btn btn-warning btn-sm cerron" onclick="removeDivExtra(\'ext' + nExt + ''+doc.id+'\',\''+doc.id+'\');"><i class = "fas fa-times"></i></a></div><div class="col-8 descext"><input type="text" id="extra1nombre'+doc.id+'" placeholder="'+doc.data().Extra.Extra1[0]+'" value="'+doc.data().Extra.Extra1[0]+'" /></div><div class="col-3 precext"><input type="number" id="extra1precio'+doc.id+'" placeholder="'+doc.data().Extra.Extra1[1]+'" value="'+doc.data().Extra.Extra1[1]+'" /></div></div>';
                         }else if(nExt == 2 && doc.data().Extra.Extra2 != undefined){
-                            newDiv = '<div class="row xtrrow" id="ext' + nExt + ''+doc.id+'"><div class="col-1 chkext"><a href="#" class="btn btn-warning btn-sm cerron" onclick="removeDivExtra(\'ext' + nExt + ''+doc.id+'\',\''+doc.id+'\');"><i class = "fas fa-times"></i></a></div><div class="col-8 descext"><input type="text" id="extra2nombre'+doc.id+'" placeholder="'+doc.data().Extra.Extra2[0]+'" value="'+doc.data().Extra.Extra2[0]+'" /></div><div class="col-3 precext"><input type="text" id="extra2precio'+doc.id+'" placeholder="'+doc.data().Extra.Extra2[1]+'" value="'+doc.data().Extra.Extra2[1]+'" /></div></div>';
+                            newDiv = '<div class="row xtrrow" id="ext' + nExt + ''+doc.id+'"><div class="col-1 chkext"><a href="#" class="btn btn-warning btn-sm cerron" onclick="removeDivExtra(\'ext' + nExt + ''+doc.id+'\',\''+doc.id+'\');"><i class = "fas fa-times"></i></a></div><div class="col-8 descext"><input type="text" id="extra2nombre'+doc.id+'" placeholder="'+doc.data().Extra.Extra2[0]+'" value="'+doc.data().Extra.Extra2[0]+'" /></div><div class="col-3 precext"><input type="number" id="extra2precio'+doc.id+'" placeholder="'+doc.data().Extra.Extra2[1]+'" value="'+doc.data().Extra.Extra2[1]+'" /></div></div>';
                         }else if(nExt == 3 && doc.data().Extra.Extra3 != undefined){
-                            newDiv = '<div class="row xtrrow" id="ext' + nExt + ''+doc.id+'"><div class="col-1 chkext"><a href="#" class="btn btn-warning btn-sm cerron" onclick="removeDivExtra(\'ext' + nExt + ''+doc.id+'\',\''+doc.id+'\');"><i class = "fas fa-times"></i></a></div><div class="col-8 descext"><input type="text" id="extra3nombre'+doc.id+'" placeholder="'+doc.data().Extra.Extra3[0]+'" value="'+doc.data().Extra.Extra3[0]+'" /></div><div class="col-3 precext"><input type="text" id="extra3precio'+doc.id+'" placeholder="'+doc.data().Extra.Extra3[1]+'" value="'+doc.data().Extra.Extra3[1]+'" /></div></div>';
+                            newDiv = '<div class="row xtrrow" id="ext' + nExt + ''+doc.id+'"><div class="col-1 chkext"><a href="#" class="btn btn-warning btn-sm cerron" onclick="removeDivExtra(\'ext' + nExt + ''+doc.id+'\',\''+doc.id+'\');"><i class = "fas fa-times"></i></a></div><div class="col-8 descext"><input type="text" id="extra3nombre'+doc.id+'" placeholder="'+doc.data().Extra.Extra3[0]+'" value="'+doc.data().Extra.Extra3[0]+'" /></div><div class="col-3 precext"><input type="number" id="extra3precio'+doc.id+'" placeholder="'+doc.data().Extra.Extra3[1]+'" value="'+doc.data().Extra.Extra3[1]+'" /></div></div>';
                         }else if(nExt == 4 && doc.data().Extra.Extra4 != undefined){
-                            newDiv = '<div class="row xtrrow" id="ext' + nExt + ''+doc.id+'"><div class="col-1 chkext"><a href="#" class="btn btn-warning btn-sm cerron" onclick="removeDivExtra(\'ext' + nExt + ''+doc.id+'\',\''+doc.id+'\');"><i class = "fas fa-times"></i></a></div><div class="col-8 descext"><input type="text" id="extra4nombre'+doc.id+'" placeholder="'+doc.data().Extra.Extra4[0]+'" value="'+doc.data().Extra.Extra4[0]+'" /></div><div class="col-3 precext"><input type="text" id="extra4precio'+doc.id+'" placeholder="'+doc.data().Extra.Extra4[1]+'" value="'+doc.data().Extra.Extra4[1]+'" /></div></div>';
+                            newDiv = '<div class="row xtrrow" id="ext' + nExt + ''+doc.id+'"><div class="col-1 chkext"><a href="#" class="btn btn-warning btn-sm cerron" onclick="removeDivExtra(\'ext' + nExt + ''+doc.id+'\',\''+doc.id+'\');"><i class = "fas fa-times"></i></a></div><div class="col-8 descext"><input type="text" id="extra4nombre'+doc.id+'" placeholder="'+doc.data().Extra.Extra4[0]+'" value="'+doc.data().Extra.Extra4[0]+'" /></div><div class="col-3 precext"><input type="number" id="extra4precio'+doc.id+'" placeholder="'+doc.data().Extra.Extra4[1]+'" value="'+doc.data().Extra.Extra4[1]+'" /></div></div>';
                         }else{
-                            newDiv = '<div class="row xtrrow" id="ext' + nExt + ''+doc.id+'"><div class="col-1 chkext"><a href="#" class="btn btn-warning btn-sm cerron" onclick="removeDivExtra(\'ext' + nExt + ''+doc.id+'\',\''+doc.id+'\');"><i class = "fas fa-times"></i></a></div><div class="col-8 descext"><input type="text" id="extra'+nExt+'nombre'+doc.id+'" placeholder="Nombre del extra" value="Nombre del extra" /></div><div class="col-3 precext"><input type="text" id="extra'+nExt+'precio'+doc.id+'" placeholder="Precio del extra" value="10"/></div></div>';
+                            newDiv = '<div class="row xtrrow" id="ext' + nExt + ''+doc.id+'"><div class="col-1 chkext"><a href="#" class="btn btn-warning btn-sm cerron" onclick="removeDivExtra(\'ext' + nExt + ''+doc.id+'\',\''+doc.id+'\');"><i class = "fas fa-times"></i></a></div><div class="col-8 descext"><input type="text" id="extra'+nExt+'nombre'+doc.id+'" placeholder="Nombre del extra"  /></div><div class="col-3 precext"><input type="number" id="extra'+nExt+'precio'+doc.id+'" placeholder="10" /></div></div>';
                         }           
                     }
                 } else {
                     extranuevo = $('#div3xtra'+docid+' > div').length;
                     extranuevo++;
                     if(extranuevo<=4){
-                        newDiv = '<div class="row xtrrow" id="ext' + extranuevo + 'modalinNuevos"><div class="col-1 chkext"><a href="#" class="btn btn-warning btn-sm cerron" onclick="removeDivExtra(\'ext' + extranuevo + 'modalinNuevos\',\'modalinNuevos\');"><i class = "fas fa-times"></i></a></div><div class="col-8 descext"><input type="text" id="extra'+extranuevo+'nombremodalinNuevos" placeholder="Nombre del extra" value="Nombre del extra" /></div><div class="col-3 precext"><input type="text" id="extra'+extranuevo+'preciomodalinNuevos" placeholder="Precio del extra" value="10"/></div></div>';
+                        newDiv = '<div class="row xtrrow" id="ext' + extranuevo + 'modalinNuevos"><div class="col-1 chkext"><a href="#" class="btn btn-warning btn-sm cerron" onclick="removeDivExtra(\'ext' + extranuevo + 'modalinNuevos\',\'modalinNuevos\');"><i class = "fas fa-times"></i></a></div><div class="col-8 descext"><input type="text" id="extra'+extranuevo+'nombremodalinNuevos" placeholder="Nombre del extra"  /></div><div class="col-3 precext"><input type="number" id="extra'+extranuevo+'preciomodalinNuevos" placeholder="10" /></div></div>';
                     }
                 }
             }).catch(function(error) {

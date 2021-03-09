@@ -273,9 +273,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="sucmodalT">Acerca de la Sucursal</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
+                        <div class="clswrp">                <div class="cls">                    <button type="button" class="close" style="position: absolute;right: 22px;" data-dismiss="modal" aria-label="Close" onclick="recuperaDatos()">                        <span aria-hidden="true">×</span>                    </button>                </div>            </div>
                     </div>
                     <div class="modal-body">
                         <p id="direccionEscuelaModal"><i class="fas fa-map-marker-alt"></i>Av. Juan de Dios Bátiz S/N, Nueva Industrial Vallejo, 07738 Ciudad de México, CDMX.</p>
@@ -304,7 +302,7 @@
                                                 <tr>
                                                     <td>
                                                         Nueva Categoria:
-                                                        <input type="text" id="editaCategoriasNuevaTXT" minlength="4" maxlength="20" size="10">
+                                                        <input type="text" id="editaCategoriasNuevaTXT" minlength="4" maxlength="20" size="10" placeholder="Categoria">
                                                     </td>
                                                     <td>
                                                         <button type="button" class="btn btn-success pull-right" data-dismiss="modal" onclick="guardarCategorias()">Agregar Categorias!</button>
