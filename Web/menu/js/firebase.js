@@ -23,13 +23,26 @@
         var userId;
 
         var db = firebase.firestore();
-        var Comida = db.collection("Escuelas/Escom/Productos/");
+        var Comida = db.collection("Escuelas");
+        var escuelaActual = "";
         var Usuarios = db.collection("Usuario/");
-        var doccomida = Comida.get();
+        var doccomida;
         var primeravez = true;
         var cambiocomida = Comida.onSnapshot(function(doc) {
             if(primeravez){
                 primeravez = false;
+                var opciones = "";
+                Comida.get().then((escuelas)=>{
+                    escuelas.forEach(function(escuela){
+                        opciones+="<span class='pull-right' id='"+escuela.data().NombreCorto+"Span'><button type='button' id='"+escuela.data().NombreCorto+"b' class='btn btn-info' onclick='cambiaEscuela(\""+escuela.id+"\")' style='margin-left: 20px;margin-top: 14px;'>Seleccionar</button></span><br><li id='"+escuela.data().NombreCorto+"Li'>"+escuela.data().NombreCorto+"</li><br>";
+                        console.log("Nombre corto escuela: "+escuela.data().NombreCorto);
+                    });
+                }).then(function(){
+                    document.getElementById("sucuSelectOptions").innerHTML = opciones;
+                    $('#sucSelectmodal').modal({backdrop: 'static', keyboard: false})  
+                    $('#sucSelectmodal').modal('show');
+                });
+                
             }else{
                 doccomida = Comida.get();
                 comidaCategoria("Favoritos");
@@ -37,8 +50,105 @@
             }
             
         });
+
+        function cambiaEscuela(escuela){
+            escuelaActual = escuela;
+            doccomida = Comida.doc(escuela).collection("Productos").get();
+            db.collection("Escuelas/").get().then( function(escuelas){
+                var departamento;
+                var contenido = "";
+                var nombreEscuela = "";
+                var direccion = "";
+                var horario;
+                var domingoSpan = "";
+                var lunesSpan = "";
+                var martesSpan = "";
+                var miercolesSpan = "";
+                var juevesSpan = "";
+                var viernesSpan = "";
+                var sabadoSpan = "";
+                var ubicacion = "";
+                escuelas.forEach(function (escuela) {
+                        console.log("ID escuela: " + escuela.id);
+                        if(escuela.id == escuelaActual){
+                            console.log("La escuela coincide");
+                            nombreEscuela = escuela.data().Nombre;
+                            direccion = escuela.data().Direccion;
+                            horario = escuela.data().Horario;
+                            ubicacion = escuela.data().Ubicacion;
+                            departamentos = escuela.data().Departamentos;
+                            
+                            if(horario.Domingo[0] == "true"){
+                                domingoSpan +=""+horario.Domingo[1]+" - "+horario.Domingo[2];
+                            }else{
+                                domingoSpan +="Cerrado";
+                            }
+                            if(horario.Sabado[0] == "true"){
+                                sabadoSpan +=""+horario.Sabado[1]+" - "+horario.Sabado[2];
+                            }else{
+                                sabadoSpan +="Cerrado";
+                            }
+                            if(horario.Lunes[0] == "true"){
+                                lunesSpan +=""+horario.Lunes[1]+" - "+horario.Lunes[2];
+                            }else{
+                                lunesSpan +="Cerrado";
+                            }
+                            if(horario.Martes[0] == "true"){
+                                martesSpan +=""+horario.Martes[1]+" - "+horario.Martes[2];
+                            }else{
+                                martesSpan +="Cerrado";
+                            }
+                            if(horario.Miercoles[0] == "true"){
+                                miercolesSpan +=""+horario.Miercoles[1]+" - "+horario.Miercoles[2];
+                            }else{
+                                miercolesSpan +="Cerrado";
+                            }
+                            if(horario.Jueves[0] == "true"){
+                                juevesSpan +=""+horario.Jueves[1]+" - "+horario.Jueves[2];
+                            }else{
+                                juevesSpan +="Cerrado";
+                            }
+                            if(horario.Viernes[0] == "true"){
+                                viernesSpan +=""+horario.Viernes[1]+" - "+horario.Viernes[2];
+                            }else{
+                                viernesSpan +="Cerrado";
+                            }
+                            departamentos.forEach(element => {
+                                element.Categorias.forEach(categoria =>{
+                                    if(categoria!="Todo"){
+                                        contenido+='<li class="nav-item"><a class="active" role="tab" data-toggle="tab" href="#tab0" id="favo" onclick="comidaCategoria(\''+categoria+'\')">'+categoria+'</a></li>';
+                                    }
+                                });                           
+                            });
+                            contenido+='<li class="nav-item"><a class="active" role="tab" data-toggle="tab" href="#tab0" id="favo" onclick="comidaCategoria(\'Todo\')">Todo</a></li>';
+                            console.log("Categorias, horario y ubicacion cargada!");
+                        }
+                        
     
-        
+    
+                });
+                contenido+='<li><a href="#menu-closed">&#215; Cerrar men&uacute;</a></li><li><a href="#menu">&#9776; M&aacute;s</a></liclass="nav-item">';
+                document.getElementById("categoriasPorBd").innerHTML = contenido;
+                document.getElementById("nombreEscuela").innerHTML = nombreEscuela;
+                var direcTemp = direccion;
+                direcTemp += '&nbsp;|&nbsp; <a href="" data-target="#sucmodal" id="sucursaldataT" data-toggle="modal">M&aacute;s informaci&oacute;n</a>';
+                document.getElementById("direccionEscuela").innerHTML = direcTemp;
+                direccion = '<i class="fas fa-map-marker-alt"></i>'+direccion+'';
+                document.getElementById("direccionEscuelaModal").innerHTML = direccion;
+                document.getElementById("domingoSpan").innerHTML = domingoSpan;
+                document.getElementById("lunesSpan").innerHTML = lunesSpan;
+                document.getElementById("martesSpan").innerHTML = martesSpan;
+                document.getElementById("miercolesSpan").innerHTML = miercolesSpan;
+                document.getElementById("juevesSpan").innerHTML = juevesSpan;
+                document.getElementById("viernesSpan").innerHTML = viernesSpan;
+                document.getElementById("sabadoSpan").innerHTML = sabadoSpan;
+                comidaCategoria("Favoritos");
+                $('#sucSelectmodal').modal('hide');
+            });
+
+        }
+    
+       /* 
         db.collection("Escuelas/").get().then( function(escuelas){
             var categorias;
             var contenido = "";
@@ -55,7 +165,7 @@
             var ubicacion = "";
             escuelas.forEach(function (escuela) {
                     console.log("ID escuela: " + escuela.id);
-                    if(escuela.id == "Escom"){
+                    if(escuela.id == escuelaActual){
                         console.log("La escuela coincide");
                         nombreEscuela = escuela.data().Nombre;
                         direccion = escuela.data().Direccion;
@@ -125,7 +235,7 @@
             document.getElementById("viernesSpan").innerHTML = viernesSpan;
             document.getElementById("sabadoSpan").innerHTML = sabadoSpan;
 
-        });
+        });*/
 
 
         firebase.auth().onAuthStateChanged(function(user) {
@@ -927,20 +1037,20 @@
                 } else { 
                     i=0;
                     var espacios ="";
-                    for(i= doc.data().Descripcion.length + 40 ;i < 200;i++){
+                    for(i= doc.data().DescripcionCompleta.length + 40 ;i < 200;i++){
                         espacios += "&nbsp; "
                     }
-                    contenido += '            <p class="card__text">' + doc.data().Descripcion +''+ espacios +'</p>';
+                    contenido += '            <p class="card__text">' + doc.data().DescripcionCompleta +''+ espacios +'</p>';
                 }
                 contenido += '            <p class="card__textPrice">';
-                contenido += '                <span class="price">$'+doc.data().Tipo.Op1[0]+' MXN</span>';
+                contenido += '                <span class="price">$'+doc.data().Precio+' MXN</span>';
                 contenido += '            </p>';
 
                 contenido += '            <button class="btn2 btn--block card__btn" data-target="#modalin'+doc.id+'" data-toggle="modal">Personalizar</button>';
                 contenido += '        </div>';
                 contenido += '    </div>';
                 contenido += '</li>';
-
+                /*
                 //////////////////////////////////////////////////////////////////////CONTENIDO MODAL///////////////////////////////////////////////////////////////////////////////////////////////////////
                 
                 contenidomodal += '<div class="modal fade alimentmod" id="modalin'+doc.id+'" tabindex="-1" role="dialog" aria-labelledby="Personalizacion" aria-hidden="true">';
@@ -1133,13 +1243,13 @@
                 contenidomodal += '        </div>';
                 contenidomodal += '    </div>';
                 contenidomodal += '</div>';
-
+                */
                 favoritos += contenido;
                 favoritosmodal += contenidomodal;
 
 
                 ids.push(doc.id);
-                urlid.push(doc.data().ImagenURL);
+                urlid.push(doc.data().Imagen);
                    
     
                 }
@@ -1188,7 +1298,7 @@
 
         var idsc = [];
         var urlidc = [];
-
+        /*
         doccomida.then(function(alimentos) {
             var favoritos = "",
                 favoritosmodal = "";
@@ -1505,7 +1615,7 @@
             i++;  
             });
 
-        });
+        });*/
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         function carrito(docid){
             var diasSemana = new Array("domingo","lunes","martes","miercoles","jueves","viernes","sabado");
