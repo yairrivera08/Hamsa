@@ -16,4 +16,10 @@
     <color name="naranjaTextual">#e77455</color>
     <color name="naranjaLightTextual">#ffa582</color>
     <color name="naranjaDarkTextual">#b0452b</color>
+
+    <integer-array name="textual_glyph_colours">
+        <item>@android:color/white</item>
+        <item>@android:color/black</item>
+    </integer-array>
+
 </resources>

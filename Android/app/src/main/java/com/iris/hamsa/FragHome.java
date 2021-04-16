@@ -130,8 +130,6 @@ public class FragHome extends Fragment {
         platillosRecyclerView.setAdapter(platillosAdapter);
         platillosAdapter.setOnItemClickListener(onPlatilloClickListener);
 
-
-
         return view;
     }
 

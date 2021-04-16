@@ -5,19 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 
@@ -48,23 +42,11 @@ public class MainActivity extends AppCompatActivity {
         //Initialize fragments
         fragHome = new FragHome();
         Bundle bundleHome = new Bundle();
-        fbm.getDetalleEscuelas(new EscuelaCallback() {
-            @Override
-            public void onCallback(ArrayList<EscuelaModel> escuelaCall) {
-                Toast.makeText(getApplicationContext(),"Se obtiene detalle de escuelas", Toast.LENGTH_LONG).show();
-                mesc=escuelaCall;
-                Log.d("POSTTOAST",mesc.toString());
-                bundleHome.putSerializable("Escuelas",mesc);
-                fbm.getAlimentos(new PlatillosCallback() {
-                    @Override
-                    public void onCallback(ArrayList<PlatillosModel> platillosCall) {
-                        mplat=platillosCall;
-                        bundleHome.putSerializable("Platillos",mplat);
-                        fragHome.setArguments(bundleHome);
-                    }
-                },"Escom");
-            }
-        });
+        mesc = (ArrayList<EscuelaModel>) getIntent().getSerializableExtra("Escuelas");
+        mplat = (ArrayList<PlatillosModel>) getIntent().getSerializableExtra("Platillos");
+        bundleHome.putSerializable("Escuelas",mesc);
+        bundleHome.putSerializable("Platillos", mplat);
+        fragHome.setArguments(bundleHome);
 
         fragOrdenes = new FragOrdenes();
         fragPerfil = new FragPerfil();
@@ -72,28 +54,27 @@ public class MainActivity extends AppCompatActivity {
         navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
                 //Switch to selected element
-
                 switch(item.getItemId()){
                     case R.id.nav_homepage:
-                        InitializaFragment(fragHome);
+                        InitializeFragment(fragHome);
                         return true;
                     case R.id.nav_ordenes:
-                        InitializaFragment(fragOrdenes);
+                        InitializeFragment(fragOrdenes);
                         return true;
                     case R.id.nav_perfil:
-                        InitializaFragment(fragPerfil);
+                        InitializeFragment(fragPerfil);
                         return true;
                 }
 
                 return false;
             }
         });
-
+        navigation.getMenu().findItem(R.id.nav_homepage).setChecked(true);
+        navigation.setSelectedItemId(R.id.nav_homepage);
     }
 
-    private void InitializaFragment(Fragment fragment){
+    private void InitializeFragment(Fragment fragment){
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.fragmentView,fragment);
         fragmentTransaction.commit();

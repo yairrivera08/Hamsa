@@ -9,22 +9,25 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Hamsa">
-        <activity
-            android:name=".DetallePlatillo"
-            android:label="@string/title_activity_detalle_platillo"
-            android:theme="@style/Theme.Hamsa.NoActionBar"
-            android:parentActivityName=".MainActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
-        </activity>
-        <activity android:name=".MainActivity"
-            >
+        <activity android:name=".SplashTextual"
+            android:theme="@style/SplashScreenTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".DetallePlatillo"
+            android:label="@string/title_activity_detalle_platillo"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/Theme.Hamsa.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+        <activity android:name=".MainActivity">
+
         </activity>
     </application>
 
